@@ -1,9 +1,15 @@
 package app.view.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import app.view.main.MainActivity;
+import com.quickblox.core.QBCallbackImpl;
+import com.quickblox.core.result.Result;
+import com.quickblox.module.users.model.QBUser;
+import quickblox.QuickBloxWrapper;
 
 
 /**
@@ -50,7 +56,42 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.login_button) {
-            //TODO login and jump to MainActivity
+
+            //TODO validate first
+
+            QuickBloxWrapper.createSession(new QBCallbackImpl() {
+
+                @Override
+                public void onComplete(Result result) {
+                    super.onComplete(result);
+                    if (result.isSuccess()) { //TODO login and jump to MainActivity
+
+                        QBUser user = new QBUser();
+
+                        user.setLogin("");
+                        user.setPassword("");
+
+                        QuickBloxWrapper.signIn(user, new QBCallbackImpl() {
+                            @Override
+                            public void onComplete(Result result) {
+                                super.onComplete(result);
+
+                                if (result.isSuccess()) {
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
+                                } else {//TODO notify with error
+
+                                }
+                            }
+                        });
+
+                    } else {//TODO failed, prompt a notification
+
+                    }
+
+                }
+            });
+
 
         } else if (view.getId() == R.id.signup_button) {
             //TODO sign up : jump to SignupActivity

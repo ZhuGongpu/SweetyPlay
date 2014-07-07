@@ -12,7 +12,7 @@ import java.io.File;
  * Created by zhugongpu on 14-7-6.
  */
 
-public class QuickBloxSupportingLibrary {
+public class QuickBloxWrapper {
 
     private static String TAG = "QuickBloxSupportingLibrary";
 
@@ -58,7 +58,6 @@ public class QuickBloxSupportingLibrary {
     public static void signIn(String login, String password, QBCallbackImpl callback) {
         signIn(new QBUser(login, password), callback);
     }
-
 
     /**
      * Sign In using Facebook access token
@@ -114,6 +113,7 @@ public class QuickBloxSupportingLibrary {
 
     /**
      * sign out
+     *
      * @param callback
      */
     public static void signOut(QBCallbackImpl callback) {
