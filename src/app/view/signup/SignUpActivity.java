@@ -1,4 +1,4 @@
-package app.view;
+package app.view.signup;
 
 import android.app.Activity;
 import android.os.Bundle;

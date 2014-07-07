@@ -23,7 +23,7 @@
                 android:name="app.view.main.MainActivity"
                 android:label="MainActivity"/>
         <activity
-                android:name="app.view.SignUpActivity"
+                android:name="app.view.signup.SignUpActivity"
                 android:label="SignUpActivity"/>
     </application>
 </manifest>
