@@ -114,6 +114,7 @@ public class QuickBloxSupportingLibrary {
 
     /**
      * sign out
+     *
      * @param callback
      */
     public static void signOut(QBCallbackImpl callback) {

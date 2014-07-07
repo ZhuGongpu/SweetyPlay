@@ -17,6 +17,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private ImageButton loginButton = null;
     private ImageButton signupButton = null;
 
+
     /**
      * Called when the activity is first created.
      */
@@ -40,6 +41,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         loginButton.setOnClickListener(this);
         signupButton.setOnClickListener(this);
 
+
     }
 
     /**
@@ -54,7 +56,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         } else if (view.getId() == R.id.signup_button) {
             //TODO sign up : jump to SignupActivity
-
+            //is a test thing
         }
     }
 }
