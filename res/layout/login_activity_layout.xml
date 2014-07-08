@@ -1,34 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/login_background"
         >
 
-    <!--Logo PlaceHolder-->
-    <ImageView
-            android:id="@+id/logo"
+    <LinearLayout
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageButton
-            android:id="@+id/login_button"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <!--logo-->
+        <ImageView
+                android:id="@+id/logo"
+                android:src="@drawable/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-    <ImageButton
-            android:id="@+id/signup_button"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <ImageButton
+                android:id="@+id/login_button"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/login_activity_login_button"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+        <!--account & password-->
+        <LinearLayout
+                android:id="@+id/login_button_layout"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                >
+
+            <EditText
+                    android:id="@+id/login_button_layout_phone_number"
+                    android:inputType="phone"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:hint="@string/phone_number"
+                    android:background="@drawable/login_phone_number_background"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    android:id="@+id/login_button_layout_password"
+                    android:inputType="textPassword"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:hint="@string/password"
+                    android:background="@drawable/login_phone_number_background"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <ImageButton
+                android:id="@+id/signup_button"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/login_activity_signup_button"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/signup_button_layout"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                <EditText
+                        android:id="@+id/signup_button_layout_phone_number"
+                        android:inputType="phone"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:hint="@string/phone_number"
+                        android:background="@drawable/login_phone_number_background"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <EditText
+                        android:id="@+id/signup_button_layout_password"
+                        android:inputType="textPassword"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:hint="@string/password"
+                        android:background="@drawable/login_phone_number_background"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <EditText
+                        android:id="@+id/signup_button_layout_confirm_password"
+                        android:inputType="textPassword"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:hint="@string/again"
+                        android:background="@drawable/login_phone_number_background"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
 
