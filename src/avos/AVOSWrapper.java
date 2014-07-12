@@ -80,4 +80,10 @@ public class AVOSWrapper {
     }
 
 
+    /**
+     * 登出，并清除缓存用户对象
+     */
+    public static void logout() {
+        AVUser.logOut();
+    }
 }
