@@ -11,10 +11,10 @@ import app.util.PasswordFormatValidator;
 import app.util.PhoneNumberFormatValidator;
 import app.view.main.MainActivity;
 import app.view.signup.SignUpActivity;
-import com.quickblox.core.QBCallbackImpl;
-import com.quickblox.core.result.Result;
-import com.quickblox.module.users.model.QBUser;
-import quickblox.QuickBloxWrapper;
+import avos.AVOSWrapper;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 
 
 /**
@@ -79,45 +79,33 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.login_button) {
+        if (view.getId() == R.id.login_button) {//login
 
             if (findViewById(R.id.login_button_layout).getVisibility() == View.VISIBLE) {//用于防止 点完 sign up button 之后再点login 的情况
 
                 //TODO validate first
-                final String phone_number = phoneNumberEditText.getText().toString();
-                final String password = passwordEditText.getText().toString();
+                final String phone_number = phoneNumberEditText.getText() + "";
+                final String password = passwordEditText.getText() + "";
 
-                if (PasswordFormatValidator.isLegalPassword(password) && PhoneNumberFormatValidator.isLegalPhoneNumber(phone_number)) {
-                    QuickBloxWrapper.createSession(new QBCallbackImpl() {
+                if (PasswordFormatValidator.isLegalPassword(password) && PhoneNumberFormatValidator.isLegalPhoneNumber(phone_number)) {//允许登录
 
+                    AVOSWrapper.init(LoginActivity.this);//初始化
+
+                    AVOSWrapper.logInInBackground(phone_number, password, new LogInCallback() {
                         @Override
-                        public void onComplete(Result result) {
-                            super.onComplete(result);
-                            if (result.isSuccess()) { //TODO login and jump to MainActivity
-
-                                QBUser user = new QBUser();
-                                user.setLogin(phone_number);
-                                user.setPassword(password);
-
-                                QuickBloxWrapper.signIn(user, new QBCallbackImpl() {
-                                    @Override
-                                    public void onComplete(Result result) {
-                                        super.onComplete(result);
-
-                                        if (result.isSuccess()) {// jump to main activity
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                            finish();
-                                        } else {//TODO notify with error
-                                            Toast.makeText(LoginActivity.this, R.string.failed, Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-                            } else {//TODO failed, prompt a notification
-                                Toast.makeText(LoginActivity.this, R.string.failed, Toast.LENGTH_LONG).show();
+                        public void done(AVUser user, AVException e) {
+                            if (user != null) {//登陆成功
+                                // jump to main activity
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            } else { //登录失败
+                                // notify with error
+                                promoteErrorMessage(getText(R.string.failed).toString());
                             }
                         }
                     });
-                } else {// prompt error
+
+                } else {// 不允许登录，prompt error
                     if (!PasswordFormatValidator.isLegalPassword(password)) {
                         passwordEditText.setError(getText(R.string.password_is_not_legal));
                     }
@@ -134,7 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 //TODO add animation
             }
         } else if (view.getId() == R.id.signup_button) {
-            //TODO sign up : jump to SignupActivity
+            //TODO sign up : jump to SignUpActivity
 
             if (findViewById(R.id.signup_button_layout).getVisibility() == View.VISIBLE) {
                 String phone_number = phoneNumberEditText.getText().toString();
@@ -145,7 +133,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     if (PasswordFormatValidator.isLegalPassword(password) && PhoneNumberFormatValidator.isLegalPhoneNumber(phone_number)) {
                         //将以填写的用户信息传入sign up activity
                         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                        intent.putExtra("user", new QBUser(phone_number, password));
+
+                        //传入参数
+                        intent.putExtra("phoneNumber", phone_number);
+                        intent.putExtra("password", password);
+
                         startActivity(intent);
                         finish();
                     } else {// prompt error
@@ -164,6 +156,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 initSignUpLayout();
             }
         }
+    }
+
+    /**
+     * 提示错误信息
+     *
+     * @param message
+     */
+    private void promoteErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
 }
