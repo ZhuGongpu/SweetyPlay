@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import app.util.PasswordFormatValidator;
 import app.util.PhoneNumberFormatValidator;
+import app.util.PhoneNumberUtility;
 import app.view.main.MainActivity;
 import app.view.signup.SignUpActivity;
 import avos.AVOSWrapper;
@@ -44,6 +45,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     /**
      * 初始化界面, init all the UI elements
+     * 显示login layout
      */
     private void initViews() {
 
@@ -59,15 +61,29 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.signup_button_layout).setVisibility(View.GONE);
         phoneNumberEditText = (EditText) findViewById(R.id.login_button_layout_phone_number);
         passwordEditText = (EditText) findViewById(R.id.login_button_layout_password);
+
+        //设置phoneNumber为本机号码
+        phoneNumberEditText.setText(PhoneNumberUtility.getPhoneNumber(this) + "");
+        phoneNumberEditText.setSelection(phoneNumberEditText.getText().length());
+
     }
 
+    /**
+     * 显示sign up layout
+     */
     private void initSignUpLayout() {
+        //设置login layout不可见
         findViewById(R.id.login_button_layout).setVisibility(View.GONE);
         findViewById(R.id.signup_button_layout).setVisibility(View.VISIBLE);
 
-        phoneNumberEditText = (EditText) findViewById(R.id.login_button_layout_phone_number);
+        //获取控件
+        phoneNumberEditText = (EditText) findViewById(R.id.signup_button_layout_phone_number);
         passwordEditText = (EditText) findViewById(R.id.signup_button_layout_password);
         confirmPasswordEditText = (EditText) findViewById(R.id.signup_button_layout_confirm_password);
+
+        //设置phoneNumber为本机号码
+        phoneNumberEditText.setText(PhoneNumberUtility.getPhoneNumber(this) + "");
+        phoneNumberEditText.setSelection(phoneNumberEditText.getText().length());
 
         //TODO add animation
     }
@@ -122,7 +138,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 //TODO add animation
             }
         } else if (view.getId() == R.id.signup_button) {
-            //TODO sign up : jump to SignUpActivity
+            //sign up : jump to SignUpActivity
 
             if (findViewById(R.id.signup_button_layout).getVisibility() == View.VISIBLE) {
                 String phone_number = phoneNumberEditText.getText().toString();
