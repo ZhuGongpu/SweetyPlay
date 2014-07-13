@@ -53,3 +53,6 @@ SweetyPlay.iml
 .idea/workspace.xml
 
 SweetyPlay.iml
+
+gen/
+.idea/
