@@ -3,7 +3,10 @@ package app.view.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import com.avos.avoscloud.LogInCallback;
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
 
+    private static final String TAG = "LoginActivity";
     /**
      * UI Elements
      */
@@ -31,6 +35,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText phoneNumberEditText = null;
     private EditText passwordEditText = null;
     private EditText confirmPasswordEditText = null;
+
 
     /**
      * Called when the activity is first created.
@@ -62,6 +67,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         phoneNumberEditText = (EditText) findViewById(R.id.login_button_layout_phone_number);
         passwordEditText = (EditText) findViewById(R.id.login_button_layout_password);
 
+        //add animation
+        findViewById(R.id.login_button_layout).startAnimation(AnimationUtils.loadAnimation(this, R.anim.drop_down));
+
         //设置phoneNumber为本机号码
         phoneNumberEditText.setText(PhoneNumberUtility.getPhoneNumber(this) + "");
         phoneNumberEditText.setSelection(phoneNumberEditText.getText().length());
@@ -72,9 +80,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * 显示sign up layout
      */
     private void initSignUpLayout() {
+
         //设置login layout不可见
         findViewById(R.id.login_button_layout).setVisibility(View.GONE);
         findViewById(R.id.signup_button_layout).setVisibility(View.VISIBLE);
+
+        //add animation
+        Animation dropDownAnimation = AnimationUtils.loadAnimation(this, R.anim.drop_down);
+        findViewById(R.id.signup_button_layout).startAnimation(dropDownAnimation);
 
         //获取控件
         phoneNumberEditText = (EditText) findViewById(R.id.signup_button_layout_phone_number);
@@ -85,7 +98,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         phoneNumberEditText.setText(PhoneNumberUtility.getPhoneNumber(this) + "");
         phoneNumberEditText.setSelection(phoneNumberEditText.getText().length());
 
-        //TODO add animation
+
+        Log.e(TAG, "init sign up layout");
     }
 
     /**
@@ -99,7 +113,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             if (findViewById(R.id.login_button_layout).getVisibility() == View.VISIBLE) {//用于防止 点完 sign up button 之后再点login 的情况
 
-                //TODO validate first
+
                 final String phone_number = phoneNumberEditText.getText() + "";
                 final String password = passwordEditText.getText() + "";
 
@@ -135,7 +149,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             {
                 findViewById(R.id.signup_button_layout).setVisibility(View.GONE);
                 findViewById(R.id.login_button_layout).setVisibility(View.VISIBLE);
-                //TODO add animation
+
+                //add animation
+                findViewById(R.id.login_button_layout).startAnimation(AnimationUtils.loadAnimation(this, R.anim.drop_down));
             }
         } else if (view.getId() == R.id.signup_button) {
             //sign up : jump to SignUpActivity

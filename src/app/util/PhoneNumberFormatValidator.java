@@ -12,8 +12,6 @@ public class PhoneNumberFormatValidator {
         if (phoneNumber == null)
             return false;
 
-        //TODO
-
         if (phoneNumber.length() == 11) {
             char[] phoneNumberArray = phoneNumber.toCharArray();
             for (int i = 0; i < phoneNumberArray.length; i++) {

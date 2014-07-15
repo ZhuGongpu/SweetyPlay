@@ -23,9 +23,8 @@ public class PhoneNumberUtility {
      */
     public static String extractPhoneNumber(String rawNumbers) {
         if (rawNumbers != null) {
-            //TODO
 
-            if (rawNumbers.startsWith("+86"))
+            if (rawNumbers.startsWith("+"))
                 return rawNumbers.substring(3);
 
             return rawNumbers;
