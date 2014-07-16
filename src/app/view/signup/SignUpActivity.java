@@ -1,6 +1,7 @@
 package app.view.signup;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import app.view.login.R;
 
@@ -17,7 +18,12 @@ public class SignUpActivity extends Activity {
         setContentView(R.layout.sign_up_activity_layout);
 
         //TODO 接收传入的user信息,并初始化界面 和 初始化 avos
+        Intent intent = this.getIntent();
+        String phoneNumber = intent.getExtras().getString("phoneNumber");//得到手机号码
+        String password = intent.getExtras().getString("password");//得到密码
 
+
+        //TODO 注册新用户
     }
 
 
