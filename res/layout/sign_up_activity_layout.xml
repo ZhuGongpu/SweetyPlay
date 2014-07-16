@@ -5,4 +5,107 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TableRow>
+
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="Enter your name"
+                    android:textSize="25dp"/>
+        </TableRow>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+            <EditText
+                    android:id="@+id/firstname_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="left"
+                    android:singleLine="true"
+                    android:layout_weight="1"
+                    android:hint="First Name"/>
+
+            <EditText
+                    android:id="@+id/lastname_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="right"
+                    android:singleLine="true"
+                    android:layout_weight="1"
+                    android:hint="Last Name"/>
+        </LinearLayout>
+
+        <TableRow>
+
+            <TextView
+                    android:text="Birthday"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </TableRow>
+
+        <DatePicker
+                android:id="@+id/datepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></DatePicker>
+
+        <TableRow>
+
+            <TextView
+                    android:text="Gender"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </TableRow>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+            <RadioButton
+                    android:id="@+id/male_radiobutton"
+                    android:text="Male"
+                    android:textSize="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+            <RadioButton
+                    android:id="@+id/female_radiobutton"
+                    android:text="Female"
+                    android:textSize="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TableRow>
+
+            <TextView
+                    android:text="Country/Area (Optional)"
+                    android:textSize="25dp"/>
+        </TableRow>
+
+        <EditText
+                android:id="@+id/country_edittext"
+                android:hint="Please input your country or Area"/>
+
+        <ImageButton
+                android:id="@+id/play_button"
+                android:background="@drawable/icon_play_selected"
+                android:layout_marginTop="60dp"/>
+    </TableLayout>
+
+
 </LinearLayout>
