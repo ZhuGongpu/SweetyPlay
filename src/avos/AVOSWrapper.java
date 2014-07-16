@@ -3,6 +3,9 @@ package avos;
 import android.content.Context;
 import com.avos.avoscloud.*;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by zhugongpu on 14-7-12.
  */
@@ -85,5 +88,36 @@ public class AVOSWrapper {
      */
     public static void logout() {
         AVUser.logOut();
+    }
+
+
+    /**
+     * 上传文件
+     *
+     * @param file             需要上传的文件 文件大小不能超过10M
+     * @param fileName         文件名
+     * @param saveCallback     回调函数
+     * @param progressCallback 进度回调函数
+     * @throws IOException
+     */
+    public static void uploadFile(File file, String fileName, SaveCallback saveCallback, ProgressCallback progressCallback) throws IOException {
+        AVFile.withFile(fileName, file).saveInBackground(saveCallback, progressCallback);
+    }
+
+
+    public static void downloadFile(AVFile file, GetDataCallback dataCallback, ProgressCallback progressCallback) {
+        file.getDataInBackground(dataCallback, progressCallback);
+    }
+
+    /**
+     * 获取图片的缩略图
+     *
+     * @param file
+     * @param width
+     * @param height
+     * @return
+     */
+    public static String getThubnailUrl(AVFile file, int width, int height) {
+        return file.getThumbnailUrl(true, width, height);
     }
 }

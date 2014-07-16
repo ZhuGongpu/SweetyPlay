@@ -3,7 +3,6 @@ package app.view.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -98,8 +97,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         phoneNumberEditText.setText(PhoneNumberUtility.getPhoneNumber(this) + "");
         phoneNumberEditText.setSelection(phoneNumberEditText.getText().length());
 
-
-        Log.e(TAG, "init sign up layout");
     }
 
     /**
