@@ -1,6 +1,7 @@
 package avos;
 
 import android.content.Context;
+import avos.callbackwrappers.*;
 import com.avos.avoscloud.*;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class AVOSWrapper {
      * @param user
      * @param callback
      */
-    public static void signUpInBackground(AVUser user, SignUpCallback callback) {
+    public static void signUpInBackground(AVUser user, SignUpCallbackWrapper callback) {
         user.signUpInBackground(callback);
     }
 
@@ -41,7 +42,7 @@ public class AVOSWrapper {
      * @param password
      * @param callback
      */
-    public static void logInInBackground(String userName, String password, LogInCallback callback) {
+    public static void logInInBackground(String userName, String password, LogInCallbackWrapper callback) {
         AVUser.logInInBackground(userName, password, callback);
     }
 
@@ -64,7 +65,7 @@ public class AVOSWrapper {
      * @param callback
      */
 
-    public static void resetPassword(String emailAddress, RequestPasswordResetCallback callback) {
+    public static void resetPassword(String emailAddress, RequestPasswordResetCallbackWrapper callback) {
         AVUser.requestPasswordResetInBackground(emailAddress, callback);
     }
 
@@ -76,7 +77,7 @@ public class AVOSWrapper {
      * @param attributeValue 对应的值
      * @param callback
      */
-    public static void queryUser(String attributeName, Object attributeValue, FindCallback callback) {
+    public static void queryUser(String attributeName, Object attributeValue, FindCallbackWrapper callback) {
         AVQuery<AVUser> query = AVQuery.getUserQuery();
         query.whereEqualTo(attributeName, attributeValue);
         query.findInBackground(callback);
@@ -100,7 +101,7 @@ public class AVOSWrapper {
      * @param progressCallback 进度回调函数
      * @throws IOException
      */
-    public static void uploadFile(File file, String fileName, SaveCallback saveCallback, ProgressCallback progressCallback) throws IOException {
+    public static void uploadFile(File file, String fileName, SaveCallbackWraprer saveCallback, ProgressCallback progressCallback) throws IOException {
         AVFile.withFile(fileName, file).saveInBackground(saveCallback, progressCallback);
     }
 

@@ -101,11 +101,13 @@
                 android:id="@+id/country_edittext"
                 android:hint="Please input your country or Area"/>
 
-        <ImageButton
+        <Button
                 android:id="@+id/play_button"
-                android:background="@drawable/icon_play_selected"
-                android:layout_marginTop="60dp"/>
+                android:text="Play"
+                android:textSize="25dp"
+                android:layout_marginTop="80dp"/>
     </TableLayout>
 
 
 </LinearLayout>
+

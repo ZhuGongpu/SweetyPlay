@@ -1,9 +1,14 @@
 package app.view.signup;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
 import app.view.login.R;
+import avos.AVOSWrapper;
+import avos.callbackwrappers.SignUpCallbackWrapper;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 
 /**
  * sign up界面
@@ -12,19 +17,96 @@ import app.view.login.R;
  * Created by zhugongpu on 14-7-7.
  */
 public class SignUpActivity extends Activity {
+
+    /**
+     * UI Elements
+     */
+    private EditText firstName_editText = null;
+    private EditText lastName_editText = null;
+    private RadioButton male_radioButton = null;
+    private RadioButton female_radioButton = null;
+    private DatePicker datePicker = null;
+    private EditText country_editText = null;
+    private Button play_button = null;
+    //TODO ADD email
+
+    private String firstName, lastName, countryOrArea;
+    private int year, month, day;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_activity_layout);
 
-        //TODO 接收传入的user信息,并初始化界面 和 初始化 avos
-        Intent intent = this.getIntent();
-        String phoneNumber = intent.getExtras().getString("phoneNumber");//得到手机号码
-        String password = intent.getExtras().getString("password");//得到密码
+        initViews();
+
+        //获取注册信息
+        play_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstName = firstName_editText.getText().toString();
+                lastName = lastName_editText.getText().toString();
+
+                if (firstName.length() < 1 || lastName.length() < 1)
+                    Toast.makeText(getApplicationContext(), "First name or Last name should not be null", Toast.LENGTH_SHORT);
+                else if (!datePicker.isSelected())
+                    Toast.makeText(getApplicationContext(), "you should pick your birthday first", Toast.LENGTH_SHORT);
+                else if (!male_radioButton.isSelected() && !female_radioButton.isSelected())
+                    Toast.makeText(getApplicationContext(), "you should choose your gender first", Toast.LENGTH_SHORT);
+                else//注册信息完整
+                {
+                    firstName = firstName_editText.getText().toString();
+                    lastName = lastName_editText.getText().toString();
 
 
-        //TODO 注册新用户
+                    year = datePicker.getYear();
+                    month = datePicker.getMonth();
+                    day = datePicker.getDayOfMonth();
+                    countryOrArea = country_editText.getText().toString();
+
+                    //初始化avos
+                    AVOSWrapper.init(SignUpActivity.this);
+
+                    //todo set user info
+                    AVUser user = new AVUser();
+
+
+                    //todo sign up
+                    AVOSWrapper.signUpInBackground(user, new SignUpCallbackWrapper() {
+                        @Override
+                        public void onSucceed() {
+                            super.onSucceed();
+                            //todo succeed
+                        }
+
+                        @Override
+                        public void onFailed(AVException e) {
+                            super.onFailed(e);
+                            //todo notify users with exceptions
+                        }
+                    });
+
+                }
+            }
+        });
+
+
     }
 
 
+    private void initViews() {
+
+        firstName_editText = (EditText) findViewById(R.id.firstname_edittext);
+        lastName_editText = (EditText) findViewById(R.id.lastname_edittext);
+
+        male_radioButton = (RadioButton) findViewById(R.id.male_radiobutton);
+        male_radioButton.setSelected(true);
+        female_radioButton = (RadioButton) findViewById(R.id.female_radiobutton);
+
+        datePicker = (DatePicker) findViewById(R.id.datepicker);
+        country_editText = (EditText) findViewById(R.id.country_edittext);
+        play_button = (Button) findViewById(R.id.play_button);
+
+
+    }
 }
