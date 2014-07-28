@@ -15,9 +15,9 @@ import app.util.PhoneNumberUtility;
 import app.view.main.MainActivity;
 import app.view.signup.SignUpActivity;
 import avos.AVOSWrapper;
+import avos.callbackwrappers.LogInCallbackWrapper;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.LogInCallback;
 
 
 /**
@@ -118,17 +118,21 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                     AVOSWrapper.init(LoginActivity.this);//初始化
 
-                    AVOSWrapper.logInInBackground(phone_number, password, new LogInCallback() {
+                    AVOSWrapper.logInInBackground(phone_number, password, new LogInCallbackWrapper() {
+
                         @Override
-                        public void done(AVUser user, AVException e) {
-                            if (user != null) {//登陆成功
-                                // jump to main activity
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
-                            } else { //登录失败
-                                // notify with error
-                                promoteErrorMessage(getText(R.string.failed).toString());
-                            }
+                        public void onSucceed(AVUser user) {
+                            super.onSucceed(user);
+                            // jump to main activity
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailed(AVException e) {
+                            super.onFailed(e);
+                            // notify with error
+                            promoteErrorMessage(getText(R.string.failed).toString());
                         }
                     });
 
