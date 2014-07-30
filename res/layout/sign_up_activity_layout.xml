@@ -14,8 +14,8 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:text="Enter your name"
-                    android:textSize="25dp"/>
+                    android:text="@string/input_name"
+                    android:textSize="25sp"/>
         </TableRow>
 
         <LinearLayout
@@ -31,7 +31,7 @@
                     android:layout_gravity="left"
                     android:singleLine="true"
                     android:layout_weight="1"
-                    android:hint="First Name"/>
+                    android:hint="@string/firstname"/>
 
             <EditText
                     android:id="@+id/lastname_edittext"
@@ -41,14 +41,14 @@
                     android:layout_gravity="right"
                     android:singleLine="true"
                     android:layout_weight="1"
-                    android:hint="Last Name"/>
+                    android:hint="@string/lastname"/>
         </LinearLayout>
 
         <TableRow>
 
             <TextView
-                    android:text="Birthday"
-                    android:textSize="25dp"
+                    android:text="@string/birthday"
+                    android:textSize="25sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
         </TableRow>
@@ -61,8 +61,8 @@
         <TableRow>
 
             <TextView
-                    android:text="Gender"
-                    android:textSize="25dp"
+                    android:text="@string/gender"
+                    android:textSize="25sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
         </TableRow>
@@ -74,16 +74,16 @@
 
             <RadioButton
                     android:id="@+id/male_radiobutton"
-                    android:text="Male"
-                    android:textSize="25dp"
+                    android:text="@string/male"
+                    android:textSize="25sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
 
             <RadioButton
                     android:id="@+id/female_radiobutton"
-                    android:text="Female"
-                    android:textSize="25dp"
+                    android:text="@string/female"
+                    android:textSize="25sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
@@ -93,19 +93,30 @@
         <TableRow>
 
             <TextView
-                    android:text="Country/Area (Optional)"
-                    android:textSize="25dp"/>
+                    android:text="@string/country_area"
+                    android:textSize="25sp"/>
         </TableRow>
 
         <EditText
                 android:id="@+id/country_edittext"
-                android:hint="Please input your country or Area"/>
+                android:hint="@string/country_area_hint"/>
+
+        <TableRow>
+
+            <TextView
+                    android:text="@string/email"
+                    android:textSize="25sp"/>
+        </TableRow>
+
+        <EditText
+                android:id="@+id/email_edittext"
+                android:hint="@string/email_hint"/>
 
         <Button
                 android:id="@+id/play_button"
-                android:text="Play"
-                android:textSize="25dp"
-                android:layout_marginTop="80dp"/>
+                android:text="@string/play_button"
+                android:textSize="25sp"
+                android:layout_marginTop="20dp"/>
     </TableLayout>
 
 
