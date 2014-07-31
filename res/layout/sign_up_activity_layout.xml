@@ -1,124 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="#EAEAEA"
+              android:orientation="vertical" >
 
-    <TableLayout
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height = "50dp"
+            android:background="@color/signup_title">
 
-        <TableRow>
-
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/input_name"
-                    android:textSize="25sp"/>
-        </TableRow>
-
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent">
-
-            <EditText
-                    android:id="@+id/firstname_edittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="left"
-                    android:singleLine="true"
-                    android:layout_weight="1"
-                    android:hint="@string/firstname"/>
-
-            <EditText
-                    android:id="@+id/lastname_edittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="right"
-                    android:singleLine="true"
-                    android:layout_weight="1"
-                    android:hint="@string/lastname"/>
-        </LinearLayout>
-
-        <TableRow>
-
-            <TextView
-                    android:text="@string/birthday"
-                    android:textSize="25sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </TableRow>
-
-        <DatePicker
-                android:id="@+id/datepicker"
+        <ImageView
+                android:id="@+id/register_back"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></DatePicker>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/register_back"/>
 
-        <TableRow>
+        <TextView
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_centerInParent="true"
+                android:text = "基本信息"
+                android:textSize="20sp"
+                android:textColor = "#ffffff"/>
 
-            <TextView
-                    android:text="@string/gender"
-                    android:textSize="25sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </TableRow>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height = "wrap_content"
+            android:background="#ffffff"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            >
+
+        <TextView
+                android:layout_height= "10dp"
+                android:layout_width = "match_parent"
+                android:background="#EAEAEA"/>
+
 
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent">
+                android:layout_width = "match_parent"
+                android:layout_height= "40dp"
+                android:background="#ffffff"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
-            <RadioButton
-                    android:id="@+id/male_radiobutton"
-                    android:text="@string/male"
-                    android:textSize="25sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width = "wrap_content"
+                    android:layout_height = "match_parent"
+                    android:textSize="16sp"
+                    android:textColor = "#8F8F8F"
+                    android:gravity="center_vertical"
+                    android:text = "昵称"/>
 
-            <RadioButton
-                    android:id="@+id/female_radiobutton"
-                    android:text="@string/female"
-                    android:textSize="25sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+            <EditText
+                    android:id="@+id/nickNameET"
+                    android:layout_width="match_parent"
+                    android:layout_height = "match_parent"
+                    android:hint="不超过20个字符"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:textSize="16sp"
+                    android:gravity="right|center_vertical"/>
 
         </LinearLayout>
 
-        <TableRow>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height = "1dp"
+                android:background="#DBDBDB"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff">
+
+
+
+            <ImageView
+                    android:id="@+id/gender_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/sex_female_ico0"/>
+
+            <ImageView
+                    android:id="@+id/gender_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/gender_female"
+                    android:src="@drawable/sex_male_ico1" />
 
             <TextView
-                    android:text="@string/country_area"
-                    android:textSize="25sp"/>
-        </TableRow>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="性别"
+                    android:textColor="#8F8F8F"
+                    android:textSize="16sp" />
 
-        <EditText
-                android:id="@+id/country_edittext"
-                android:hint="@string/country_area_hint"/>
+        </RelativeLayout>
 
-        <TableRow>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height = "1dp"
+
+                android:background="#DBDBDB"/>
+
+
+        <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height= "40dp"
+                android:background="#ffffff"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
             <TextView
-                    android:text="@string/email"
-                    android:textSize="25sp"/>
-        </TableRow>
+                    android:layout_width = "wrap_content"
+                    android:layout_height = "match_parent"
+                    android:textSize="16sp"
+                    android:textColor = "#8F8F8F"
+                    android:gravity="center_vertical"
+                    android:text = "出生年月"/>
 
-        <EditText
-                android:id="@+id/email_edittext"
-                android:hint="@string/email_hint"/>
+            <EditText
+                    android:id="@+id/birthdayET"
+                    android:layout_width="match_parent"
+                    android:layout_height = "match_parent"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:textSize="16sp"
+                    android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_height= "10dp"
+                android:layout_width = "match_parent"
+                android:background="#EAEAEA"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+            <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="E-mail"
+                    android:textColor="#8F8F8F"
+                    android:textSize="16sp" />
+
+            <EditText
+                    android:id="@+id/emailET"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/textView2"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:gravity="bottom">
 
         <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/play_button"
                 android:text="@string/play_button"
-                android:textSize="25sp"
-                android:layout_marginTop="20dp"/>
-    </TableLayout>
+                android:textSize="25sp"/>
 
+    </LinearLayout>
 
 </LinearLayout>
-
