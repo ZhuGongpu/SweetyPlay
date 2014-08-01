@@ -39,7 +39,7 @@ public class SignUpActivity extends Activity {
     private Button play_Button = null;
     private ImageView male_ImageView, female_ImageView;
 
-    private String nickName, countryOrArea, email, phone_number, password;
+    private String nickName, countryOrArea, email, phone_number, password,birthday;
     private int yearOfBirth, monthOfBirth, dayOfBirth;
     private OnDateSetListener mDateListener = new OnDateSetListener() {
 
@@ -85,7 +85,7 @@ public class SignUpActivity extends Activity {
                 {
                     nickName = nickname_EditText.getText().toString();
 
-
+                    birthday = birthday_EditText.getText().toString();
                     countryOrArea = country_EditText.getText().toString();
                     email = email_EditText.getText().toString();
 
@@ -97,7 +97,7 @@ public class SignUpActivity extends Activity {
                     user.setEmail(email);
                     user.setPassword(password);
 
-                    user.put("birthday", yearOfBirth + "-" + monthOfBirth + "-" + dayOfBirth);
+                    user.put("birthday", birthday);
                     user.put("gender", gender);
                     user.put("phone_number", phone_number);
                     user.put("country", countryOrArea);
