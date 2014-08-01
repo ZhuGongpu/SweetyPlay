@@ -9,17 +9,16 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.*;
 import app.view.login.R;
-
-import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import app.view.main.MainActivity;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.LogInCallbackWrapper;
 import avos.callbackwrappers.SignUpCallbackWrapper;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
+
+import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * sign up界面
@@ -43,8 +42,21 @@ public class SignUpActivity extends Activity {
 
     private String nickName, countryOrArea, email, phone_number, password;
     private int yearOfBirth, monthOfBirth, dayOfBirth;
+    private OnDateSetListener mDateListener = new OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            yearOfBirth = year;
+            monthOfBirth = monthOfYear;
+            dayOfBirth = dayOfMonth;
+            //设置文本显示
+            updateDisplay();
+
+        }
+    };
     private String BirthDate;
-    private enum Gender {female, male, unknown}
     private Gender gender;
 
 
@@ -68,14 +80,11 @@ public class SignUpActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "you should pick your birthday first", Toast.LENGTH_SHORT).show();
                 else if (gender == Gender.unknown)
                     Toast.makeText(getApplicationContext(), "you should choose your gender first", Toast.LENGTH_SHORT).show();
-                else if(!isEmail(email))
-                {
+                else if (!isEmail(email)) {
                     email_editText.setError("Not Valid");
-                }
-                else//注册信息完整
+                } else//注册信息完整
                 {
                     nickName = nickname_editText.getText().toString();
-
 
 
                     countryOrArea = country_editText.getText().toString();
@@ -133,7 +142,7 @@ public class SignUpActivity extends Activity {
 
         nickname_editText = (EditText) findViewById(R.id.nickNameET);
         email_editText = (EditText) findViewById(R.id.emailET);
-        birthday_editText = (EditText)findViewById(R.id.birthdayET);
+        birthday_editText = (EditText) findViewById(R.id.birthdayET);
 
         play_button = (Button) findViewById(R.id.play_button);
 
@@ -166,7 +175,7 @@ public class SignUpActivity extends Activity {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(SignUpActivity.this,
-                        mDateListener , yearOfBirth,
+                        mDateListener, yearOfBirth,
                         monthOfBirth, dayOfBirth).show();
 
             }
@@ -177,26 +186,8 @@ public class SignUpActivity extends Activity {
         password = intent.getStringExtra("password");
     }
 
-
-    private OnDateSetListener mDateListener = new OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth)
-        {
-            // TODO Auto-generated method stub
-            yearOfBirth = year;
-            monthOfBirth = monthOfYear;
-            dayOfBirth = dayOfMonth;
-            //设置文本显示
-            updateDisplay();
-
-        }
-    };
-
     //用来设置显示日期格式
-    private void updateDisplay()
-    {
+    private void updateDisplay() {
         this.birthday_editText.setText(new StringBuilder().append(yearOfBirth).append("-")
                 .append((monthOfBirth + 1) < 10 ? "0" + (monthOfBirth + 1) :
                         (monthOfBirth + 1)).append("-")
@@ -204,8 +195,7 @@ public class SignUpActivity extends Activity {
     }
 
     //获得当前时间
-    private void setCurrentDate()
-    {
+    private void setCurrentDate() {
         final Calendar c = Calendar.getInstance();
         yearOfBirth = c.get(Calendar.YEAR);
         monthOfBirth = c.get(Calendar.MONTH);
@@ -229,4 +219,6 @@ public class SignUpActivity extends Activity {
     private void promoteErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
+    private enum Gender {female, male, unknown}
 }
