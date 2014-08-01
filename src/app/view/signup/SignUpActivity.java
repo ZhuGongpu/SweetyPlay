@@ -31,14 +31,13 @@ public class SignUpActivity extends Activity {
     /**
      * UI Elements
      */
-    private EditText nickname_editText = null;
-    private EditText email_editText = null;
+    private EditText nickname_EditText = null;
+    private EditText email_EditText = null;
     private DatePicker datePicker = null;
-    private EditText birthday_editText = null;
-    private EditText country_editText = null;
-    private Button play_button = null;
-    private ImageView maleIV, femaleIV;
-    //TODO ADD email
+    private EditText birthday_EditText = null;
+    private EditText country_EditText = null;
+    private Button play_Button = null;
+    private ImageView male_ImageView, female_ImageView;
 
     private String nickName, countryOrArea, email, phone_number, password;
     private int yearOfBirth, monthOfBirth, dayOfBirth;
@@ -56,7 +55,7 @@ public class SignUpActivity extends Activity {
 
         }
     };
-    private String BirthDate;
+
     private Gender gender;
 
 
@@ -68,41 +67,47 @@ public class SignUpActivity extends Activity {
         initViews();
 
         //获取注册信息
-        play_button.setOnClickListener(new View.OnClickListener() {
+        play_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nickName = nickname_editText.getText().toString();
-                email = email_editText.getText().toString();
+                nickName = nickname_EditText.getText().toString();
+                email = email_EditText.getText().toString();
 
                 if (!(nickName.length() >= 1 && nickName.length() <= 20))
-                    nickname_editText.setError("Illegal");
+                    nickname_EditText.setError("Illegal");
                 else if (!datePicker.isSelected())
                     Toast.makeText(getApplicationContext(), "you should pick your birthday first", Toast.LENGTH_SHORT).show();
                 else if (gender == Gender.unknown)
                     Toast.makeText(getApplicationContext(), "you should choose your gender first", Toast.LENGTH_SHORT).show();
                 else if (!isEmail(email)) {
-                    email_editText.setError("Not Valid");
+                    email_EditText.setError("Not Valid");
                 } else//注册信息完整
                 {
-                    nickName = nickname_editText.getText().toString();
+                    nickName = nickname_EditText.getText().toString();
 
 
-                    countryOrArea = country_editText.getText().toString();
-                    email = email_editText.getText().toString();
+                    countryOrArea = country_EditText.getText().toString();
+                    email = email_EditText.getText().toString();
 
                     //初始化avos
                     AVOSWrapper.init(SignUpActivity.this);
 
-                    //todo set user info
+                    //set user info
                     AVUser user = new AVUser();
+                    user.setEmail(email);
+                    user.setPassword(password);
 
+                    user.put("birthday", yearOfBirth + "-" + monthOfBirth + "-" + dayOfBirth);
+                    user.put("gender", gender);
+                    user.put("phone_number", phone_number);
+                    user.put("country", countryOrArea);
 
-                    //todo sign up
+                    //sign up
                     AVOSWrapper.signUpInBackground(user, new SignUpCallbackWrapper() {
                         @Override
                         public void onSucceed() {
                             super.onSucceed();
-                            //todo succeed
+                            //succeed
                             AVOSWrapper.logInInBackground(phone_number, password, new LogInCallbackWrapper() {
 
                                 @Override
@@ -133,45 +138,43 @@ public class SignUpActivity extends Activity {
                 }
             }
         });
-
-
     }
 
 
     private void initViews() {//初始化控件
 
-        nickname_editText = (EditText) findViewById(R.id.nickNameET);
-        email_editText = (EditText) findViewById(R.id.emailET);
-        birthday_editText = (EditText) findViewById(R.id.birthdayET);
+        nickname_EditText = (EditText) findViewById(R.id.nickNameET);
+        email_EditText = (EditText) findViewById(R.id.emailET);
+        birthday_EditText = (EditText) findViewById(R.id.birthdayET);
 
-        play_button = (Button) findViewById(R.id.play_button);
+        play_Button = (Button) findViewById(R.id.play_button);
 
-        maleIV = (ImageView) findViewById(R.id.gender_male);
-        femaleIV = (ImageView) findViewById(R.id.gender_female);
+        male_ImageView = (ImageView) findViewById(R.id.gender_male);
+        female_ImageView = (ImageView) findViewById(R.id.gender_female);
 
         gender = Gender.unknown;
 
-        maleIV.setOnClickListener(new View.OnClickListener() {
+        male_ImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                maleIV.setImageDrawable(getResources().getDrawable(R.drawable.sex_male_ico1));
-                femaleIV.setImageDrawable(getResources().getDrawable(R.drawable.sex_female_ico0));
+                male_ImageView.setImageDrawable(getResources().getDrawable(R.drawable.sex_male_ico1));
+                female_ImageView.setImageDrawable(getResources().getDrawable(R.drawable.sex_female_ico0));
                 gender = Gender.male;
             }
         });
 
-        femaleIV.setOnClickListener(new View.OnClickListener() {
+        female_ImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                femaleIV.setImageDrawable(getResources().getDrawable(R.drawable.sex_female_ico1));
-                maleIV.setImageDrawable((getResources().getDrawable(R.drawable.sex_male_ico0)));
+                female_ImageView.setImageDrawable(getResources().getDrawable(R.drawable.sex_female_ico1));
+                male_ImageView.setImageDrawable((getResources().getDrawable(R.drawable.sex_male_ico0)));
                 gender = Gender.female;
             }
         });
 
-        birthday_editText.setInputType(InputType.TYPE_NULL);
+        birthday_EditText.setInputType(InputType.TYPE_NULL);
         setCurrentDate();
-        birthday_editText.setOnClickListener(new View.OnClickListener() {
+        birthday_EditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(SignUpActivity.this,
@@ -188,7 +191,7 @@ public class SignUpActivity extends Activity {
 
     //用来设置显示日期格式
     private void updateDisplay() {
-        this.birthday_editText.setText(new StringBuilder().append(yearOfBirth).append("-")
+        this.birthday_EditText.setText(new StringBuilder().append(yearOfBirth).append("-")
                 .append((monthOfBirth + 1) < 10 ? "0" + (monthOfBirth + 1) :
                         (monthOfBirth + 1)).append("-")
                 .append((dayOfBirth < 10) ? "0" + dayOfBirth : dayOfBirth));
