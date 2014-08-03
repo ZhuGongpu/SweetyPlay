@@ -2,4 +2,7 @@
 
 <resources>
     <color name="signup_title">#0066FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#CCCCCC</color>
 </resources>
