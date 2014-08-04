@@ -22,6 +22,10 @@
         <activity
                 android:name="app.view.signup.SignUpActivity"
                 android:label="SignUpActivity"/>
+
+        <activity android:name="app.view.friendspage.FriendspageActivity"
+                  android:label="FriendspageActivity"/>
+
         <activity
                 android:name="app.view.splash_screen.SplashScreenActivity"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">

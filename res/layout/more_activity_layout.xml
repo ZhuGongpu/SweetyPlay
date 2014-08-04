@@ -14,7 +14,7 @@
                 android:id="@+id/more_user_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/more_default_photo"
+                android:src="@drawable/default_photo"
                 android:layout_margin="20dp"/>
 
 
@@ -38,6 +38,7 @@
                         android:layout_centerVertical="true"
                         android:textColor="@color/black"
                         android:textSize="20sp"/>
+
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -76,13 +77,13 @@
                         android:text="birthdate"
                         android:textSize="20sp"/>
 
-                    </RelativeLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -106,6 +107,7 @@
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 />
+
         <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -113,12 +115,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/right_array"/>
-     </RelativeLayout>
+    </RelativeLayout>
 
-     <TextView
-             android:layout_width="match_parent"
-             android:layout_height="1dp"
-             android:layout_marginTop="10dp"
-             android:background="@color/gray"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray"/>
 
 </LinearLayout>

@@ -21,6 +21,9 @@
     <string name="country_area">Country/Area (Optional)</string>
     <string name="email">E-mail</string>
     <string name="play_button">PLAY</string>
+    <string name="bubble_button">BUBBLE</string>
+    <string name="invite_button">INVITE</string>
+    <string name="talk_button">TALK</string>
 
     <!--hint-->
     <string name="firstname">First Name</string>
