@@ -24,6 +24,8 @@
     <string name="bubble_button">BUBBLE</string>
     <string name="invite_button">INVITE</string>
     <string name="talk_button">TALK</string>
+    <string name="join_button">JOIN</string>
+    <string name="default_location">DETAILEDLOCATION</string>
 
     <!--hint-->
     <string name="firstname">First Name</string>

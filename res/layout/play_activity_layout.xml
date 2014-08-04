@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#EAEAEA">
+
+    <TextView
+            android:id="@+id/play_activityname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:text="活动名称"
+            android:gravity="center_horizontal"
+            android:textSize="26sp"
+            android:textColor="@color/white"
+            android:padding="3dp"/>
+
+    <RelativeLayout
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="210dp">
+
+        <ImageView
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/default_photo"
+                android:scaleType="fitXY"/>
+
+        <Button
+                android:id="@+id/play_join_button"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape"
+                android:text="@string/join_button"/>
+            </RelativeLayout>
+    <LinearLayout
+            android:id="@+id/play_detailedtime"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp">
+
+        <ImageView
+                android:id="@+id/play_detailedtime_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/time"
+                />
+        <TextView
+                android:id="@+id/play_detailedtime_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:singleLine="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/default_location"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/play_detailedlocation"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp">
+
+        <ImageView
+                android:id="@+id/play_detailedlocation_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/map"
+                />
+        <TextView
+                android:id="@+id/play_detailedlocation_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:singleLine="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/default_location"/>
+            </LinearLayout>
+    <TextView
+            android:id="@+id/play_description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+</LinearLayout>
