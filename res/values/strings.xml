@@ -37,4 +37,7 @@
     <string name="fragment_one">页面一</string>
     <string name="fragment_two">页面二</string>
     <string name="fragment_three">页面三</string>
+
+    <!--menu-->
+    <string name="change_layout">Change Layout</string>
 </resources>

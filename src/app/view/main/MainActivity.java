@@ -1,11 +1,9 @@
 package app.view.main;
 
-import android.app.Activity;
 import android.os.Bundle;
 import app.baseActivity.IndicatorFragmentActivity;
 import app.view.circle.CircleFragment;
 import app.view.friendspage.FriendsFragment;
-import app.view.login.R;
 import app.view.more.moreFragment;
 import app.view.play.PlayFragment;
 
@@ -35,10 +33,10 @@ public class MainActivity extends IndicatorFragmentActivity {
         /**
          * 加载四个标签页
          */
-        tabs.add(new TabInfo(PLAY_FRAGMENT, "play", PlayFragment.class));
-        tabs.add(new TabInfo(CIRCLE_FRAGMENT,"circle",CircleFragment.class));
-        tabs.add(new TabInfo(FRIENDS_FRAGMENT,"friends", FriendsFragment.class));
-        tabs.add(new TabInfo(MORE_FRAGMENT,"more",moreFragment.class));
+        tabs.add(new TabInfo(PLAY_FRAGMENT, "playlist_item_layout", PlayFragment.class));
+        tabs.add(new TabInfo(CIRCLE_FRAGMENT, "circle", CircleFragment.class));
+        tabs.add(new TabInfo(FRIENDS_FRAGMENT, "friends", FriendsFragment.class));
+        tabs.add(new TabInfo(MORE_FRAGMENT, "more", moreFragment.class));
 
         return PLAY_FRAGMENT;
     }
