@@ -26,13 +26,23 @@
         <activity android:name="app.view.friendspage.FriendspageActivity"
                   android:label="FriendspageActivity"/>
 
-        <activity
-                android:name="app.view.splash_screen.SplashScreenActivity"
-                android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity android:name="app.view.play.PlayActivity"
+                  android:label="PlayActivity"/>
+
+        <activity android:name="app.view.play.JoinerActivity"
+                  android:label="JoinerActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+                  </activity>
+
+        <activity
+                android:name="app.view.splash_screen.SplashScreenActivity"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
         </activity>
     </application>
 </manifest>

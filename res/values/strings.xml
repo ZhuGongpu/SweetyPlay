@@ -26,6 +26,7 @@
     <string name="talk_button">TALK</string>
     <string name="join_button">JOIN</string>
     <string name="default_location">DETAILEDLOCATION</string>
+    <string name="post_button">POST</string>
 
     <!--hint-->
     <string name="firstname">First Name</string>

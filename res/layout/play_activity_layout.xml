@@ -39,6 +39,60 @@
                 android:background="@drawable/shape"
                 android:text="@string/join_button"/>
             </RelativeLayout>
+
+    <LinearLayout
+            android:id="@+id/play_joiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal"
+            >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="8人参加"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                />
+
+        <ImageView
+                android:id="@+id/play_photo1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="115dp"
+                android:src="@drawable/default_photo"/>
+
+        <ImageView
+                android:id="@+id/play_photo2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/default_photo"/>
+
+        <ImageView
+                android:id="@+id/play_photo3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/default_photo"/>
+
+        <ImageView
+                android:id="@+id/play_photo4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/default_photo"/>
+
+
+            </LinearLayout>
+
     <LinearLayout
             android:id="@+id/play_detailedtime"
             android:layout_width="match_parent"
@@ -90,7 +144,10 @@
             android:id="@+id/play_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:padding="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="暂无活动介绍"
+            android:textSize="20dp"
             />
 </LinearLayout>
