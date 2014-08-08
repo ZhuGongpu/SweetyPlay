@@ -113,7 +113,7 @@ public class SignUpActivity extends Activity {
                                 @Override
                                 public void onSucceed(AVUser user) {
                                     super.onSucceed(user);
-                                    // jump to main activity
+                                    // jump to friendlist activity
                                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                     finish();
                                 }
