@@ -14,7 +14,7 @@
 	   		android:cacheColorHint="#00000000"
 	   		/>
 	</LinearLayout>
-	<app.view.friendspage.SideBar
+	<app.util.SideBar
 	    android:id ="@+id/sideBar"  
 	    android:layout_height="wrap_content"  
 	    android:layout_width="20dp"  

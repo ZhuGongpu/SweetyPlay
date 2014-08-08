@@ -1,4 +1,4 @@
-package app.view.friendspage;
+package app.util;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;

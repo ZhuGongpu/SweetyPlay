@@ -1,4 +1,4 @@
-package app.view.friendspage;
+package app.util;
 
 import java.util.Comparator;
 
