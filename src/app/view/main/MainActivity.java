@@ -33,7 +33,7 @@ public class MainActivity extends IndicatorFragmentActivity {
         /**
          * 加载四个标签页
          */
-        tabs.add(new TabInfo(PLAY_FRAGMENT, "playlist_item_layout", PlayFragment.class));
+        tabs.add(new TabInfo(PLAY_FRAGMENT, "playlist", PlayFragment.class));
         tabs.add(new TabInfo(CIRCLE_FRAGMENT, "circle", CircleFragment.class));
         tabs.add(new TabInfo(FRIENDS_FRAGMENT, "friends", FriendsFragment.class));
         tabs.add(new TabInfo(MORE_FRAGMENT, "more", moreFragment.class));
