@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white">
+
+    <ImageView
+            android:id="@+id/newplay_photo"
+            android:layout_width="fill_parent"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/logo"/>
+
+    <EditText
+            android:id="@+id/newplay_activityname"
+            android:layout_below="@+id/newplay_photo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入活动名称"
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"/>
+
+    <Button
+            android:id="@+id/newplay_enddate"
+            android:layout_below="@id/newplay_activityname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center_horizontal"
+            android:text="点击选择活动结束日期"
+            android:background="@color/white"
+            android:textColor="@color/orange"
+            android:paddingTop="8dp"
+            />
+
+    <Button
+            android:id="@+id/newplay_endtime"
+            android:layout_below="@id/newplay_enddate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center_horizontal"
+            android:text="点击选择活动结束时间"
+            android:background="@color/white"
+            android:textColor="@color/orange"
+            android:paddingTop="8dp"/>
+
+    <Button
+            android:id="@+id/newplay_activitylocation"
+            android:layout_below="@id/newplay_endtime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="点击选择活动地点"
+            android:background="@color/white"
+            android:textColor="@color/orange"
+            android:singleLine="true"
+            android:paddingTop="5dp"/>
+
+    <Button
+            android:id="@+id/newplay_invite_button"
+            android:layout_below="@id/newplay_activitylocation"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="@string/invite_button"
+            android:background="@drawable/shape"/>
+
+    <Button
+            android:id="@+id/newplay_post_button"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:text="@string/post_button"
+            android:layout_below="@id/newplay_invite_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"/>
+</RelativeLayout>
