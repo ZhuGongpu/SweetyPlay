@@ -150,7 +150,7 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
         mLastTab = mCurrentTab;
 
         //测试button
-        plus_imageView =(ImageView)findViewById(R.id.plus_imageView);
+        plus_imageView = (ImageView) findViewById(R.id.plus_imageView);
         plus_imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +173,7 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
 
     /**
      * 添加一个选项卡
+     *
      * @param tab
      */
     public void addTabInfo(TabInfo tab) {
@@ -182,6 +183,7 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
 
     /**
      * 从列表添加选项卡
+     *
      * @param tabs
      */
     public void addTabInfos(ArrayList<TabInfo> tabs) {
@@ -217,8 +219,10 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
         }
         return null;
     }
+
     /**
      * 跳转到任意选项卡
+     *
      * @param tabId 选项卡下标
      */
     public void navigate(int tabId) {
@@ -231,11 +235,12 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
 
     @Override
     public void onBackPressed() {
-            finish();
+        finish();
     }
 
     /**
      * 返回layout id
+     *
      * @return layout id
      */
     protected int getMainViewResId() {
@@ -321,7 +326,7 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
             return icon;
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @SuppressWarnings({"rawtypes", "unchecked"})
         public Fragment createFragment() {
             if (fragment == null) {
                 Constructor constructor;

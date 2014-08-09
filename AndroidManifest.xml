@@ -30,16 +30,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="app.view.main.notify.NotificationActivity"
-                  android:label="NotificationActivity"
-                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+                android:name="app.view.main.notify.NotificationActivity"
+                android:label="NotificationActivity"
+                android:theme="@android:style/Theme.NoTitleBar"/>
 
         <activity
                 android:name="app.view.signup.SignUpActivity"
                 android:label="SignUpActivity"/>
 
-        <activity android:name="app.view.friendspage.FriendspageActivity"
-                  android:label="FriendspageActivity"/>
+        <activity
+                android:name="app.view.friendspage.FriendspageActivity"
+                android:label="FriendspageActivity"/>
 
         <activity
                 android:name="app.view.splash_screen.SplashScreenActivity"

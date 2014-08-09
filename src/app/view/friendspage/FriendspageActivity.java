@@ -13,7 +13,7 @@ import app.view.login.R;
  * 好友详情页
  * Created by lxs on 2014/8/3.
  */
-public class FriendspageActivity extends Activity{
+public class FriendspageActivity extends Activity {
 
     private ImageView photo;
     private TextView name;
@@ -21,21 +21,21 @@ public class FriendspageActivity extends Activity{
     private Button bubble;
     private ImageView state;
     private LinearLayout album;
-    private Button invite,talk;
+    private Button invite, talk;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friendspage_activity_layout);
 
-        photo=(ImageView)findViewById(R.id.friendspage_photo);
-        name=(TextView)findViewById(R.id.friendspage_name);
-        distance=(TextView)findViewById(R.id.friendspage_distance);
-        bubble=(Button)findViewById(R.id.friendspage_bubble_button);
-        state=(ImageView)findViewById(R.id.friendspage_state);
-        album=(LinearLayout)findViewById(R.id.friendspage_album);
-        invite=(Button)findViewById(R.id.friendspage_invite_button);
-        talk=(Button)findViewById(R.id.friendspage_talk_button);
+        photo = (ImageView) findViewById(R.id.friendspage_photo);
+        name = (TextView) findViewById(R.id.friendspage_name);
+        distance = (TextView) findViewById(R.id.friendspage_distance);
+        bubble = (Button) findViewById(R.id.friendspage_bubble_button);
+        state = (ImageView) findViewById(R.id.friendspage_state);
+        album = (LinearLayout) findViewById(R.id.friendspage_album);
+        invite = (Button) findViewById(R.id.friendspage_invite_button);
+        talk = (Button) findViewById(R.id.friendspage_talk_button);
 
         FriendspageListener listener = new FriendspageListener();
         photo.setOnClickListener(listener);
@@ -47,8 +47,8 @@ public class FriendspageActivity extends Activity{
     }
 
     //监听器
-    class FriendspageListener implements View.OnClickListener{
-        public void onClick(View view){
+    class FriendspageListener implements View.OnClickListener {
+        public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.friendspage_photo:
                     //跳转到只显示头像图片的界面

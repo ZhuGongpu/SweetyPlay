@@ -15,7 +15,6 @@
             android:fastScrollEnabled="true">
 
 
-
     </ListView>
 
 </LinearLayout>

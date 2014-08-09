@@ -15,53 +15,54 @@
             android:layout_marginRight="12dp"
             android:orientation="horizontal">
 
-            <ImageView
+        <ImageView
                 android:id="@+id/friendspage_photo"
                 android:src="@drawable/default_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            ></ImageView>
+                ></ImageView>
 
-            <TextView
-                    android:id="@+id/friendspage_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/friendspage_photo"
-                    android:layout_marginLeft="20dp"
-                    android:text="用户名"
-                    android:textSize="23sp"
-                    />
+        <TextView
+                android:id="@+id/friendspage_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/friendspage_photo"
+                android:layout_marginLeft="20dp"
+                android:text="用户名"
+                android:textSize="23sp"
+                />
 
-            <TextView
-                    android:id="@+id/friendspage_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/friendspage_name"
-                    android:layout_toRightOf="@id/friendspage_photo"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="0.5km"/>
+        <TextView
+                android:id="@+id/friendspage_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/friendspage_name"
+                android:layout_toRightOf="@id/friendspage_photo"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="0.5km"/>
 
-            <ImageView
-                    android:id="@+id/friendspage_state"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_below="@id/friendspage_name"
-                    android:layout_marginLeft="45dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/account_current"
-                    android:layout_toRightOf="@id/friendspage_distance"/>
-            <Button
-                    android:id="@+id/friendspage_bubble_button"
-                    android:layout_width="100dp"
-                    android:layout_height="36dp"
-                    android:text="@string/bubble_button"
-                    android:layout_toRightOf="@id/friendspage_photo"
-                    android:layout_below="@id/friendspage_distance"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/shape"
-                    />
+        <ImageView
+                android:id="@+id/friendspage_state"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/friendspage_name"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/account_current"
+                android:layout_toRightOf="@id/friendspage_distance"/>
+
+        <Button
+                android:id="@+id/friendspage_bubble_button"
+                android:layout_width="100dp"
+                android:layout_height="36dp"
+                android:text="@string/bubble_button"
+                android:layout_toRightOf="@id/friendspage_photo"
+                android:layout_below="@id/friendspage_distance"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape"
+                />
 
     </RelativeLayout>
 
@@ -95,7 +96,7 @@
                 android:layout_height="100dp"
                 android:src="@drawable/default_photo"/>
 
-            </LinearLayout>
+    </LinearLayout>
 
     <Button
             android:id="@+id/friendspage_invite_button"
@@ -106,6 +107,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/shape"
             />
+
     <Button
             android:id="@+id/friendspage_talk_button"
             android:layout_width="180dp"

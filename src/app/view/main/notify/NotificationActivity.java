@@ -20,19 +20,18 @@ public class NotificationActivity extends Activity {
     protected ListView notification_listView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.notification_layout);
 
-        notification_listView = (ListView)findViewById(R.id.notification_listView);
+        notification_listView = (ListView) findViewById(R.id.notification_listView);
         notification_listView.setAdapter(new NotificationAdapter(this));
 
     }
 
-    private class NotificationAdapter extends BaseAdapter{
+    private class NotificationAdapter extends BaseAdapter {
 
         private Context mContext;
         private LayoutInflater mLayoutInflater;
@@ -41,7 +40,7 @@ public class NotificationActivity extends Activity {
             super();
             this.mContext = mContext;
 
-            mLayoutInflater= LayoutInflater.from(mContext);
+            mLayoutInflater = LayoutInflater.from(mContext);
 
 
         }
@@ -66,13 +65,13 @@ public class NotificationActivity extends Activity {
             View view;
             ViewHolder viewHolder;
 
-            if(convertView == null){
+            if (convertView == null) {
                 view = mLayoutInflater.inflate(R.layout.notification_item_layout, null);
 
                 viewHolder = new ViewHolder();
 
                 //将找到的控件放入到控件Holder里面
-                viewHolder.activity_photo_imageView =(ImageView) view.findViewById(
+                viewHolder.activity_photo_imageView = (ImageView) view.findViewById(
                         R.id.activity_photo_imageView);
 
                 viewHolder.activity_title_textView = (TextView) view.findViewById(
@@ -80,19 +79,19 @@ public class NotificationActivity extends Activity {
 
                 viewHolder.join_button = (ImageView) view.findViewById(R.id.join_button);
 
-                viewHolder.left_time_textView = (TextView)view.findViewById(
+                viewHolder.left_time_textView = (TextView) view.findViewById(
                         R.id.left_time_textView);
 
-                viewHolder.notify_user_photo = (ImageView)view.findViewById(
+                viewHolder.notify_user_photo = (ImageView) view.findViewById(
                         R.id.notify_user_photo);
 
 
                 view.setTag(viewHolder);
 
 
-            }else{
+            } else {
                 view = convertView;
-                viewHolder = (ViewHolder)view.getTag();
+                viewHolder = (ViewHolder) view.getTag();
             }
 
             //todo 对相关控件进行数据加载工作
@@ -102,13 +101,13 @@ public class NotificationActivity extends Activity {
 
 
         //用来存储控件的类
-         class ViewHolder{
-             ImageView activity_photo_imageView;    //活动照片
-             TextView activity_title_textView;      //活动名称
-             TextView left_time_textView;           //活动剩余时间
-             ImageView join_button;                 //加入活动按钮
-             ImageView notify_user_photo;           //邀请人的头像
-         }
+        class ViewHolder {
+            ImageView activity_photo_imageView;    //活动照片
+            TextView activity_title_textView;      //活动名称
+            TextView left_time_textView;           //活动剩余时间
+            ImageView join_button;                 //加入活动按钮
+            ImageView notify_user_photo;           //邀请人的头像
+        }
 
 
     }

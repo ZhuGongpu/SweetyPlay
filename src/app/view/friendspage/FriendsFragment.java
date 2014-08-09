@@ -37,20 +37,30 @@ public class FriendsFragment extends Fragment {
 
     ArrayList<HashMap<String, Object>> data;
 
-    /**获取库Phone表字段**/
-    private static final String[] PHONES_PROJECTION = new String[] {
-            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Photo.PHOTO_ID, ContactsContract.CommonDataKinds.Phone.CONTACT_ID };
+    /**
+     * 获取库Phone表字段*
+     */
+    private static final String[] PHONES_PROJECTION = new String[]{
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Photo.PHOTO_ID, ContactsContract.CommonDataKinds.Phone.CONTACT_ID};
 
-    /**联系人显示名称**/
+    /**
+     * 联系人显示名称*
+     */
     private static final int PHONES_DISPLAY_NAME_INDEX = 0;
 
-    /**电话号码**/
+    /**
+     * 电话号码*
+     */
     private static final int PHONES_NUMBER_INDEX = 1;
 
-    /**联系人名称**/
+    /**
+     * 联系人名称*
+     */
     private ArrayList<String> mContactsName = new ArrayList<String>();
 
-    /**联系人号码**/
+    /**
+     * 联系人号码*
+     */
     private ArrayList<String> mContactsNumber = new ArrayList<String>();
 
     private String[] nicks;
@@ -58,14 +68,14 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.friendlist,container, false);
+        view = inflater.inflate(R.layout.friendlist, container, false);
 
         mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         getSIMContacts();//获取SIM卡联系人
-        data=getData();//获得数据
+        data = getData();//获得数据
 
         nicks = new String[data.size()];
-        for(int i=0;i<data.size();i++){
+        for (int i = 0; i < data.size(); i++) {
             nicks[i] = data.get(i).get("nickName").toString();
         }
 
@@ -78,8 +88,7 @@ public class FriendsFragment extends Fragment {
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0||i==1||i==2)
-                {
+                if (i == 0 || i == 1 || i == 2) {
                     Toast.makeText(getActivity().getApplicationContext(), "i am " + i, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -150,26 +159,22 @@ public class FriendsFragment extends Fragment {
                 viewHolder.tvCatalog.setVisibility(View.GONE);
                 viewHolder.ivAvatar.setImageResource(R.drawable.invite_icon);
                 viewHolder.tvNick.setText("Invite friends by play ID");
-            }
-            else if (position == 1) {
+            } else if (position == 1) {
                 viewHolder.tvCatalog.setVisibility(View.GONE);
                 viewHolder.ivAvatar.setImageResource(R.drawable.invite_icon);
                 viewHolder.tvNick.setText("Invite friends by PhoneNumber");
-            }
-            else if (position == 2) {
+            } else if (position == 2) {
                 viewHolder.tvCatalog.setVisibility(View.GONE);
                 viewHolder.ivAvatar.setImageResource(R.drawable.invite_icon);
                 viewHolder.tvNick.setText("New Friends");
-            }
-            else {
+            } else {
                 final String nickName = mNicks[position - 3];
                 String catalog = PingYinUtil.converterToFirstSpell(nickName)
                         .substring(0, 1);
                 if (position == 3) {
                     viewHolder.tvCatalog.setVisibility(View.VISIBLE);
                     viewHolder.tvCatalog.setText(catalog);
-                }
-                else {
+                } else {
                     String lastCatalog = PingYinUtil.converterToFirstSpell(
                             mNicks[position - 4]).substring(0, 1);
                     if (catalog.equals(lastCatalog)) {
@@ -218,22 +223,26 @@ public class FriendsFragment extends Fragment {
      * 昵称
      */
 
-    /**获取好友数据Item**/
+    /**
+     * 获取好友数据Item*
+     */
     private ArrayList<HashMap<String, Object>> getData() {
         ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
         HashMap<String, Object> map;
 
-        for(int i=0;i<mContactsName.size();i++){
+        for (int i = 0; i < mContactsName.size(); i++) {
             map = new HashMap<String, Object>();
-            map.put("nickName", mContactsName.get(i)+" "+mContactsNumber.get(i));
+            map.put("nickName", mContactsName.get(i) + " " + mContactsNumber.get(i));
             //map.put("img", R.drawable.doge);
             list.add(map);
         }
         return list;
     }
 
-    /**得到手机SIM卡联系人人信息**/
+    /**
+     * 得到手机SIM卡联系人人信息*
+     */
     private void getSIMContacts() {
         ContentResolver resolver = getActivity().getContentResolver();
         // 获取Sims卡联系人

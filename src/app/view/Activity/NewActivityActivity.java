@@ -34,27 +34,27 @@ public class NewActivityActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newactivity_activity_layout);
 
-        photo=(ImageView)findViewById(R.id.newplay_photo);
-        activityname=(EditText)findViewById(R.id.newplay_activityname);
-        enddate=(Button)findViewById(R.id.newplay_enddate);
-        endtime=(Button)findViewById(R.id.newplay_endtime);
-        activitylocation=(Button)findViewById(R.id.newplay_activitylocation);
-        invitebutton=(Button)findViewById(R.id.newplay_invite_button);
-        postbutton=(Button)findViewById(R.id.newplay_post_button);
+        photo = (ImageView) findViewById(R.id.newplay_photo);
+        activityname = (EditText) findViewById(R.id.newplay_activityname);
+        enddate = (Button) findViewById(R.id.newplay_enddate);
+        endtime = (Button) findViewById(R.id.newplay_endtime);
+        activitylocation = (Button) findViewById(R.id.newplay_activitylocation);
+        invitebutton = (Button) findViewById(R.id.newplay_invite_button);
+        postbutton = (Button) findViewById(R.id.newplay_post_button);
 
         dateSetButtonListener datesetlistener = new dateSetButtonListener();
         timeSetButtonListener timesetlistener = new timeSetButtonListener();
         enddate.setOnClickListener(datesetlistener);
         endtime.setOnClickListener(timesetlistener);
-}
-
-//选择活动图片监听器
-class PhotoListener implements View.OnClickListener{
-    @Override
-    public void onClick(View view) {
-
     }
-}
+
+    //选择活动图片监听器
+    class PhotoListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+        }
+    }
 
     private class dateSetButtonListener implements View.OnClickListener {
 
@@ -80,7 +80,7 @@ class PhotoListener implements View.OnClickListener{
             DATE_YEAR = year;
             DATE_MONTH = monthOfYear + 1;
             DATE_DAY = dayOfMonth;
-            enddate.setText("活动截止时间："+DATE_YEAR+"年"+DATE_MONTH+"月"+DATE_DAY+"日");
+            enddate.setText("活动截止时间：" + DATE_YEAR + "年" + DATE_MONTH + "月" + DATE_DAY + "日");
         }
     };
 
@@ -94,12 +94,12 @@ class PhotoListener implements View.OnClickListener{
         }
     };
 
-    protected Dialog onCreateDialog(int id){
-        switch(id){
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
             case DATE_PICKER_ID:
-                return new DatePickerDialog(this, onDateSetListener , 2014 , 4 , 1 );
+                return new DatePickerDialog(this, onDateSetListener, 2014, 4, 1);
             case TIME_PICKER_ID:
-                return new TimePickerDialog(this, onTimeSetListener , 00 , 00, true);
+                return new TimePickerDialog(this, onTimeSetListener, 00, 00, true);
         }
         return null;
     }
