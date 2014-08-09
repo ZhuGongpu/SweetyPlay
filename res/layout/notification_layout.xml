@@ -11,7 +11,7 @@
             android:layout_height="match_parent"
             android:background="@color/light_gray"
             android:divider="@color/light_gray"
-            android:dividerHeight="10dp"
+            android:dividerHeight="30dp"
             android:fastScrollEnabled="true">
 
 

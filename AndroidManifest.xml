@@ -29,6 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="app.view.main.notify.NotificationActivity"
+                  android:label="NotificationActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+
         <activity
                 android:name="app.view.signup.SignUpActivity"
                 android:label="SignUpActivity"/>

@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 import app.view.login.R;
+import app.view.main.notify.NotificationActivity;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -49,6 +50,9 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
     protected TitleIndicator mIndicator;
 
     protected ImageView plus_imageView;
+
+    //notification
+    protected ImageView notification_imageView;
 
     public TitleIndicator getIndicator() {
         return mIndicator;
@@ -151,8 +155,19 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplication(), "简直是呵呵", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+        notification_imageView = (ImageView) findViewById(R.id.notify_imageView);
+        notification_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IndicatorFragmentActivity.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
