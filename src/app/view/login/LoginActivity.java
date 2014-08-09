@@ -123,7 +123,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         @Override
                         public void onSucceed(AVUser user) {
                             super.onSucceed(user);
-                            // jump to main activity
+                            // jump to  activity
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         }

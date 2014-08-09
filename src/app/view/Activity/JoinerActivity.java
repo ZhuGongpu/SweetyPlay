@@ -1,4 +1,4 @@
-package app.view.play;
+package app.view.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;

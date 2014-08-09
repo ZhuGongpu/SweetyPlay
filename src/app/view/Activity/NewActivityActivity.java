@@ -1,4 +1,4 @@
-package app.view.play;
+package app.view.Activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -15,7 +15,7 @@ import app.view.login.R;
  * Created by lxs on 2014/8/6.
  */
 
-public class NewplayActivity extends Activity {
+public class NewActivityActivity extends Activity {
 
     private ImageView photo;
     private Button enddate, endtime, activitylocation, invitebutton, postbutton;
@@ -32,7 +32,7 @@ public class NewplayActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newplay_activity_layout);
+        setContentView(R.layout.newactivity_activity_layout);
 
         photo=(ImageView)findViewById(R.id.newplay_photo);
         activityname=(EditText)findViewById(R.id.newplay_activityname);
@@ -56,7 +56,6 @@ class PhotoListener implements View.OnClickListener{
     }
 }
 
-    //���ڼ�����ʵ��
     private class dateSetButtonListener implements View.OnClickListener {
 
         @Override
@@ -65,7 +64,6 @@ class PhotoListener implements View.OnClickListener{
         }
     }
 
-    //�¼�������ʵ��
     private class timeSetButtonListener implements View.OnClickListener {
 
         @Override
@@ -74,7 +72,6 @@ class PhotoListener implements View.OnClickListener{
         }
     }
 
-    //����ѡ��Ի���ʵ��
     DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -87,7 +84,6 @@ class PhotoListener implements View.OnClickListener{
         }
     };
 
-    //ʱ��ѡ��Ի���ѡ��
     TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
@@ -98,7 +94,6 @@ class PhotoListener implements View.OnClickListener{
         }
     };
 
-    //�Ի������
     protected Dialog onCreateDialog(int id){
         switch(id){
             case DATE_PICKER_ID:
