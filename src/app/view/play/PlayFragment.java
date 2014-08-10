@@ -41,10 +41,9 @@ public class PlayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        if (savedInstanceState != null && savedInstanceState.containsKey("activity")) {
-            view = inflater.inflate(R.layout.playlist_layout, container, false);
-            init((Activity) savedInstanceState.get("activity"));
-        }
+        view = inflater.inflate(R.layout.playlist_layout, container, false);
+        init(getActivity());
+
         return view;
     }
 

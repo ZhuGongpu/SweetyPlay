@@ -22,7 +22,7 @@ public class AVOSWrapper {
      * @param context
      */
     public static void init(Context context) {
-        AVOSCloud.initialize(context, "fas3aqr6wocde9up6hp1acytgijs3rm09uq34w0gkylhicwj", "iv7mh6kzhy99zxeoxurmy13ny2t6k7eh0fou27w96l88567o");
+        AVOSCloud.initialize(context, "dwhw1lxrrq87fiprvz1bls56yboxnnawe0rnuipzqsoh8vq7", "tquta7xm8xrqaxrj0jp5h38h4sfe6kxyr48v86uy979yz65m");
     }
 
     /**
