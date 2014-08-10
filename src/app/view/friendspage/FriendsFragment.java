@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -14,56 +17,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.*;
+import app.util.ContactComparator;
 import app.util.PingYinUtil;
-import app.util.PinyinComparator;
 import app.util.SideBar;
 import app.view.login.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 
 /**
  * Created by Lewis on 8/5/14.
  */
 public class FriendsFragment extends Fragment {
-
-    protected View view;
-
-    private ListView lvContact;
-    private SideBar indexBar;
-    private WindowManager mWindowManager;
-    private TextView mDialogText;
-
-    ArrayList<HashMap<String, Object>> data;
-
+    private static final String TAG = "FriendsFragment";
     /**
      * 获取库Phone表字段*
      */
     private static final String[] PHONES_PROJECTION = new String[]{
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Photo.PHOTO_ID, ContactsContract.CommonDataKinds.Phone.CONTACT_ID};
-
     /**
      * 联系人显示名称*
      */
     private static final int PHONES_DISPLAY_NAME_INDEX = 0;
-
     /**
      * 电话号码*
      */
     private static final int PHONES_NUMBER_INDEX = 1;
+    private static final int UPDATE_SIGNAL = 1;
+    protected View view;
+    ArrayList<Contact> contacts = new ArrayList<Contact>();
+    private ListView lvContact;
+    private ContactAdapter contactAdapter = null;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
 
-    /**
-     * 联系人名称*
-     */
-    private ArrayList<String> mContactsName = new ArrayList<String>();
+            if (msg.arg1 == UPDATE_SIGNAL) {
 
-    /**
-     * 联系人号码*
-     */
-    private ArrayList<String> mContactsNumber = new ArrayList<String>();
+                contactAdapter = new ContactAdapter(getActivity());
 
-    private String[] nicks;
+                lvContact.setAdapter(contactAdapter);
+
+                contactAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+    private SideBar indexBar;
+    private WindowManager mWindowManager;
+    private TextView mDialogText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,15 +73,20 @@ public class FriendsFragment extends Fragment {
         view = inflater.inflate(R.layout.friendlist, container, false);
 
         mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        getSIMContacts();//获取SIM卡联系人
-        data = getData();//获得数据
-
-        nicks = new String[data.size()];
-        for (int i = 0; i < data.size(); i++) {
-            nicks[i] = data.get(i).get("nickName").toString();
-        }
 
         findView();
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                if (contacts.isEmpty())
+                    getPhoneContacts();
+                return null;
+            }
+
+        }.execute();
+
         return view;
     }
 
@@ -93,7 +100,8 @@ public class FriendsFragment extends Fragment {
                 }
             }
         });
-        lvContact.setAdapter(new ContactAdapter(getActivity()));
+
+
         indexBar = (SideBar) view.findViewById(R.id.sideBar);
         indexBar.setListView(lvContact);
         mDialogText = (TextView) LayoutInflater.from(getActivity()).inflate(
@@ -109,26 +117,98 @@ public class FriendsFragment extends Fragment {
         indexBar.setTextView(mDialogText);
     }
 
+    /**
+     * 得到手机SIM卡联系人人信息*
+     */
+    private void getSIMContacts() {
+        ContentResolver resolver = getActivity().getContentResolver();
+        // 获取Sims卡联系人
+        Uri uri = Uri.parse("content://icc/adn");
+        Cursor phoneCursor = resolver.query(uri, PHONES_PROJECTION, null, null,
+                null);
+
+        if (phoneCursor != null) {
+            while (phoneCursor.moveToNext()) {
+
+                // 得到手机号码
+                String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
+                // 当手机号码为空的或者为空字段 跳过当前循环
+                if (TextUtils.isEmpty(phoneNumber))
+                    continue;
+                // 得到联系人名称
+                String contactName = phoneCursor
+                        .getString(PHONES_DISPLAY_NAME_INDEX);
+                contactName.replace(" ", "");
+
+                //Sim卡中没有联系人头像
+                Contact contact = new Contact();
+                contact.name = contactName;
+                contact.phoneNumber = phoneNumber;
+
+                contacts.add(contact);
+            }
+
+            phoneCursor.close();
+        }
+    }
+
+    private void getPhoneContacts() {
+        ContentResolver resolver = getActivity().getContentResolver();
+
+        // 获取手机联系人
+        Cursor phoneCursor = resolver.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PHONES_PROJECTION, null, null, null);
+
+        if (phoneCursor != null) {
+            while (phoneCursor.moveToNext()) {
+
+                //得到手机号码
+                String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
+                //当手机号码为空的或者    为空字段 跳过当前循环
+                if (TextUtils.isEmpty(phoneNumber))
+                    continue;
+
+                //得到联系人名称
+                String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
+                contactName.replace(" ", "");
+                //TODO 获取头像
+
+                Contact contact = new Contact();
+                contact.name = contactName;
+                contact.phoneNumber = phoneNumber;
+
+                contacts.add(contact);
+            }
+
+            //排序
+            Collections.sort(contacts, new ContactComparator());
+
+            phoneCursor.close();
+
+            Message message = handler.obtainMessage();
+            message.arg1 = UPDATE_SIGNAL;
+            message.sendToTarget();
+        }
+    }
+
     class ContactAdapter extends BaseAdapter implements SectionIndexer {
         private Context mContext;
-        private String[] mNicks;
+
 
         @SuppressWarnings("unchecked")
         public ContactAdapter(Context mContext) {
             this.mContext = mContext;
-            this.mNicks = nicks;
-            // 排序(实现了中英文混排)
-            Arrays.sort(mNicks, new PinyinComparator());
+
         }
 
         @Override
         public int getCount() {
-            return mNicks.length;
+            return contacts.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return mNicks[position];
+            return contacts.get(position);
         }
 
         @Override
@@ -168,15 +248,21 @@ public class FriendsFragment extends Fragment {
                 viewHolder.ivAvatar.setImageResource(R.drawable.invite_icon);
                 viewHolder.tvNick.setText("New Friends");
             } else {
-                final String nickName = mNicks[position - 3];
-                String catalog = PingYinUtil.converterToFirstSpell(nickName)
-                        .substring(0, 1);
+                final String nickName = contacts.get(position - 3).name;
+
+                //Log.e(TAG, "" + position + ": " + nickName);
+                // TODO 处理特殊字符
+                String catalog = PingYinUtil.converterToFirstSpell(nickName);
+                //Log.e(TAG, "" + position + ": " + nickName + "    " + (catalog));
+
+                catalog = catalog.substring(0, 1);
+
                 if (position == 3) {
                     viewHolder.tvCatalog.setVisibility(View.VISIBLE);
                     viewHolder.tvCatalog.setText(catalog);
                 } else {
                     String lastCatalog = PingYinUtil.converterToFirstSpell(
-                            mNicks[position - 4]).substring(0, 1);
+                            contacts.get(position - 4).name).substring(0, 1);
                     if (catalog.equals(lastCatalog)) {
                         viewHolder.tvCatalog.setVisibility(View.GONE);
                     } else {
@@ -190,16 +276,10 @@ public class FriendsFragment extends Fragment {
             return convertView;
         }
 
-        class ViewHolder {
-            TextView tvCatalog;// 目录
-            ImageView ivAvatar;// 头像
-            TextView tvNick;// 昵称
-        }
-
         @Override
         public int getPositionForSection(int section) {
-            for (int i = 0; i < mNicks.length; i++) {
-                String l = PingYinUtil.converterToFirstSpell(mNicks[i])
+            for (int i = 0; i < contacts.size(); i++) {
+                String l = PingYinUtil.converterToFirstSpell(contacts.get(i).name)
                         .substring(0, 1);
                 char firstChar = l.toUpperCase().charAt(0);
                 if (firstChar == section) {
@@ -218,57 +298,18 @@ public class FriendsFragment extends Fragment {
         public Object[] getSections() {
             return null;
         }
-    }
-    /**
-     * 昵称
-     */
 
-    /**
-     * 获取好友数据Item*
-     */
-    private ArrayList<HashMap<String, Object>> getData() {
-        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-
-        HashMap<String, Object> map;
-
-        for (int i = 0; i < mContactsName.size(); i++) {
-            map = new HashMap<String, Object>();
-            map.put("nickName", mContactsName.get(i) + " " + mContactsNumber.get(i));
-            //map.put("img", R.drawable.doge);
-            list.add(map);
-        }
-        return list;
-    }
-
-    /**
-     * 得到手机SIM卡联系人人信息*
-     */
-    private void getSIMContacts() {
-        ContentResolver resolver = getActivity().getContentResolver();
-        // 获取Sims卡联系人
-        Uri uri = Uri.parse("content://icc/adn");
-        Cursor phoneCursor = resolver.query(uri, PHONES_PROJECTION, null, null,
-                null);
-
-        if (phoneCursor != null) {
-            while (phoneCursor.moveToNext()) {
-
-                // 得到手机号码
-                String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
-                // 当手机号码为空的或者为空字段 跳过当前循环
-                if (TextUtils.isEmpty(phoneNumber))
-                    continue;
-                // 得到联系人名称
-                String contactName = phoneCursor
-                        .getString(PHONES_DISPLAY_NAME_INDEX);
-
-                //Sim卡中没有联系人头像
-
-                mContactsName.add(contactName);
-                mContactsNumber.add(phoneNumber);
-            }
-
-            phoneCursor.close();
+        class ViewHolder {
+            TextView tvCatalog;// 目录
+            ImageView ivAvatar;// 头像
+            TextView tvNick;// 昵称
         }
     }
+
+    public class Contact {
+        public String name = null;
+        public String phoneNumber = null;
+
+    }
+
 }
