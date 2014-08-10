@@ -5,34 +5,30 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.*;
+import app.util.ContactComparator;
 import app.util.PingYinUtil;
-import app.util.PinyinComparator;
 import app.util.SideBar;
 import app.view.login.R;
-import avos.AVOSWrapper;
-import avos.callbackwrappers.FindCallbackWrapper;
-import com.avos.avoscloud.AVException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collections;
 
 /**
  * Created by Lewis on 8/5/14.
  */
 public class FriendsFragment extends Fragment {
-
     private static final String TAG = "FriendsFragment";
     /**
      * 获取库Phone表字段*
@@ -47,23 +43,29 @@ public class FriendsFragment extends Fragment {
      * 电话号码*
      */
     private static final int PHONES_NUMBER_INDEX = 1;
+    private static final int UPDATE_SIGNAL = 1;
     protected View view;
-    ArrayList<HashMap<String, Object>> data;
+    ArrayList<Contact> contacts = new ArrayList<Contact>();
     private ListView lvContact;
+    private ContactAdapter contactAdapter = null;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (msg.arg1 == UPDATE_SIGNAL) {
+
+                contactAdapter = new ContactAdapter(getActivity());
+
+                lvContact.setAdapter(contactAdapter);
+
+                contactAdapter.notifyDataSetChanged();
+            }
+        }
+    };
     private SideBar indexBar;
     private WindowManager mWindowManager;
     private TextView mDialogText;
-    /**
-     * 联系人名称*
-     */
-    private ArrayList<String> mContactsName = new ArrayList<String>();
-
-    /**
-     * 联系人号码*
-     */
-    private ArrayList<String> mContactsNumber = new ArrayList<String>();
-
-    private String[] nickNames_phoneNumbers, nickNames, phoneNumbers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,73 +74,33 @@ public class FriendsFragment extends Fragment {
 
         mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
 
-        getPhoneContacts();//获得手机通讯录联系人
-        //getSIMContacts();//获取SIM卡联系人
-        data = getData();//获得数据
-
-        nickNames = new String[data.size()];
-        phoneNumbers = new String[data.size()];
-        nickNames_phoneNumbers = new String[data.size()];
-        for (int i = 0; i < data.size(); i++) {
-            nickNames_phoneNumbers[i] = data.get(i).get("nickName&phoneNumber").toString();
-        }
-
         findView();
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                if (contacts.isEmpty())
+                    getPhoneContacts();
+                return null;
+            }
+
+        }.execute();
 
         return view;
     }
 
     private void findView() {
         lvContact = (ListView) view.findViewById(R.id.lvContact);
-        lvContact.setAdapter(new ContactAdapter(getActivity()));//设置适配器
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0 || i == 1 || i == 2) {
                     Toast.makeText(getActivity().getApplicationContext(), "i am " + i, Toast.LENGTH_SHORT).show();
-                } else {
-                    /*
-                    AVQuery<AVObject> query = new AVQuery<AVObject>("_User");
-                    query.whereEqualTo("username", "12345678908");
-                    query.findInBackground(new FindCallback<AVObject>() {
-                        public void done(List<AVObject> avObjects, AVException e) {
-                            if (e == null) {
-                                Toast.makeText(getActivity(), "成功查询到 " + avObjects.size() + " 条符合条件的数据", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getActivity(), "失败!查询错误: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                    AVQuery<AVObject> query = new AVQuery<AVObject>("_User");
-                    query.whereEqualTo("username", "12345678908");
-                    try {
-                        List<AVObject> avObjects = query.find();
-                    } catch (AVException e) {
-                        Toast.makeText(getActivity(),"失败",Toast.LENGTH_SHORT).show();
-                    }
-                    Toast.makeText(getActivity(), "成功查询", Toast.LENGTH_SHORT).show();
-                    */
-                    AVOSWrapper.init(getActivity());
-
-                    AVOSWrapper.queryUser("username", "Admin", new FindCallbackWrapper() {
-                        @Override
-                        public void onSucceed(List list) {
-                            super.onSucceed(list);
-//todo
-                            Log.e(TAG, "result : " + (list.size() > 0));
-                        }
-
-                        @Override
-                        public void onFailed(AVException e) {
-                            super.onFailed(e);
-
-                            e.printStackTrace();
-                        }
-                    });
                 }
             }
         });
+
 
         indexBar = (SideBar) view.findViewById(R.id.sideBar);
         indexBar.setListView(lvContact);
@@ -154,26 +116,6 @@ public class FriendsFragment extends Fragment {
         mWindowManager.addView(mDialogText, lp);
         indexBar.setTextView(mDialogText);
     }
-
-    /**
-     * 获取好友数据Item*
-     */
-    private ArrayList<HashMap<String, Object>> getData() {
-        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-
-        HashMap<String, Object> map;
-
-        for (int i = 0; i < mContactsName.size(); i++) {
-            map = new HashMap<String, Object>();
-            map.put("nickName&phoneNumber", mContactsName.get(i) + " " + mContactsNumber.get(i));
-            //map.put("img", R.drawable.doge);
-            list.add(map);
-        }
-        return list;
-    }
-    /**
-     * 昵称
-     */
 
     /**
      * 得到手机SIM卡联系人人信息*
@@ -196,27 +138,26 @@ public class FriendsFragment extends Fragment {
                 // 得到联系人名称
                 String contactName = phoneCursor
                         .getString(PHONES_DISPLAY_NAME_INDEX);
+                contactName.replace(" ", "");
 
                 //Sim卡中没有联系人头像
+                Contact contact = new Contact();
+                contact.name = contactName;
+                contact.phoneNumber = phoneNumber;
 
-                mContactsName.add(contactName);
-                mContactsNumber.add(phoneNumber);
+                contacts.add(contact);
             }
 
             phoneCursor.close();
         }
     }
 
-    /**
-     * 得到手机通讯录联系人信息*
-     */
     private void getPhoneContacts() {
         ContentResolver resolver = getActivity().getContentResolver();
 
         // 获取手机联系人
         Cursor phoneCursor = resolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PHONES_PROJECTION, null, null, null);
-
 
         if (phoneCursor != null) {
             while (phoneCursor.moveToNext()) {
@@ -229,35 +170,45 @@ public class FriendsFragment extends Fragment {
 
                 //得到联系人名称
                 String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
+                contactName.replace(" ", "");
+                //TODO 获取头像
 
-                mContactsName.add(contactName);
-                mContactsNumber.add(phoneNumber);
+                Contact contact = new Contact();
+                contact.name = contactName;
+                contact.phoneNumber = phoneNumber;
+
+                contacts.add(contact);
             }
 
+            //排序
+            Collections.sort(contacts, new ContactComparator());
+
             phoneCursor.close();
+
+            Message message = handler.obtainMessage();
+            message.arg1 = UPDATE_SIGNAL;
+            message.sendToTarget();
         }
     }
 
     class ContactAdapter extends BaseAdapter implements SectionIndexer {
         private Context mContext;
-        private String[] mNicks;
+
 
         @SuppressWarnings("unchecked")
         public ContactAdapter(Context mContext) {
             this.mContext = mContext;
-            this.mNicks = nickNames_phoneNumbers;
-            // 排序(实现了中英文混排)
-            Arrays.sort(mNicks, new PinyinComparator());
+
         }
 
         @Override
         public int getCount() {
-            return mNicks.length;
+            return contacts.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return mNicks[position];
+            return contacts.get(position);
         }
 
         @Override
@@ -297,15 +248,21 @@ public class FriendsFragment extends Fragment {
                 viewHolder.ivAvatar.setImageResource(R.drawable.invite_icon);
                 viewHolder.tvNick.setText("New Friends");
             } else {
-                final String nickName_phoneNumber = mNicks[position - 3];
-                String catalog = PingYinUtil.converterToFirstSpell(nickName_phoneNumber)
-                        .substring(0, 1);
+                final String nickName = contacts.get(position - 3).name;
+
+                //Log.e(TAG, "" + position + ": " + nickName);
+                // TODO 处理特殊字符
+                String catalog = PingYinUtil.converterToFirstSpell(nickName);
+                //Log.e(TAG, "" + position + ": " + nickName + "    " + (catalog));
+
+                catalog = catalog.substring(0, 1);
+
                 if (position == 3) {
                     viewHolder.tvCatalog.setVisibility(View.VISIBLE);
                     viewHolder.tvCatalog.setText(catalog);
                 } else {
                     String lastCatalog = PingYinUtil.converterToFirstSpell(
-                            mNicks[position - 4]).substring(0, 1);
+                            contacts.get(position - 4).name).substring(0, 1);
                     if (catalog.equals(lastCatalog)) {
                         viewHolder.tvCatalog.setVisibility(View.GONE);
                     } else {
@@ -314,18 +271,15 @@ public class FriendsFragment extends Fragment {
                     }
                 }
                 viewHolder.ivAvatar.setImageResource(R.drawable.default_avatar);
-                String[] tmp = nickName_phoneNumber.split(" ");
-                nickNames[position - 3] = tmp[0];
-                phoneNumbers[position - 3] = tmp[1];
-                viewHolder.tvNick.setText(nickNames[position - 3]);
+                viewHolder.tvNick.setText(nickName);
             }
             return convertView;
         }
 
         @Override
         public int getPositionForSection(int section) {
-            for (int i = 0; i < mNicks.length; i++) {
-                String l = PingYinUtil.converterToFirstSpell(mNicks[i])
+            for (int i = 0; i < contacts.size(); i++) {
+                String l = PingYinUtil.converterToFirstSpell(contacts.get(i).name)
                         .substring(0, 1);
                 char firstChar = l.toUpperCase().charAt(0);
                 if (firstChar == section) {
@@ -351,4 +305,11 @@ public class FriendsFragment extends Fragment {
             TextView tvNick;// 昵称
         }
     }
+
+    public class Contact {
+        public String name = null;
+        public String phoneNumber = null;
+
+    }
+
 }

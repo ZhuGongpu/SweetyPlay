@@ -7,13 +7,13 @@
     <color name="gray">#CCCCCC</color>
     <color name="orange">#FFA500</color>
 
-
+    <color name="light_gray">#EBEBEB</color>
     <drawable name="transparent">#00000000</drawable>
 
     <color name="common_white">#ffffff</color>
     <color name="common_white_shadow">#414141</color>
     <color name="common_white_disabled">#e7e7e7</color>
-    <!-- For friendlist texts -->
+    <!-- For main texts -->
     <color name="common_dark">#3d5562</color>
     <color name="common_dark_shadow">#dedede</color>
     <color name="common_dark_disabled">#9aa7af</color>
@@ -31,4 +31,7 @@
     <color name="tab_indicator_text_selected">#ffffff</color>
     <color name="tab_indicator_text_unselected">#aac5d7</color>
     <color name="page_viewer_margin_color">#007800</color>
+
+
 </resources>
+

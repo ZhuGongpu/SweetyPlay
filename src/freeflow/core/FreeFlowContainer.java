@@ -1824,8 +1824,8 @@ public class FreeFlowContainer extends AbsLayoutContainer {
             if (view != null) {
                 performItemClick(view, beginTouchAt.itemSection,
                         beginTouchAt.itemIndex, mAdapter.getItemId(
-                                beginTouchAt.itemSection,
-                                beginTouchAt.itemIndex));
+                        beginTouchAt.itemSection,
+                        beginTouchAt.itemIndex));
             }
             // }
         }

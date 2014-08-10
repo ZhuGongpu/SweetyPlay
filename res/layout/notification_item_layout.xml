@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_gray">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/white">
+
+            <FrameLayout
+                    android:id="@+id/activity_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                <ImageView
+                        android:id="@+id/activity_photo_imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/temp_activity"/>
+
+                <TextView
+                        android:id="@+id/activity_title_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="#30000000"
+                        android:layout_gravity="bottom"
+                        android:gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:text="活动名称"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                    android:id="@+id/time_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/activity_framelayout"
+                    android:layout_marginTop="15dp">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/clock"
+                        android:scaleType="center"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="剩余时间:"
+                        android:textColor="@color/orange"
+                        android:textSize="15sp"/>
+
+                <TextView
+                        android:id="@+id/left_time_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="4hours"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        />
+
+            </LinearLayout>
+
+            <ImageView
+                    android:id="@+id/join_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/join_icon"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/time_linearlayout"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/join_button"
+                    android:background="@color/white">
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/light_gray">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/notify_user_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/default_photo"
+            android:scaleType="fitXY"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="150dp"
+            android:layout_marginBottom="5dp"
+            android:text="invited  you  to"
+            android:textSize="21sp"
+            android:textColor="#A0000000"/>
+
+
+</FrameLayout>

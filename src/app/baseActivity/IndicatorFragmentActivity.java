@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 import app.view.login.R;
+import app.view.main.notify.NotificationActivity;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -49,6 +50,9 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
     protected TitleIndicator mIndicator;
 
     protected ImageView plus_imageView;
+
+    //notification
+    protected ImageView notification_imageView;
 
     public TitleIndicator getIndicator() {
         return mIndicator;
@@ -146,18 +150,30 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
         mLastTab = mCurrentTab;
 
         //测试button
-        plus_imageView =(ImageView)findViewById(R.id.plus_imageView);
+        plus_imageView = (ImageView) findViewById(R.id.plus_imageView);
         plus_imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplication(), "简直是呵呵", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+        notification_imageView = (ImageView) findViewById(R.id.notify_imageView);
+        notification_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IndicatorFragmentActivity.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
     /**
      * 添加一个选项卡
+     *
      * @param tab
      */
     public void addTabInfo(TabInfo tab) {
@@ -167,6 +183,7 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
 
     /**
      * 从列表添加选项卡
+     *
      * @param tabs
      */
     public void addTabInfos(ArrayList<TabInfo> tabs) {
@@ -202,8 +219,10 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
         }
         return null;
     }
+
     /**
      * 跳转到任意选项卡
+     *
      * @param tabId 选项卡下标
      */
     public void navigate(int tabId) {
@@ -216,11 +235,12 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
 
     @Override
     public void onBackPressed() {
-            finish();
+        finish();
     }
 
     /**
      * 返回layout id
+     *
      * @return layout id
      */
     protected int getMainViewResId() {
@@ -306,7 +326,7 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
             return icon;
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @SuppressWarnings({"rawtypes", "unchecked"})
         public Fragment createFragment() {
             if (fragment == null) {
                 Constructor constructor;

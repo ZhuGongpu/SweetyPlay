@@ -29,7 +29,7 @@ public class CircleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //加载布局文件
-        View view = inflater.inflate(R.layout.main_activity_layout,container,false);
+        View view = inflater.inflate(R.layout.main_activity_layout, container, false);
 
         return view;
     }

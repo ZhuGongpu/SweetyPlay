@@ -26,7 +26,7 @@ import app.baseActivity.IndicatorFragmentActivity.TabInfo;
 import java.util.List;
 
 /**
- *这是个选项卡式的控件，会随着viewpager的滑动而滑动
+ * 这是个选项卡式的控件，会随着viewpager的滑动而滑动
  */
 @SuppressWarnings("static-access")
 public class TitleIndicator extends LinearLayout implements View.OnClickListener,
@@ -74,7 +74,8 @@ public class TitleIndicator extends LinearLayout implements View.OnClickListener
 
     private Context mContext;
 
-    private final int BSSEEID = 0xffff00;;
+    private final int BSSEEID = 0xffff00;
+    ;
 
     private boolean mChangeOnClick = true;
 

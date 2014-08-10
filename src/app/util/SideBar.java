@@ -11,11 +11,11 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 public class SideBar extends View {
-    private final int m_nItemHeight = 27;
     private char[] l;
     private SectionIndexer sectionIndexter = null;
     private ListView list;
     private TextView mDialogText;
+    private final int m_nItemHeight = 27;
 
     public SideBar(Context context) {
         super(context);
@@ -27,14 +27,14 @@ public class SideBar extends View {
         init();
     }
 
-    public SideBar(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
-    }
-
     private void init() {
         l = new char[]{'#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
                 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    }
+
+    public SideBar(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
     }
 
     public void setListView(ListView _list) {

@@ -39,7 +39,7 @@ public class SignUpActivity extends Activity {
     private Button play_Button = null;
     private ImageView male_ImageView, female_ImageView;
 
-    private String nickName, countryOrArea, email, phone_number, password,birthday;
+    private String nickName, countryOrArea, email, phone_number, password, birthday;
     private int yearOfBirth, monthOfBirth, dayOfBirth;
     private OnDateSetListener mDateListener = new OnDateSetListener() {
 

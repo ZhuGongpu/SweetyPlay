@@ -16,23 +16,20 @@ public class ActivityActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_layout);
-        ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String, Object>>();
+        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
         //测试代码
-        for(int i=0; i<10; i++)
-        {
-            HashMap<String,Object> item=new HashMap<String, Object>();
-            item.put("head",R.drawable.default_photo);
+        for (int i = 0; i < 10; i++) {
+            HashMap<String, Object> item = new HashMap<String, Object>();
+            item.put("head", R.drawable.default_photo);
             list.add(item);
         }
         showOnLayout(list);
 
     }
 
-    private void showOnLayout(ArrayList list)
-    {
+    private void showOnLayout(ArrayList list) {
         //判断list长度
-        for(int i=0;i<10;i++)
-        {
+        for (int i = 0; i < 10; i++) {
             //从hashmap中取出值
 
         }
