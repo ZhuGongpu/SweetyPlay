@@ -81,7 +81,7 @@ public class PlayListFetch {
                     //TODO 设置play信息
 
                     Play play = new Play();
-                    play.setActivityPhotoURL(AVOSWrapper.getThubnailUrl(activityPhoto, 200, 200));
+                    play.setActivityPhotoURL(AVOSWrapper.getThumbnailUrl(activityPhoto, 200, 200));
                     play.setTittle(object.getString("Title"));
                     play.setDescription(object.getString("Description"));
 

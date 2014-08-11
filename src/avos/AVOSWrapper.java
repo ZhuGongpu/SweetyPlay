@@ -156,10 +156,35 @@ public class AVOSWrapper {
      * @param sizeLimit       返回结果数量限制
      * @param callback        用于接收结果
      */
-    public void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+    public static void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
         AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
         query.whereNear("Place", currentGeoPoint);
         query.setLimit(sizeLimit);
         query.findInBackground(callback);
     }
+
+    /**
+     * 向服务器的Play列表请求数据
+     *
+     * @param skip      忽略的数量
+     * @param sizeLimit 结果数量限制
+     * @param callback  接收结果
+     */
+    public static void queryPlays(int skip, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+        AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
+        query.setLimit(sizeLimit);
+        query.setSkip(skip);
+        query.findInBackground(callback);
+    }
+
+    /**
+     * 向服务器的Play列表请求数据
+     *
+     * @param sizeLimit 结果数量限制
+     * @param callback  接收结果
+     */
+    public static void queryPlays(int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+        queryPlays(0, sizeLimit, callback);
+    }
+
 }
