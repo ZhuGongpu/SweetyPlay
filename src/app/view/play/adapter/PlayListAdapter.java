@@ -16,20 +16,20 @@
 package app.view.play.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import app.models.Play;
-import app.models.PlayList;
 import app.view.login.R;
+import avos.models.Play;
 import com.squareup.picasso.Picasso;
 import freeflow.core.FreeFlowItem;
 import freeflow.core.Section;
 import freeflow.core.SectionedAdapter;
+
+import java.util.List;
 
 public class PlayListAdapter implements SectionedAdapter {
 
@@ -58,14 +58,10 @@ public class PlayListAdapter implements SectionedAdapter {
         section.getData().clear();
     }
 
-    public void update(PlayList feed) {
-
-        for (Object o : feed.getPlays()) {
-            section.getData().add(o);
+    public void update(List<Play> playList) {
+        for (Play entity : playList) {
+            section.getData().add(entity);
         }
-
-        Log.d(TAG, "Data updated to: " + section.getDataCount());
-
     }
 
     @Override
@@ -89,11 +85,11 @@ public class PlayListAdapter implements SectionedAdapter {
             image.setBackgroundColor(colors[idx]);
 
         } else {
-            Play play = (Play) (this.section.getData().get(position));
+            Play play = (Play) this.section.getData().get(position);
             Picasso.with(context)
-                    .load(play.getActivityPhotoURL())
+                    .load(play.getThumbnailUrl())//todo
                     .into(image);
-            tittle.setText(play.getTittle());
+            tittle.setText(play.getTitle());
         }
 
         return convertView;

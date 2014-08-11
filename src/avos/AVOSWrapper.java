@@ -2,7 +2,7 @@ package avos;
 
 import android.content.Context;
 import avos.callbackwrappers.*;
-import avos.models.PlayEntity;
+import avos.models.Play;
 import com.avos.avoscloud.*;
 
 import java.io.File;
@@ -156,8 +156,8 @@ public class AVOSWrapper {
      * @param sizeLimit       返回结果数量限制
      * @param callback        用于接收结果
      */
-    public static void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
-        AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
+    public static void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<Play> callback) {
+        AVQuery<Play> query = new AVQuery<Play>("Play");
         query.whereNear("Place", currentGeoPoint);
         query.setLimit(sizeLimit);
         query.findInBackground(callback);
@@ -170,8 +170,8 @@ public class AVOSWrapper {
      * @param sizeLimit 结果数量限制
      * @param callback  接收结果
      */
-    public static void queryPlays(int skip, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
-        AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
+    public static void queryPlays(int skip, int sizeLimit, FindCallbackWrapper<Play> callback) {
+        AVQuery<Play> query = new AVQuery<Play>("Play");
         query.setLimit(sizeLimit);
         query.setSkip(skip);
         query.findInBackground(callback);
@@ -183,7 +183,7 @@ public class AVOSWrapper {
      * @param sizeLimit 结果数量限制
      * @param callback  接收结果
      */
-    public static void queryPlays(int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+    public static void queryPlays(int sizeLimit, FindCallbackWrapper<Play> callback) {
         queryPlays(0, sizeLimit, callback);
     }
 

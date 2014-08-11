@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import app.models.PlayList;
-import app.models.PlayListFetch;
 import app.view.login.R;
 import app.view.play.adapter.PlayListAdapter;
+import avos.AVOSWrapper;
+import avos.callbackwrappers.FindCallbackWrapper;
+import avos.models.Play;
+import com.avos.avoscloud.AVException;
 import freeflow.core.AbsLayoutContainer;
 import freeflow.core.FreeFlowContainer;
 import freeflow.core.FreeFlowItem;
@@ -22,6 +24,8 @@ import freeflow.layouts.FreeFlowLayout;
 import freeflow.layouts.HLayout;
 import freeflow.layouts.VGridLayout;
 import freeflow.layouts.VLayout;
+
+import java.util.List;
 
 /**
  * Created by Lewis on 8/5/14.
@@ -36,7 +40,8 @@ public class PlayFragment extends Fragment {
     private FreeFlowContainer container;
     private VGridLayout grid;
     private PlayListLayout custom;
-    private PlayListFetch fetch;
+
+    private int skip = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,15 +90,14 @@ public class PlayFragment extends Fragment {
         container.setLayout(layouts[currLayoutIndex]);
         container.setAdapter(adapter);
 
-        fetch = new PlayListFetch();
-
-        fetch.load(this);//TODO
+        loadMore();
     }
 
 
-    public void onDataLoaded(final PlayList feed) {
-        Log.d(TAG, "photo: " + feed.getPlays().get(0).getActivityPhotoURL());
-        adapter.update(feed);
+    //todo
+    public void onDataLoaded(List<Play> playList) {
+
+        adapter.update(playList);
         container.dataInvalidated();
         container.setOnItemClickListener(new AbsLayoutContainer.OnItemClickListener() {
             @Override
@@ -127,6 +131,7 @@ public class PlayFragment extends Fragment {
      */
     private void refresh() {
         adapter.clearData();
+        skip = 0;
         loadMore();
     }
 
@@ -134,7 +139,20 @@ public class PlayFragment extends Fragment {
      * 加载更多
      */
     private void loadMore() {
-        fetch.load(PlayFragment.this);//TODO
+        AVOSWrapper.queryPlays(skip, 30, new FindCallbackWrapper<Play>() {
+            @Override
+            public void onSucceed(List<Play> list) {
+                Log.e(TAG, "onSucceed : " + list.size());
+                skip += list.size();
+                onDataLoaded(list);
+            }
+
+            @Override
+            public void onFailed(AVException e) {
+                //TODO notify users with errors
+            }
+        });
+
     }
 
     /**

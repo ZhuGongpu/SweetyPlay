@@ -1,5 +1,6 @@
 package avos.models;
 
+import avos.AVOSWrapper;
 import com.avos.avoscloud.*;
 
 import java.util.Date;
@@ -8,7 +9,9 @@ import java.util.Date;
  * Created by zhugongpu on 14-8-11.
  */
 @AVClassName("Play")
-public class PlayEntity extends AVObject {
+public class Play extends AVObject {
+
+    String activityPhotoThumbnailUrl = null;
 
     public AVFile getActivityPhoto() {
         return getAVFile("ActivityPhoto");
@@ -88,5 +91,12 @@ public class PlayEntity extends AVObject {
 
     public void setParticipationList(AVRelation<AVUser> relation) {
         put("ParticipationList", relation);
+    }
+
+    public String getThumbnailUrl() {
+        if (activityPhotoThumbnailUrl == null) {
+            activityPhotoThumbnailUrl = AVOSWrapper.getThumbnailUrl(getActivityPhoto(), 200, 200);
+        }
+        return activityPhotoThumbnailUrl;
     }
 }

@@ -11,15 +11,11 @@ import com.avos.avoscloud.LogInCallback;
 public abstract class LogInCallbackWrapper extends LogInCallback {
     @Override
     public void done(AVUser avUser, AVException e) {
-
         if (avUser != null)
             onSucceed(avUser);
         else
             onFailed(e);
-
-
     }
-
 
     public abstract void onSucceed(AVUser user);
 
