@@ -2,6 +2,7 @@ package avos;
 
 import android.content.Context;
 import avos.callbackwrappers.*;
+import avos.models.PlayEntity;
 import com.avos.avoscloud.*;
 
 import java.io.File;
@@ -99,7 +100,7 @@ public class AVOSWrapper {
      * @param fileName         文件名
      * @param saveCallback     回调函数
      * @param progressCallback 进度回调函数
-     * @throws IOException
+     * @throws java.io.IOException
      */
     public static void uploadFile(File file, String fileName, SaveCallbackWraprer saveCallback, ProgressCallback progressCallback) throws IOException {
         AVFile.withFile(fileName, file).saveInBackground(saveCallback, progressCallback);
@@ -113,12 +114,52 @@ public class AVOSWrapper {
     /**
      * 获取图片的缩略图
      *
-     * @param file
-     * @param width
-     * @param height
+     * @param file   图片文件
+     * @param width  图片目标宽度
+     * @param height 图片目标高度
+     * @return 图片url
+     */
+    public static String getThumbnailUrl(AVFile file, int width, int height) {
+        return file.getThumbnailUrl(true, width, height);
+    }
+
+
+    /**
+     * 获取用户头像
+     *
+     * @param user        用户
+     * @param imageWidth  图片目标宽度
+     * @param imageHeight 图片目标高度
      * @return
      */
-    public static String getThubnailUrl(AVFile file, int width, int height) {
-        return file.getThumbnailUrl(true, width, height);
+    public static String getUserAvatarUrl(AVUser user, int imageWidth, int imageHeight) {
+        return getThumbnailUrl(user.getAVFile("Photo"), imageWidth, imageHeight);
+    }
+
+
+    /**
+     * 获取用户信息
+     *
+     * @param user          用户
+     * @param attributeName 属性名
+     * @return 需要根据具体属性进行类型转换
+     */
+    public static Object getUserInfo(AVUser user, String attributeName) {
+        return user.get(attributeName);
+
+    }
+
+    /**
+     * 查询附近的Play
+     *
+     * @param currentGeoPoint 当前位置
+     * @param sizeLimit       返回结果数量限制
+     * @param callback        用于接收结果
+     */
+    public void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+        AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
+        query.whereNear("Place", currentGeoPoint);
+        query.setLimit(sizeLimit);
+        query.findInBackground(callback);
     }
 }

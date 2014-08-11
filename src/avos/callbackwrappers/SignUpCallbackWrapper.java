@@ -7,7 +7,7 @@ import com.avos.avoscloud.SignUpCallback;
  * Created by zhugongpu on 14-7-27.
  */
 
-public class SignUpCallbackWrapper extends SignUpCallback {
+public abstract class SignUpCallbackWrapper extends SignUpCallback {
     @Override
     public void done(AVException e) {
 
@@ -18,10 +18,7 @@ public class SignUpCallbackWrapper extends SignUpCallback {
 
     }
 
-    public void onSucceed() {
-    }
+    public abstract void onSucceed();
 
-    public void onFailed(AVException e) {
-
-    }
+    public abstract void onFailed(AVException e);
 }

@@ -7,7 +7,7 @@ import com.avos.avoscloud.RequestPasswordResetCallback;
  * Created by zhugongpu on 14-7-27.
  */
 
-public class RequestPasswordResetCallbackWrapper extends RequestPasswordResetCallback {
+public abstract class RequestPasswordResetCallbackWrapper extends RequestPasswordResetCallback {
     @Override
     public void done(AVException e) {
         if (e == null)
@@ -16,10 +16,7 @@ public class RequestPasswordResetCallbackWrapper extends RequestPasswordResetCal
             onFailed(e);
     }
 
-    public void onSucceed() {
-    }
+    public abstract void onSucceed();
 
-    public void onFailed(AVException e) {
-
-    }
+    public abstract void onFailed(AVException e);
 }
