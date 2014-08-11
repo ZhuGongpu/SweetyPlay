@@ -8,7 +8,7 @@ import com.avos.avoscloud.LogInCallback;
  * Created by zhugongpu on 14-7-27.
  */
 
-public class LogInCallbackWrapper extends LogInCallback {
+public abstract class LogInCallbackWrapper extends LogInCallback {
     @Override
     public void done(AVUser avUser, AVException e) {
 
@@ -21,10 +21,7 @@ public class LogInCallbackWrapper extends LogInCallback {
     }
 
 
-    public void onSucceed(AVUser user) {
-    }
+    public abstract void onSucceed(AVUser user);
 
-    public void onFailed(AVException e) {
-
-    }
+    public abstract void onFailed(AVException e);
 }
