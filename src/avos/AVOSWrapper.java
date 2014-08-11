@@ -2,7 +2,7 @@ package avos;
 
 import android.content.Context;
 import avos.callbackwrappers.*;
-import avos.models.Play;
+import avos.models.PlayEntity;
 import com.avos.avoscloud.*;
 
 import java.io.File;
@@ -23,6 +23,7 @@ public class AVOSWrapper {
      * @param context
      */
     public static void init(Context context) {
+        AVObject.registerSubclass(PlayEntity.class);
         AVOSCloud.initialize(context, "dwhw1lxrrq87fiprvz1bls56yboxnnawe0rnuipzqsoh8vq7", "tquta7xm8xrqaxrj0jp5h38h4sfe6kxyr48v86uy979yz65m");
     }
 
@@ -156,8 +157,8 @@ public class AVOSWrapper {
      * @param sizeLimit       返回结果数量限制
      * @param callback        用于接收结果
      */
-    public static void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<Play> callback) {
-        AVQuery<Play> query = new AVQuery<Play>("Play");
+    public static void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+        AVQuery<PlayEntity> query = new AVQuery<PlayEntity>("Play");
         query.whereNear("Place", currentGeoPoint);
         query.setLimit(sizeLimit);
         query.findInBackground(callback);
@@ -170,8 +171,8 @@ public class AVOSWrapper {
      * @param sizeLimit 结果数量限制
      * @param callback  接收结果
      */
-    public static void queryPlays(int skip, int sizeLimit, FindCallbackWrapper<Play> callback) {
-        AVQuery<Play> query = new AVQuery<Play>("Play");
+    public static void queryPlays(int skip, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
+        AVQuery<PlayEntity> query = new AVQuery<PlayEntity>("Play");
         query.setLimit(sizeLimit);
         query.setSkip(skip);
         query.findInBackground(callback);
@@ -183,7 +184,7 @@ public class AVOSWrapper {
      * @param sizeLimit 结果数量限制
      * @param callback  接收结果
      */
-    public static void queryPlays(int sizeLimit, FindCallbackWrapper<Play> callback) {
+    public static void queryPlays(int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
         queryPlays(0, sizeLimit, callback);
     }
 

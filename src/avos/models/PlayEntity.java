@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by zhugongpu on 14-8-11.
  */
 @AVClassName("Play")
-public class Play extends AVObject {
+public class PlayEntity extends AVObject {
 
     String activityPhotoThumbnailUrl = null;
 

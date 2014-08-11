@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.view.login.R;
-import avos.models.Play;
+import avos.models.PlayEntity;
 import com.squareup.picasso.Picasso;
 import freeflow.core.FreeFlowItem;
 import freeflow.core.Section;
@@ -58,8 +58,8 @@ public class PlayListAdapter implements SectionedAdapter {
         section.getData().clear();
     }
 
-    public void update(List<Play> playList) {
-        for (Play entity : playList) {
+    public void update(List<PlayEntity> playList) {
+        for (PlayEntity entity : playList) {
             section.getData().add(entity);
         }
     }
@@ -78,18 +78,20 @@ public class PlayListAdapter implements SectionedAdapter {
         }
 
         ImageView image = (ImageView) convertView.findViewById(R.id.pic);
-        TextView tittle = (TextView) convertView.findViewById(R.id.tittle);
+        TextView title = (TextView) convertView.findViewById(R.id.title);
 
         if (hideImages) {
             int idx = position % colors.length;
             image.setBackgroundColor(colors[idx]);
 
         } else {
-            Play play = (Play) this.section.getData().get(position);
+
+            PlayEntity play = (PlayEntity) this.section.getData().get(position);
+            title.setText(play.getTitle());
             Picasso.with(context)
-                    .load(play.getThumbnailUrl())//todo
+                    .load(play.getThumbnailUrl())
                     .into(image);
-            tittle.setText(play.getTitle());
+
         }
 
         return convertView;

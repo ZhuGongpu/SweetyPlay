@@ -15,7 +15,7 @@ import app.view.login.R;
 import app.view.play.adapter.PlayListAdapter;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
-import avos.models.Play;
+import avos.models.PlayEntity;
 import com.avos.avoscloud.AVException;
 import freeflow.core.AbsLayoutContainer;
 import freeflow.core.FreeFlowContainer;
@@ -95,7 +95,7 @@ public class PlayFragment extends Fragment {
 
 
     //todo
-    public void onDataLoaded(List<Play> playList) {
+    public void onDataLoaded(List<PlayEntity> playList) {
 
         adapter.update(playList);
         container.dataInvalidated();
@@ -104,7 +104,7 @@ public class PlayFragment extends Fragment {
             public void onItemClick(AbsLayoutContainer parent, FreeFlowItem proxy) {
                 //todo 响应点击事件
 
-                Log.e(TAG, "Click : " + ((TextView) proxy.view.findViewById(R.id.tittle)).getText());
+                Log.e(TAG, "Click : " + ((TextView) proxy.view.findViewById(R.id.title)).getText());
             }
         });
 
@@ -139,9 +139,9 @@ public class PlayFragment extends Fragment {
      * 加载更多
      */
     private void loadMore() {
-        AVOSWrapper.queryPlays(skip, 30, new FindCallbackWrapper<Play>() {
+        AVOSWrapper.queryPlays(skip, 30, new FindCallbackWrapper<PlayEntity>() {
             @Override
-            public void onSucceed(List<Play> list) {
+            public void onSucceed(List<PlayEntity> list) {
                 Log.e(TAG, "onSucceed : " + list.size());
                 skip += list.size();
                 onDataLoaded(list);
