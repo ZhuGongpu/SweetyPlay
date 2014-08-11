@@ -122,7 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                         @Override
                         public void onSucceed(AVUser user) {
-                            super.onSucceed(user);
+
                             // jump to  activity
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
@@ -130,7 +130,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                         @Override
                         public void onFailed(AVException e) {
-                            super.onFailed(e);
+
                             // notify with error
                             promoteErrorMessage(getText(R.string.failed).toString());
                         }

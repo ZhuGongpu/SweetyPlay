@@ -87,7 +87,7 @@ public class PlayFragment extends Fragment {
 
         fetch = new PlayListFetch();
 
-        fetch.load(this);
+        fetch.load(this);//TODO
     }
 
 
@@ -134,7 +134,7 @@ public class PlayFragment extends Fragment {
      * 加载更多
      */
     private void loadMore() {
-        fetch.load(PlayFragment.this);
+        fetch.load(PlayFragment.this);//TODO
     }
 
     /**

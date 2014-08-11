@@ -106,13 +106,13 @@ public class SignUpActivity extends Activity {
                     AVOSWrapper.signUpInBackground(user, new SignUpCallbackWrapper() {
                         @Override
                         public void onSucceed() {
-                            super.onSucceed();
+
                             //succeed
                             AVOSWrapper.logInInBackground(phone_number, password, new LogInCallbackWrapper() {
 
                                 @Override
                                 public void onSucceed(AVUser user) {
-                                    super.onSucceed(user);
+
                                     // jump to friendlist activity
                                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                     finish();
@@ -120,7 +120,7 @@ public class SignUpActivity extends Activity {
 
                                 @Override
                                 public void onFailed(AVException e) {
-                                    super.onFailed(e);
+
                                     // notify with error
                                     promoteErrorMessage(getText(R.string.failed).toString());
                                 }
@@ -129,7 +129,7 @@ public class SignUpActivity extends Activity {
 
                         @Override
                         public void onFailed(AVException e) {
-                            super.onFailed(e);
+
                             //提示注册异常
                             promoteErrorMessage(getText(R.string.failed).toString());
                         }
