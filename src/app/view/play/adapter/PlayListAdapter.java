@@ -16,24 +16,24 @@
 package app.view.play.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import app.models.Play;
-import app.models.PlayList;
 import app.view.login.R;
+import avos.models.PlayEntity;
 import com.squareup.picasso.Picasso;
 import freeflow.core.FreeFlowItem;
 import freeflow.core.Section;
 import freeflow.core.SectionedAdapter;
 
+import java.util.List;
+
 public class PlayListAdapter implements SectionedAdapter {
 
-    public static final String TAG = "DribbleDataAdapter";
+    public static final String TAG = "PlayListAdapter";
 
     private Context context;
     private Section section;
@@ -48,7 +48,6 @@ public class PlayListAdapter implements SectionedAdapter {
         this.context = context;
         section = new Section();
         section.setSectionTitle("Pics");
-
     }
 
     /**
@@ -58,14 +57,10 @@ public class PlayListAdapter implements SectionedAdapter {
         section.getData().clear();
     }
 
-    public void update(PlayList feed) {
-
-        for (Object o : feed.getPlays()) {
-            section.getData().add(o);
+    public void update(List<PlayEntity> playList) {
+        for (PlayEntity entity : playList) {
+            section.getData().add(entity);
         }
-
-        Log.d(TAG, "Data updated to: " + section.getDataCount());
-
     }
 
     @Override
@@ -82,20 +77,19 @@ public class PlayListAdapter implements SectionedAdapter {
         }
 
         ImageView image = (ImageView) convertView.findViewById(R.id.pic);
-        TextView tittle = (TextView) convertView.findViewById(R.id.tittle);
+        TextView title = (TextView) convertView.findViewById(R.id.title);
 
         if (hideImages) {
             int idx = position % colors.length;
             image.setBackgroundColor(colors[idx]);
-
         } else {
-            Play play = (Play) (this.section.getData().get(position));
-            Picasso.with(context)
-                    .load(play.getActivityPhotoURL())
-                    .into(image);
-            tittle.setText(play.getTittle());
-        }
 
+            PlayEntity play = (PlayEntity) this.section.getData().get(position);
+            title.setText(play.getTitle());
+            Picasso.with(context)
+                    .load(play.getThumbnailUrl())
+                    .into(image);
+        }
         return convertView;
     }
 

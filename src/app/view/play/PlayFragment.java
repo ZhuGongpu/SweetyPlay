@@ -2,6 +2,7 @@ package app.view.play;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import app.models.PlayList;
-import app.models.PlayListFetch;
+import app.view.activity.PlayDetailActivity;
 import app.view.login.R;
 import app.view.play.adapter.PlayListAdapter;
+import avos.AVOSWrapper;
+import avos.callbackwrappers.FindCallbackWrapper;
+import avos.models.PlayEntity;
+import com.avos.avoscloud.AVException;
 import freeflow.core.AbsLayoutContainer;
 import freeflow.core.FreeFlowContainer;
 import freeflow.core.FreeFlowItem;
@@ -22,6 +26,8 @@ import freeflow.layouts.FreeFlowLayout;
 import freeflow.layouts.HLayout;
 import freeflow.layouts.VGridLayout;
 import freeflow.layouts.VLayout;
+
+import java.util.List;
 
 /**
  * Created by Lewis on 8/5/14.
@@ -36,7 +42,8 @@ public class PlayFragment extends Fragment {
     private FreeFlowContainer container;
     private VGridLayout grid;
     private PlayListLayout custom;
-    private PlayListFetch fetch;
+
+    private int skip = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,12 +60,11 @@ public class PlayFragment extends Fragment {
      * @param activity
      */
     private void init(Activity activity) {
-        container = (FreeFlowContainer) view.findViewById(R.id.container);
+        container = (FreeFlowContainer) view.findViewById(R.id.play_list_container);
 
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
 
         //Our new layout
         custom = new PlayListLayout();
@@ -85,22 +91,23 @@ public class PlayFragment extends Fragment {
         container.setLayout(layouts[currLayoutIndex]);
         container.setAdapter(adapter);
 
-        fetch = new PlayListFetch();
-
-        fetch.load(this);//TODO
+        loadMore();
     }
 
+    //todo
+    public void onDataLoaded(List<PlayEntity> playList) {
 
-    public void onDataLoaded(final PlayList feed) {
-        Log.d(TAG, "photo: " + feed.getPlays().get(0).getActivityPhotoURL());
-        adapter.update(feed);
+        adapter.update(playList);
         container.dataInvalidated();
         container.setOnItemClickListener(new AbsLayoutContainer.OnItemClickListener() {
             @Override
             public void onItemClick(AbsLayoutContainer parent, FreeFlowItem proxy) {
                 //todo 响应点击事件
+                Log.e(TAG, "Click : " + ((TextView) proxy.view.findViewById(R.id.title)).getText() + "  id : " + ((PlayEntity) proxy.data).getObjectId());
 
-                Log.e(TAG, "Click : " + ((TextView) proxy.view.findViewById(R.id.tittle)).getText());
+                Intent intent = new Intent(getActivity(), PlayDetailActivity.class);
+                intent.putExtra("PlayID", ((PlayEntity) proxy.data).getObjectId());
+                startActivity(intent);
             }
         });
 
@@ -127,6 +134,7 @@ public class PlayFragment extends Fragment {
      */
     private void refresh() {
         adapter.clearData();
+        skip = 0;
         loadMore();
     }
 
@@ -134,7 +142,20 @@ public class PlayFragment extends Fragment {
      * 加载更多
      */
     private void loadMore() {
-        fetch.load(PlayFragment.this);//TODO
+        AVOSWrapper.queryPlays(skip, 30, new FindCallbackWrapper<PlayEntity>() {
+            @Override
+            public void onSucceed(List<PlayEntity> list) {
+                Log.e(TAG, "onSucceed : " + list.size());
+                skip += list.size();
+                onDataLoaded(list);
+            }
+
+            @Override
+            public void onFailed(AVException e) {
+                //TODO notify users with errors
+            }
+        });
+
     }
 
     /**

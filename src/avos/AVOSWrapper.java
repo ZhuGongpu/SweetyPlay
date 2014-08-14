@@ -23,6 +23,7 @@ public class AVOSWrapper {
      * @param context
      */
     public static void init(Context context) {
+        AVObject.registerSubclass(PlayEntity.class);
         AVOSCloud.initialize(context, "dwhw1lxrrq87fiprvz1bls56yboxnnawe0rnuipzqsoh8vq7", "tquta7xm8xrqaxrj0jp5h38h4sfe6kxyr48v86uy979yz65m");
     }
 
@@ -84,6 +85,15 @@ public class AVOSWrapper {
         query.findInBackground(callback);
     }
 
+    /**
+     * 根据号码查询用户
+     *
+     * @param phoneNumber 用户号码
+     * @param callback
+     */
+    public static void queryUser(String phoneNumber, FindCallbackWrapper<AVUser> callback) {
+        queryUser("phone_number", phoneNumber, callback);
+    }
 
     /**
      * 登出，并清除缓存用户对象
@@ -157,7 +167,7 @@ public class AVOSWrapper {
      * @param callback        用于接收结果
      */
     public static void queryNearbyPlays(AVGeoPoint currentGeoPoint, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
-        AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
+        AVQuery<PlayEntity> query = new AVQuery<PlayEntity>("Play");
         query.whereNear("Place", currentGeoPoint);
         query.setLimit(sizeLimit);
         query.findInBackground(callback);
@@ -171,7 +181,7 @@ public class AVOSWrapper {
      * @param callback  接收结果
      */
     public static void queryPlays(int skip, int sizeLimit, FindCallbackWrapper<PlayEntity> callback) {
-        AVQuery<PlayEntity> query = AVObject.getQuery(PlayEntity.class);
+        AVQuery<PlayEntity> query = new AVQuery<PlayEntity>("Play");
         query.setLimit(sizeLimit);
         query.setSkip(skip);
         query.findInBackground(callback);
@@ -187,4 +197,46 @@ public class AVOSWrapper {
         queryPlays(0, sizeLimit, callback);
     }
 
+
+    /**
+     * 根据 id 查找play
+     *
+     * @param playID
+     * @param callback
+     */
+    public static void queryPlay(String playID, FindCallbackWrapper<PlayEntity> callback) {
+        AVQuery<PlayEntity> query = new AVQuery<PlayEntity>("Play");
+        query.whereEqualTo("objectId", playID);
+        query.findInBackground(callback);
+    }
+
+    /**
+     * 获取用户好友列表
+     *
+     * @param user
+     * @return Relation
+     */
+    public static AVRelation<AVUser> getUserRelation(AVUser user) {
+        return user.getRelation("FriendList");
+    }
+
+    /**
+     * 获取好友列表
+     *
+     * @param user
+     * @param callback 处理返回的好友列表
+     */
+    public static void getFriendList(AVUser user, FindCallbackWrapper<AVUser> callback) {
+        getUserRelation(user).getQuery().findInBackground(callback);
+    }
+
+    /**
+     * query for general purpose
+     *
+     * @param query
+     * @param callback
+     */
+    public static void query(AVQuery query, FindCallbackWrapper callback) {
+        query.findInBackground(callback);
+    }
 }

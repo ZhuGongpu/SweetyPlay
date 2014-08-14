@@ -1,4 +1,4 @@
-package app.view.Activity;
+package app.view.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -15,7 +15,7 @@ import app.view.login.R;
  * Created by lxs on 2014/8/6.
  */
 
-public class NewActivityActivity extends Activity {
+public class NewPlayActivity extends Activity {
 
     private static final int DATE_PICKER_ID = 1;
     private static final int TIME_PICKER_ID = 2;

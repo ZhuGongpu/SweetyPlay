@@ -117,13 +117,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (PasswordFormatValidator.isLegalPassword(password) && PhoneNumberFormatValidator.isLegalPhoneNumber(phone_number)) {//允许登录
 
                     AVOSWrapper.init(LoginActivity.this);//初始化
-
+                    //Log.e(TAG, "Login Clicked");
+                    //TODO 提示progress bar
                     AVOSWrapper.logInInBackground(phone_number, password, new LogInCallbackWrapper() {
 
                         @Override
                         public void onSucceed(AVUser user) {
-
                             // jump to  activity
+                            //Log.e(TAG, "LogIn");
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         }

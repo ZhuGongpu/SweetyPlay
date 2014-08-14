@@ -28,12 +28,13 @@
             android:scaleType="centerCrop"/>
 
     <TextView
-            android:id="@+id/tittle"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/pic"
             android:gravity="center|bottom"
             android:singleLine="true"
+            android:textColor="@color/black"
             android:background="#fff8a542"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
