@@ -1045,6 +1045,25 @@ public class FreeFlowContainer extends AbsLayoutContainer {
 
     }
 
+    protected void moveViewportBy(float movementX, float movementY,
+                                  boolean fling) {
+
+        if (mLayout.horizontalScrollEnabled()) {
+            viewPortX = (int) (viewPortX - movementX);
+        }
+
+        if (mLayout.verticalScrollEnabled()) {
+            viewPortY = (int) (viewPortY - movementY);
+        }
+        moveViewport(fling);
+    }
+
+    protected void moveViewPort(int left, int top, boolean isInFlingMode) {
+        viewPortX = left;
+        viewPortY = top;
+        moveViewport(isInFlingMode);
+    }
+
     private Runnable flingRunnable = new Runnable() {
 
         @Override
@@ -1075,25 +1094,6 @@ public class FreeFlowContainer extends AbsLayoutContainer {
             }
         }
     };
-
-    protected void moveViewportBy(float movementX, float movementY,
-                                  boolean fling) {
-
-        if (mLayout.horizontalScrollEnabled()) {
-            viewPortX = (int) (viewPortX - movementX);
-        }
-
-        if (mLayout.verticalScrollEnabled()) {
-            viewPortY = (int) (viewPortY - movementY);
-        }
-        moveViewport(fling);
-    }
-
-    protected void moveViewPort(int left, int top, boolean isInFlingMode) {
-        viewPortX = left;
-        viewPortY = top;
-        moveViewport(isInFlingMode);
-    }
 
     /**
      * Will move viewport to viewPortX and viewPortY values
@@ -1824,8 +1824,8 @@ public class FreeFlowContainer extends AbsLayoutContainer {
             if (view != null) {
                 performItemClick(view, beginTouchAt.itemSection,
                         beginTouchAt.itemIndex, mAdapter.getItemId(
-                        beginTouchAt.itemSection,
-                        beginTouchAt.itemIndex));
+                                beginTouchAt.itemSection,
+                                beginTouchAt.itemIndex));
             }
             // }
         }

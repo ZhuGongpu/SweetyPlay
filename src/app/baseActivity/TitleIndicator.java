@@ -19,9 +19,8 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import app.view.login.R;
 import app.baseActivity.IndicatorFragmentActivity.TabInfo;
+import app.view.login.R;
 
 import java.util.List;
 
@@ -32,51 +31,33 @@ import java.util.List;
 public class TitleIndicator extends LinearLayout implements View.OnClickListener,
         OnFocusChangeListener {
     @SuppressWarnings("unused")
-    private boolean DEBUG = false;
-
-    @SuppressWarnings("unused")
     private static final String TAG = "TitleFlowIndicator";
-
     private static final float FOOTER_LINE_HEIGHT = 4.0f;
-
     private static final int FOOTER_COLOR = 0xFFFFC445;
-
     private static final float FOOTER_TRIANGLE_HEIGHT = 10;
-
+    private final int BSSEEID = 0xffff00;
+    @SuppressWarnings("unused")
+    private boolean DEBUG = false;
     private int mCurrentScroll = 0;
-
     //选项卡列表
     private List<TabInfo> mTabs;
-
     //选项卡所依赖的viewpager
     private ViewPager mViewPager;
-
     //选项卡普通状态下的字体颜色
     private ColorStateList mTextColor;
-
     //普通状态和选中状态下的字体大小
     private float mTextSizeNormal;
     private float mTextSizeSelected;
-
     private Path mPath = new Path();
-
     private Paint mPaintFooterLine;
-
     private Paint mPaintFooterTriangle;
-
     private float mFooterTriangleHeight;
-
     //滚动条的高度
     private float mFooterLineHeight;
-
     //当前选项卡的下标，从0开始
     private int mSelectedTab = 0;
-
     private Context mContext;
-
-    private final int BSSEEID = 0xffff00;
     ;
-
     private boolean mChangeOnClick = true;
 
     private int mCurrID = 0;
@@ -280,12 +261,12 @@ public class TitleIndicator extends LinearLayout implements View.OnClickListener
         mSelectedTab = index;
     }
 
-    public void setChangeOnClick(boolean changeOnClick) {
-        mChangeOnClick = changeOnClick;
-    }
-
     public boolean getChangeOnClick() {
         return mChangeOnClick;
+    }
+
+    public void setChangeOnClick(boolean changeOnClick) {
+        mChangeOnClick = changeOnClick;
     }
 
     @Override

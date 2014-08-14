@@ -10,8 +10,7 @@
             android:layout_height="wrap_content">
 
 
-
-     </RelativeLayout>
+    </RelativeLayout>
 
     <ListView
             android:id="@+id/notification_listView"

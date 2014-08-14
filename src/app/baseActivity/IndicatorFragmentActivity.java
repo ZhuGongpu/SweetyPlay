@@ -29,11 +29,9 @@ import java.util.List;
 
 @SuppressWarnings("static-access")
 public abstract class IndicatorFragmentActivity extends FragmentActivity implements OnPageChangeListener {
-    private static final String TAG = "DxFragmentActivity";
-
     public static final String EXTRA_TAB = "tab";
     public static final String EXTRA_QUIT = "extra.quit";
-
+    private static final String TAG = "DxFragmentActivity";
     protected int mCurrentTab = 0;
     protected int mLastTab = -1;
 
@@ -56,49 +54,6 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
 
     public TitleIndicator getIndicator() {
         return mIndicator;
-    }
-
-    public class MyAdapter extends FragmentPagerAdapter {
-        ArrayList<TabInfo> tabs = null;
-        Context context = null;
-
-        public MyAdapter(Context context, FragmentManager fm, ArrayList<TabInfo> tabs) {
-            super(fm);
-            this.tabs = tabs;
-            this.context = context;
-        }
-
-        @Override
-        public Fragment getItem(int pos) {
-            Fragment fragment = null;
-            if (tabs != null && pos < tabs.size()) {
-                TabInfo tab = tabs.get(pos);
-                if (tab == null)
-                    return null;
-                fragment = tab.createFragment();
-            }
-            return fragment;
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-
-        @Override
-        public int getCount() {
-            if (tabs != null && tabs.size() > 0)
-                return tabs.size();
-            return 0;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            TabInfo tab = tabs.get(position);
-            Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            tab.fragment = fragment;
-            return fragment;
-        }
     }
 
     @Override
@@ -265,14 +220,23 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
      */
     public static class TabInfo implements Parcelable {
 
-        private int id;
-        private int icon;
-        private String name = null;
+        public static final Parcelable.Creator<TabInfo> CREATOR = new Parcelable.Creator<TabInfo>() {
+            public TabInfo createFromParcel(Parcel p) {
+                return new TabInfo(p);
+            }
+
+            public TabInfo[] newArray(int size) {
+                return new TabInfo[size];
+            }
+        };
         public boolean hasTips = false;
         public Fragment fragment = null;
         public boolean notifyChange = false;
         @SuppressWarnings("rawtypes")
         public Class fragmentClass = null;
+        private int id;
+        private int icon;
+        private String name = null;
 
         @SuppressWarnings("rawtypes")
         public TabInfo(int id, String name, Class clazz) {
@@ -318,12 +282,12 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
             this.name = name;
         }
 
-        public void setIcon(int iconid) {
-            icon = iconid;
-        }
-
         public int getIcon() {
             return icon;
+        }
+
+        public void setIcon(int iconid) {
+            icon = iconid;
         }
 
         @SuppressWarnings({"rawtypes", "unchecked"})
@@ -340,16 +304,6 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
             return fragment;
         }
 
-        public static final Parcelable.Creator<TabInfo> CREATOR = new Parcelable.Creator<TabInfo>() {
-            public TabInfo createFromParcel(Parcel p) {
-                return new TabInfo(p);
-            }
-
-            public TabInfo[] newArray(int size) {
-                return new TabInfo[size];
-            }
-        };
-
         @Override
         public int describeContents() {
             return 0;
@@ -363,6 +317,49 @@ public abstract class IndicatorFragmentActivity extends FragmentActivity impleme
             p.writeInt(notifyChange ? 1 : 0);
         }
 
+    }
+
+    public class MyAdapter extends FragmentPagerAdapter {
+        ArrayList<TabInfo> tabs = null;
+        Context context = null;
+
+        public MyAdapter(Context context, FragmentManager fm, ArrayList<TabInfo> tabs) {
+            super(fm);
+            this.tabs = tabs;
+            this.context = context;
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            Fragment fragment = null;
+            if (tabs != null && pos < tabs.size()) {
+                TabInfo tab = tabs.get(pos);
+                if (tab == null)
+                    return null;
+                fragment = tab.createFragment();
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+        @Override
+        public int getCount() {
+            if (tabs != null && tabs.size() > 0)
+                return tabs.size();
+            return 0;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            TabInfo tab = tabs.get(position);
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            tab.fragment = fragment;
+            return fragment;
+        }
     }
 
 }

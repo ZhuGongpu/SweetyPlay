@@ -7,8 +7,6 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -21,9 +19,13 @@ import app.util.ContactComparator;
 import app.util.PingYinUtil;
 import app.util.SideBar;
 import app.view.login.R;
+import avos.AVOSWrapper;
+import avos.callbackwrappers.FindCallbackWrapper;
+import com.avos.avoscloud.AVException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Lewis on 8/5/14.
@@ -44,25 +46,12 @@ public class FriendsFragment extends Fragment {
      */
     private static final int PHONES_NUMBER_INDEX = 1;
     private static final int UPDATE_SIGNAL = 1;
+
     protected View view;
     ArrayList<Contact> contacts = new ArrayList<Contact>();
     private ListView lvContact;
     private ContactAdapter contactAdapter = null;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
 
-            if (msg.arg1 == UPDATE_SIGNAL) {
-
-                contactAdapter = new ContactAdapter(getActivity());
-
-                lvContact.setAdapter(contactAdapter);
-
-                contactAdapter.notifyDataSetChanged();
-            }
-        }
-    };
     private SideBar indexBar;
     private WindowManager mWindowManager;
     private TextView mDialogText;
@@ -74,17 +63,28 @@ public class FriendsFragment extends Fragment {
 
         mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
 
-        findView();
+        //findView();
 
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                if (contacts.isEmpty())
-                    getPhoneContacts();
+                if (contacts.isEmpty()) {
+                    getPhoneContacts();//获得手机通讯录联系人
+                    getSIMContacts();//获得SIM卡联系人
+
+                    //排序
+                    Collections.sort(contacts, new ContactComparator());
+                }
                 return null;
             }
 
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                findView();
+            }
         }.execute();
 
         return view;
@@ -101,7 +101,6 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-
         indexBar = (SideBar) view.findViewById(R.id.sideBar);
         indexBar.setListView(lvContact);
         mDialogText = (TextView) LayoutInflater.from(getActivity()).inflate(
@@ -115,6 +114,12 @@ public class FriendsFragment extends Fragment {
                 PixelFormat.TRANSLUCENT);
         mWindowManager.addView(mDialogText, lp);
         indexBar.setTextView(mDialogText);
+
+        contactAdapter = new ContactAdapter(getActivity());
+
+        lvContact.setAdapter(contactAdapter);//设置适配器
+
+        contactAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -145,7 +150,8 @@ public class FriendsFragment extends Fragment {
                 contact.name = contactName;
                 contact.phoneNumber = phoneNumber;
 
-                contacts.add(contact);
+                if (contact.hasSignedUp())
+                    contacts.add(contact);
             }
 
             phoneCursor.close();
@@ -177,17 +183,15 @@ public class FriendsFragment extends Fragment {
                 contact.name = contactName;
                 contact.phoneNumber = phoneNumber;
 
-                contacts.add(contact);
+                if (contact.hasSignedUp())
+                    contacts.add(contact);
             }
-
-            //排序
-            Collections.sort(contacts, new ContactComparator());
 
             phoneCursor.close();
 
-            Message message = handler.obtainMessage();
-            message.arg1 = UPDATE_SIGNAL;
-            message.sendToTarget();
+//          Message message = handler.obtainMessage();
+//          message.arg1 = UPDATE_SIGNAL;
+//          message.sendToTarget();
         }
     }
 
@@ -309,7 +313,30 @@ public class FriendsFragment extends Fragment {
     public class Contact {
         public String name = null;
         public String phoneNumber = null;
+        public boolean flag;//是否注册的标志
 
+        /**
+         * 判断是否已注册 *
+         */
+        public boolean hasSignedUp() {
+            AVOSWrapper.queryUser("username", phoneNumber, new FindCallbackWrapper() {
+
+                @Override
+                public void onSucceed(List list) {
+                    if (list.size() > 0) {
+                        flag = true;
+                    } else {
+                        flag = false;
+                    }
+                }
+
+                @Override
+                public void onFailed(AVException e) {
+                    e.printStackTrace();
+                }
+            });
+            return flag;
+        }
     }
 
 }
