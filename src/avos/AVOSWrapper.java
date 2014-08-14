@@ -188,4 +188,24 @@ public class AVOSWrapper {
         queryPlays(0, sizeLimit, callback);
     }
 
+    /**
+     * 获取用户好友列表
+     *
+     * @param user
+     * @return Relation
+     */
+    public static AVRelation<AVUser> getUserRelation(AVUser user) {
+        return user.getRelation("FriendList");
+    }
+
+    /**
+     * 获取好友列表
+     *
+     * @param user
+     * @param callback 处理返回的好友列表
+     */
+    public static void getFriendList(AVUser user, FindCallbackWrapper<AVUser> callback) {
+        getUserRelation(user).getQuery().findInBackground(callback);
+    }
+
 }

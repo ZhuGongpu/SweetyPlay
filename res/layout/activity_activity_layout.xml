@@ -7,7 +7,7 @@
               android:background="#EAEAEA">
 
     <TextView
-            android:id="@+id/play_activityname"
+            android:id="@+id/play_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange"
@@ -54,7 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="8人参加"
-                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
                 android:layout_margin="10dp"
                 />
 
@@ -94,7 +96,7 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/play_detailedtime"
+            android:id="@+id/play_time"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
@@ -102,14 +104,14 @@
             android:layout_marginLeft="20dp">
 
         <ImageView
-                android:id="@+id/play_detailedtime_imageview"
+
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/time"
                 />
 
         <TextView
-                android:id="@+id/play_detailedtime_textview"
+                android:id="@+id/play_time_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:singleLine="true"
@@ -119,7 +121,7 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/play_detailedlocation"
+
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
@@ -127,14 +129,14 @@
             android:layout_marginLeft="20dp">
 
         <ImageView
-                android:id="@+id/play_detailedlocation_imageview"
+
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/map"
                 />
 
         <TextView
-                android:id="@+id/play_detailedlocation_textview"
+                android:id="@+id/play_location_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:singleLine="true"
@@ -151,6 +153,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="暂无活动介绍"
-            android:textSize="20dp"
+            android:textSize="20sp"
             />
 </LinearLayout>
