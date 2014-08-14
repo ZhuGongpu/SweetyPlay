@@ -2,6 +2,7 @@ package app.view.play;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import app.view.activity.PlayDetailActivity;
 import app.view.login.R;
 import app.view.play.adapter.PlayListAdapter;
 import avos.AVOSWrapper;
@@ -101,8 +103,11 @@ public class PlayFragment extends Fragment {
             @Override
             public void onItemClick(AbsLayoutContainer parent, FreeFlowItem proxy) {
                 //todo 响应点击事件
+                Log.e(TAG, "Click : " + ((TextView) proxy.view.findViewById(R.id.title)).getText() + "  id : " + ((PlayEntity) proxy.data).getObjectId());
 
-                Log.e(TAG, "Click : " + ((TextView) proxy.view.findViewById(R.id.title)).getText());
+                Intent intent = new Intent(getActivity(), PlayDetailActivity.class);
+                intent.putExtra("PlayID", ((PlayEntity) proxy.data).getObjectId());
+                startActivity(intent);
             }
         });
 
