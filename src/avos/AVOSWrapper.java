@@ -85,6 +85,15 @@ public class AVOSWrapper {
         query.findInBackground(callback);
     }
 
+    /**
+     * 根据号码查询用户
+     *
+     * @param phoneNumber 用户号码
+     * @param callback
+     */
+    public static void queryUser(String phoneNumber, FindCallbackWrapper<AVUser> callback) {
+        queryUser("phone_number", phoneNumber, callback);
+    }
 
     /**
      * 登出，并清除缓存用户对象
@@ -188,6 +197,19 @@ public class AVOSWrapper {
         queryPlays(0, sizeLimit, callback);
     }
 
+
+    /**
+     * 根据 id 查找play
+     *
+     * @param playID
+     * @param callback
+     */
+    public static void queryPlay(String playID, FindCallbackWrapper<PlayEntity> callback) {
+        AVQuery<PlayEntity> query = new AVQuery<PlayEntity>("Play");
+        query.whereEqualTo("objectId", playID);
+        query.findInBackground(callback);
+    }
+
     /**
      * 获取用户好友列表
      *
@@ -208,4 +230,13 @@ public class AVOSWrapper {
         getUserRelation(user).getQuery().findInBackground(callback);
     }
 
+    /**
+     * query for general purpose
+     *
+     * @param query
+     * @param callback
+     */
+    public static void query(AVQuery query, FindCallbackWrapper callback) {
+        query.findInBackground(callback);
+    }
 }
