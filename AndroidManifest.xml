@@ -31,6 +31,7 @@
 
         </activity>
 
+        <activity android:name="app.view.activity.PlayDetailActivity"/>
         <activity
                 android:name="app.view.main.notify.NotificationActivity"
                 android:label="NotificationActivity"
@@ -41,7 +42,7 @@
                 android:label="SignUpActivity"/>
 
         <activity
-                android:name="app.view.friendspage.FriendspageActivity"
+                android:name="app.view.friendspage.FriendsHomepageActivity"
                 android:label="FriendspageActivity"/>
 
         <activity
@@ -49,6 +50,24 @@
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 
         </activity>
+
+        <!--to receive message from others-->
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="app.receiver.notifyReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.avos.UPDATE_STATUS"/>
+            </intent-filter>
+        </receiver>
+
 
     </application>
 </manifest>

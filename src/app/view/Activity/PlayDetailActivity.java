@@ -2,16 +2,15 @@ package app.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import app.view.login.R;
-import app.view.main.MainActivity;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import avos.models.PlayEntity;
@@ -34,6 +33,8 @@ import java.util.List;
  * Created by lxs on 2014/8/4.
  */
 public class PlayDetailActivity extends Activity {
+
+    private final static String TAG = "PlayDetailActivity";
 
     /**
      * UI Elements
@@ -59,21 +60,28 @@ public class PlayDetailActivity extends Activity {
         String playID = getIntent().getStringExtra("PlayID");
 
         initViews();
-
+        Log.e("PlayDetailActivity", playID);
         AVOSWrapper.queryPlay(playID, new FindCallbackWrapper<PlayEntity>() {
             @Override
             public void onSucceed(List<PlayEntity> list) {
                 if (list.size() > 0) {
                     currentPlay = list.get(0);
                     setViews();
+                    Log.e(TAG, list.size() + "");
+
                 }
+
+                Log.e(TAG, "on succeed");
             }
 
             @Override
             public void onFailed(AVException e) {
+                /*
+                Log.e("PlayDetailActivity",e.getLocalizedMessage());
                 Toast.makeText(PlayDetailActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PlayDetailActivity.this, MainActivity.class));
                 finish();
+                */
             }
         });
     }
@@ -147,6 +155,8 @@ public class PlayDetailActivity extends Activity {
                 @Override
                 public void onFailed(AVException e) {
                     Toast.makeText(PlayDetailActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+
                 }
             });
         }
