@@ -33,7 +33,7 @@ import java.util.List;
 
 public class PlayListAdapter implements SectionedAdapter {
 
-    public static final String TAG = "DribbleDataAdapter";
+    public static final String TAG = "PlayListAdapter";
 
     private Context context;
     private Section section;
@@ -48,7 +48,6 @@ public class PlayListAdapter implements SectionedAdapter {
         this.context = context;
         section = new Section();
         section.setSectionTitle("Pics");
-
     }
 
     /**
@@ -83,7 +82,6 @@ public class PlayListAdapter implements SectionedAdapter {
         if (hideImages) {
             int idx = position % colors.length;
             image.setBackgroundColor(colors[idx]);
-
         } else {
 
             PlayEntity play = (PlayEntity) this.section.getData().get(position);
@@ -91,9 +89,7 @@ public class PlayListAdapter implements SectionedAdapter {
             Picasso.with(context)
                     .load(play.getThumbnailUrl())
                     .into(image);
-
         }
-
         return convertView;
     }
 

@@ -58,12 +58,11 @@ public class PlayFragment extends Fragment {
      * @param activity
      */
     private void init(Activity activity) {
-        container = (FreeFlowContainer) view.findViewById(R.id.container);
+        container = (FreeFlowContainer) view.findViewById(R.id.play_list_container);
 
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
 
         //Our new layout
         custom = new PlayListLayout();
@@ -92,7 +91,6 @@ public class PlayFragment extends Fragment {
 
         loadMore();
     }
-
 
     //todo
     public void onDataLoaded(List<PlayEntity> playList) {

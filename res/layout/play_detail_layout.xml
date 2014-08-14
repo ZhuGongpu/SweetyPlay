@@ -7,11 +7,11 @@
               android:background="#EAEAEA">
 
     <TextView
-            android:id="@+id/play_title"
+            android:id="@+id/play_detail_layout_play_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange"
-            android:text="活动名称"
+            android:text="@string/play_title"
             android:gravity="center_horizontal"
             android:textSize="26sp"
             android:textColor="@color/white"
@@ -25,13 +25,14 @@
             android:layout_height="210dp">
 
         <ImageView
+                android:id="@+id/play_detail_layout_play_photo"
                 android:layout_width="240dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/default_photo"
                 android:scaleType="fitXY"/>
 
         <Button
-                android:id="@+id/play_join_button"
+                android:id="@+id/play_detail_layout_join_button"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
@@ -41,7 +42,6 @@
     </RelativeLayout>
 
     <LinearLayout
-            android:id="@+id/play_joiner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -51,6 +51,7 @@
             >
 
         <TextView
+                android:id="@+id/play_detail_layout_joiner_number_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="8人参加"
@@ -60,39 +61,44 @@
                 android:layout_margin="10dp"
                 />
 
-        <ImageView
-                android:id="@+id/play_photo1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="115dp"
-                android:src="@drawable/default_photo"/>
+        <freeflow.core.FreeFlowContainer
+                android:id="@+id/play_detail_layout_joiner_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
 
-        <ImageView
-                android:id="@+id/play_photo2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/default_photo"/>
+        <!---->
+        <!--<ImageView-->
+        <!--android:id="@+id/play_photo1"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_marginLeft="115dp"-->
+        <!--android:src="@drawable/default_photo"/>-->
 
-        <ImageView
-                android:id="@+id/play_photo3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/default_photo"/>
+        <!--<ImageView-->
+        <!--android:id="@+id/play_photo2"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_marginLeft="2dp"-->
+        <!--android:src="@drawable/default_photo"/>-->
 
-        <ImageView
-                android:id="@+id/play_photo4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/default_photo"/>
+        <!--<ImageView-->
+        <!--android:id="@+id/play_photo3"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_marginLeft="2dp"-->
+        <!--android:src="@drawable/default_photo"/>-->
 
-
+        <!--<ImageView-->
+        <!--android:id="@+id/play_photo4"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_marginLeft="2dp"-->
+        <!--android:src="@drawable/default_photo"/>
+        -->
     </LinearLayout>
 
     <LinearLayout
@@ -111,7 +117,7 @@
                 />
 
         <TextView
-                android:id="@+id/play_time_textview"
+                android:id="@+id/play_detail_layout_play_date_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:singleLine="true"
@@ -121,7 +127,6 @@
     </LinearLayout>
 
     <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
@@ -129,14 +134,13 @@
             android:layout_marginLeft="20dp">
 
         <ImageView
-
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/map"
                 />
 
         <TextView
-                android:id="@+id/play_location_textview"
+                android:id="@+id/play_detail_layout_play_location_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:singleLine="true"
@@ -146,13 +150,13 @@
     </LinearLayout>
 
     <TextView
-            android:id="@+id/play_description"
+            android:id="@+id/play_detail_layout_play_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="暂无活动介绍"
+            android:text="@string/play_description_empty"
             android:textSize="20sp"
             />
 </LinearLayout>
