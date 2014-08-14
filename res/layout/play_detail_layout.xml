@@ -29,15 +29,17 @@
                 android:layout_width="240dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/default_photo"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitCenter"/>
 
         <Button
                 android:id="@+id/play_detail_layout_join_button"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/play_detail_layout_play_photo"
                 android:background="@drawable/shape"
+                android:layout_marginLeft="5dp"
                 android:text="@string/join_button"/>
     </RelativeLayout>
 
@@ -64,41 +66,8 @@
         <freeflow.core.FreeFlowContainer
                 android:id="@+id/play_detail_layout_joiner_list_container"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+                android:layout_height="80dp"/>
 
-        <!---->
-        <!--<ImageView-->
-        <!--android:id="@+id/play_photo1"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_marginLeft="115dp"-->
-        <!--android:src="@drawable/default_photo"/>-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/play_photo2"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_marginLeft="2dp"-->
-        <!--android:src="@drawable/default_photo"/>-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/play_photo3"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_marginLeft="2dp"-->
-        <!--android:src="@drawable/default_photo"/>-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/play_photo4"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_marginLeft="2dp"-->
-        <!--android:src="@drawable/default_photo"/>
-        -->
     </LinearLayout>
 
     <LinearLayout

@@ -32,6 +32,10 @@
         </activity>
 
         <activity
+                android:name="app.view.activity.PlayDetailActivity"
+                android:theme="@style/MainTheme"/>
+
+        <activity
                 android:name="app.view.main.notify.NotificationActivity"
                 android:label="NotificationActivity"
                 android:theme="@android:style/Theme.NoTitleBar"/>
