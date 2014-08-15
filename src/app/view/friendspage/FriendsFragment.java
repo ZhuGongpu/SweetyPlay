@@ -2,6 +2,7 @@ package app.view.friendspage;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.PixelFormat;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.*;
+import app.util.AVUserComparator;
 import app.util.ContactComparator;
 import app.util.PingYinUtil;
 import app.util.SideBar;
@@ -22,6 +24,7 @@ import app.view.login.R;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,11 +49,11 @@ public class FriendsFragment extends Fragment {
      */
     private static final int PHONES_NUMBER_INDEX = 1;
     private static final int UPDATE_SIGNAL = 1;
-
+    public static List<AVUser> avUsersList = null;//AVUser好友列表
     protected View view;
-    ArrayList<Contact> contacts = new ArrayList<Contact>();
-    private ListView lvContact;
-    private ContactAdapter contactAdapter = null;
+    private ArrayList<Contact> contacts = new ArrayList<Contact>();//Contact列表
+    private ListView lvContact;//好友listview
+    private ContactAdapter contactAdapter = null;//适配器
 
     private SideBar indexBar;
     private WindowManager mWindowManager;
@@ -70,10 +73,23 @@ public class FriendsFragment extends Fragment {
             @Override
             protected Void doInBackground(Void... voids) {
                 if (contacts.isEmpty()) {
-                    getPhoneContacts();//获得手机通讯录联系人
-                    getSIMContacts();//获得SIM卡联系人
+                    //getPhoneContacts();//获得手机通讯录联系人
+                    //getSIMContacts();//获得SIM卡联系人
 
-                    //排序
+                    AVOSWrapper.getFriendList(AVUser.getCurrentUser(), new FindCallbackWrapper<AVUser>() {
+                        @Override
+                        public void onSucceed(List<AVUser> list) {
+                            avUsersList = list;
+                        }
+
+                        @Override
+                        public void onFailed(AVException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    /** 排序 **/
+                    Collections.sort(avUsersList, new AVUserComparator());
                     Collections.sort(contacts, new ContactComparator());
                 }
                 return null;
@@ -95,8 +111,19 @@ public class FriendsFragment extends Fragment {
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0 || i == 1 || i == 2) {
-                    Toast.makeText(getActivity().getApplicationContext(), "i am " + i, Toast.LENGTH_SHORT).show();
+                if (i == 0) {//按活动ID邀请好友
+                    //todo 按活动ID邀请好友
+                } else if (i == 1) {//按电话号码邀请好友
+                    //todo 按电话号码邀请好友
+                } else if (i == 2) {//新的好友
+                    //todo 添加新的好友
+                } else {
+                    String username = avUsersList.get(i).getUsername();
+                    String userID = avUsersList.get(i).getObjectId();
+                    Intent intent = new Intent(getActivity(), FriendspageActivity.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("userID", userID);
+                    getActivity().startActivity(intent);
                 }
             }
         });
@@ -141,9 +168,8 @@ public class FriendsFragment extends Fragment {
                 if (TextUtils.isEmpty(phoneNumber))
                     continue;
                 // 得到联系人名称
-                String contactName = phoneCursor
-                        .getString(PHONES_DISPLAY_NAME_INDEX);
-                contactName.replace(" ", "");
+                String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
+                contactName.replace(" ", "");//去除空格
 
                 //Sim卡中没有联系人头像
                 Contact contact = new Contact();
@@ -176,7 +202,7 @@ public class FriendsFragment extends Fragment {
 
                 //得到联系人名称
                 String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
-                contactName.replace(" ", "");
+                contactName.replace(" ", "");//去除空格
                 //TODO 获取头像
 
                 Contact contact = new Contact();
@@ -253,6 +279,7 @@ public class FriendsFragment extends Fragment {
                 viewHolder.tvNick.setText("New Friends");
             } else {
                 final String nickName = contacts.get(position - 3).name;
+                //final String nickName2 = avUsersList.get(position - 3).get("nickName").toString();
 
                 //Log.e(TAG, "" + position + ": " + nickName);
                 // TODO 处理特殊字符
@@ -274,7 +301,8 @@ public class FriendsFragment extends Fragment {
                         viewHolder.tvCatalog.setText(catalog);
                     }
                 }
-                viewHolder.ivAvatar.setImageResource(R.drawable.default_avatar);
+                //todo 设置头像
+                viewHolder.ivAvatar.setImageResource(R.drawable.default_avatar);//默认灰色头像
                 viewHolder.tvNick.setText(nickName);
             }
             return convertView;
