@@ -7,7 +7,9 @@ import android.os.Bundle;
 import app.view.login.LoginActivity;
 import app.view.login.R;
 import app.view.main.MainActivity;
+import app.view.main.notify.NotificationActivity;
 import avos.AVOSWrapper;
+import com.avos.avoscloud.PushService;
 
 /**
  * Created by zhugongpu on 14-7-12.
@@ -20,6 +22,7 @@ public class SplashScreenActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen_activity);
+        PushService.setDefaultPushCallback(getApplicationContext(), NotificationActivity.class);
 
         //跳转到login activity
         new AsyncTask<Void, Void, Void>() {
