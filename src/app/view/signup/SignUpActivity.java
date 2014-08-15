@@ -102,7 +102,7 @@ public class SignUpActivity extends Activity {
 
                     user.put("birthday", birthday);
                     user.put("gender", gender);
-                    user.put("username", phone_number);
+                    user.put("nickName", nickName);
                     user.put("country", countryOrArea);
 
                     //save installation_id
