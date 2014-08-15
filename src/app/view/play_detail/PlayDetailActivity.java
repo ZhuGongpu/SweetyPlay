@@ -1,4 +1,4 @@
-package app.view.activity;
+package app.view.play_detail;
 
 import android.app.Activity;
 import android.content.Context;

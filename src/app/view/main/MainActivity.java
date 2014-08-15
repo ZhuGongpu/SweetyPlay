@@ -5,7 +5,7 @@ import app.baseActivity.IndicatorFragmentActivity;
 import app.view.circle.CircleFragment;
 import app.view.friendspage.FriendsFragment;
 import app.view.more.moreFragment;
-import app.view.play.PlayFragment;
+import app.view.play.PlayListFragment;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class MainActivity extends IndicatorFragmentActivity {
         /**
          * 加载四个标签页
          */
-        tabs.add(new TabInfo(PLAY_FRAGMENT, "playlist", PlayFragment.class));
+        tabs.add(new TabInfo(PLAY_FRAGMENT, "playlist", PlayListFragment.class));
         tabs.add(new TabInfo(CIRCLE_FRAGMENT, "circle", CircleFragment.class));
         tabs.add(new TabInfo(FRIENDS_FRAGMENT, "friends", FriendsFragment.class));
         tabs.add(new TabInfo(MORE_FRAGMENT, "more", moreFragment.class));

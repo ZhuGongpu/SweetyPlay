@@ -1,4 +1,4 @@
-package app.view.activity;
+package app.view.new_paly;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
