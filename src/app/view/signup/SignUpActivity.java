@@ -14,7 +14,9 @@ import avos.AVOSWrapper;
 import avos.callbackwrappers.LogInCallbackWrapper;
 import avos.callbackwrappers.SignUpCallbackWrapper;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SaveCallback;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -39,14 +41,13 @@ public class SignUpActivity extends Activity {
     private Button play_Button = null;
     private ImageView male_ImageView, female_ImageView;
 
-    private String nickName, countryOrArea, email, phone_number, password, birthday;
+    private String nickName, countryOrArea, email, phone_number, password, birthday, installation_id;
     private int yearOfBirth, monthOfBirth, dayOfBirth;
     private OnDateSetListener mDateListener = new OnDateSetListener() {
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             yearOfBirth = year;
             monthOfBirth = monthOfYear;
             dayOfBirth = dayOfMonth;
@@ -89,18 +90,31 @@ public class SignUpActivity extends Activity {
                     countryOrArea = country_EditText.getText().toString();
                     email = email_EditText.getText().toString();
 
+
                     //初始化avos
                     AVOSWrapper.init(SignUpActivity.this);
 
                     //set user info
                     AVUser user = new AVUser();
                     user.setEmail(email);
+                    user.setUsername(phone_number);
                     user.setPassword(password);
 
                     user.put("birthday", birthday);
                     user.put("gender", gender);
-                    user.put("phone_number", phone_number);
+                    user.put("username", phone_number);
                     user.put("country", countryOrArea);
+
+                    //save installation_id
+                    installation_id = AVInstallation.getCurrentInstallation().getInstallationId();
+                    user.put("installation_id", installation_id);
+
+                    AVInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            AVInstallation.getCurrentInstallation().saveInBackground();
+                        }
+                    });
 
                     //sign up
                     AVOSWrapper.signUpInBackground(user, new SignUpCallbackWrapper() {
@@ -113,7 +127,7 @@ public class SignUpActivity extends Activity {
                                 @Override
                                 public void onSucceed(AVUser user) {
 
-                                    // jump to friendlist activity
+                                    // jump to friend list activity
                                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                     finish();
                                 }
@@ -139,7 +153,6 @@ public class SignUpActivity extends Activity {
             }
         });
     }
-
 
     private void initViews() {//初始化控件
 

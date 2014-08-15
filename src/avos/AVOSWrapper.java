@@ -130,7 +130,10 @@ public class AVOSWrapper {
      * @return 图片url
      */
     public static String getThumbnailUrl(AVFile file, int width, int height) {
-        return file.getThumbnailUrl(true, width, height);
+        if (file != null)
+            return file.getThumbnailUrl(true, width, height);
+        else
+            return null;
     }
 
 
@@ -155,7 +158,10 @@ public class AVOSWrapper {
      * @return 需要根据具体属性进行类型转换
      */
     public static Object getUserInfo(AVUser user, String attributeName) {
-        return user.get(attributeName);
+        if (user != null)
+            return user.get(attributeName);
+        else
+            return null;
 
     }
 

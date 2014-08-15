@@ -1,4 +1,4 @@
-package app.view.play;
+package app.view.play_list;
 
 
 import android.app.Activity;
@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import app.view.activity.PlayDetailActivity;
 import app.view.login.R;
-import app.view.play.adapter.PlayListAdapter;
+import app.view.play_detail.PlayDetailActivity;
+import app.view.play_list.adapter.PlayListAdapter;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import avos.models.PlayEntity;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by Lewis on 8/5/14.
  */
-public class PlayFragment extends Fragment {
+public class PlayListFragment extends Fragment {
 
     public static final String TAG = "PlayFragment";
     protected View view;
