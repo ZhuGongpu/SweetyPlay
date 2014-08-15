@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import app.view.activity.PlayDetailActivity;
+import app.activity.PlayDetailActivity;
 import app.view.login.R;
 import app.view.play.adapter.PlayListAdapter;
 import avos.AVOSWrapper;
