@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.*;
 import app.view.login.R;
 
+import java.util.Calendar;
+
 
 /**
  * 新建活动页
@@ -60,7 +62,7 @@ public class NewPlayActivity extends Activity {
         invitebutton = (Button) findViewById(R.id.newplay_invite_button);
         postbutton = (Button) findViewById(R.id.newplay_post_button);
 
-        dateSetButtonListener datesetlistener = new dateSetButtonListener();
+        DateSetButtonListener datesetlistener = new DateSetButtonListener();
         timeSetButtonListener timesetlistener = new timeSetButtonListener();
         enddate.setOnClickListener(datesetlistener);
         endtime.setOnClickListener(timesetlistener);
@@ -69,7 +71,7 @@ public class NewPlayActivity extends Activity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_PICKER_ID:
-                return new DatePickerDialog(this, onDateSetListener, 2014, 4, 1);
+                return new DatePickerDialog(this, onDateSetListener, Calendar.getInstance().getTime().getYear(), Calendar.getInstance().getTime().getYear(), Calendar.getInstance().getTime().getDay());
             case TIME_PICKER_ID:
                 return new TimePickerDialog(this, onTimeSetListener, 00, 00, true);
         }
@@ -80,11 +82,11 @@ public class NewPlayActivity extends Activity {
     class PhotoListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-
+            //TODO 选择图片
         }
     }
 
-    private class dateSetButtonListener implements View.OnClickListener {
+    private class DateSetButtonListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
