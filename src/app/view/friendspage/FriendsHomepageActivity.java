@@ -47,9 +47,8 @@ public class FriendsHomepageActivity extends Activity {
 
         //get the data--user todo 这个嗲饭需要前面的数据
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        username = intent.getStringExtra("nickname");
         userId = intent.getStringExtra("userId");
-
 
         photo = (ImageView) findViewById(R.id.friendspage_photo);
         name = (TextView) findViewById(R.id.friendspage_name);
@@ -138,6 +137,7 @@ public class FriendsHomepageActivity extends Activity {
         map.put("action", "com.avos.UPDATE_STATUS");
         map.put("message", username + " Bubble了你一下!");
         map.put("userId", userId + "");
+        map.put("nickname", username);
         push.setData(map);
 
         //push

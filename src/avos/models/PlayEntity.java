@@ -13,6 +13,16 @@ public class PlayEntity extends AVObject {
 
     String activityPhotoThumbnailUrl = null;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
+
     public AVFile getActivityPhoto() {
         return getAVFile("ActivityPhoto");
     }
@@ -99,4 +109,6 @@ public class PlayEntity extends AVObject {
         }
         return activityPhotoThumbnailUrl;
     }
+
+
 }

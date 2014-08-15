@@ -19,8 +19,11 @@ import org.json.JSONObject;
  */
 public class NotifyReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "notifyuReceiver";
-    private String message, userId;
+    public static final int BUBBLE = 0;
+    public static final int INVITE_ACTIVITY = 1;
+
+    private static final String TAG = "NotifyuReceiver";
+    private String message, userId, nickName;
     private NotificationManager mNotificationManager;
 
     @Override
@@ -28,38 +31,51 @@ public class NotifyReceiver extends BroadcastReceiver {
 
         LogUtil.log.e(TAG, "GET BroadCast");
 
+        String action = intent.getAction();
 
-        String channel = intent.getExtras().getString("com.avos.avoscloud.Channel");
 
-        //根据channel的不同来进行处理得到的数据
-        if (channel != null) {
+        //匹配action
+        if (action.equals("com.avos.UPDATE_STATUS")) {
 
-            //处理bubble
-            if (channel.equals("bubble")) {
-                try {
-                    JSONObject json = new JSONObject(
-                            intent.getExtras().getString("com.avos.avoscloud.Data"));
+            String channel = intent.getExtras().getString("com.avos.avoscloud.Channel");
 
-                    if (json != null) {
-                        message = json.getString("message");
-                        userId = json.getString("userId");
-                        //创建一个notification
-                        popNotification(context);
+            //根据channel的不同来进行处理得到的数据
+            if (channel != null) {
+
+                //处理bubble
+                if (channel.equals("bubble")) {
+                    try {
+                        JSONObject json = new JSONObject(
+                                intent.getExtras().getString("com.avos.avoscloud.Data"));
+
+                        Log.e(TAG, json + "");
+
+                        if (json != null) {
+                            message = json.getString("message");
+                            userId = json.getString("userId");
+
+                            //创建一个notification
+                            popNotification(context);
+
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+
 
                     }
-                } catch (JSONException e) {
-                    Log.e(TAG, e.getMessage());
 
+
+                } else if (channel.equals("invite")) {
+                    //todo 处理得到邀请的信息
+
+
+                } else if (channel.equals("add_friends")) {
+                    //todo 加好友
 
                 }
 
-
-            } else if (channel.equals("invite")) {
-                //todo 处理得到邀请的信息
             }
-
         }
-
 
     }
 
@@ -82,8 +98,10 @@ public class NotifyReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, NotificationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setData(Uri.parse("custom://" + System.currentTimeMillis()));
+        intent.putExtra("contentType", BUBBLE);
         intent.putExtra("userId", userId);
-
+        intent.putExtra("message", message);
+        intent.putExtra("nickName", nickName);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         notification.setLatestEventInfo(context, "Bubble", "Message", pendingIntent);

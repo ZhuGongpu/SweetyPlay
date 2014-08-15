@@ -2,6 +2,7 @@ package app.view.main.notify;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import app.view.login.R;
+import avos.models.BubbleEntity;
+import avos.models.PlayEntity;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.exception.DbException;
+
+import java.util.List;
 
 /**
  * Created by Lewis on 8/9/14.
@@ -19,6 +26,10 @@ public class NotificationActivity extends Activity {
 
     protected ListView notification_listView;
 
+    private List<PlayEntity> playLists;
+    private List<BubbleEntity> bubbleLists;
+
+    private DbUtils mDbUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +37,55 @@ public class NotificationActivity extends Activity {
 
         setContentView(R.layout.notification_layout);
 
+        //init the dataBase
+        mDbUtil = DbUtils.create(this);
+
+        initData();
+
+
         notification_listView = (ListView) findViewById(R.id.notification_listView);
         notification_listView.setAdapter(new NotificationAdapter(this));
 
+
     }
+
+
+    private void initData() {
+        Intent intent = getIntent();
+        int type = intent.getExtras().getInt("contentType");
+
+        if (type == 1) {
+            //get the data from receiver
+            String userId = intent.getExtras().getString("userId");
+            String message = intent.getExtras().getString("message");
+            String nickName = intent.getExtras().getString("nickName");
+
+            //create a bubble and add it to sqlite
+            BubbleEntity bubble = new BubbleEntity(nickName, message, userId);
+
+            try {
+
+                mDbUtil.save(bubble);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        //get the data from database
+        try {
+            bubbleLists = mDbUtil.findAll(BubbleEntity.class);
+
+
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private class NotificationAdapter extends BaseAdapter {
 
