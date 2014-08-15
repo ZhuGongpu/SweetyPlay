@@ -4,15 +4,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +23,9 @@ import app.view.login.R;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
+import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,9 +49,9 @@ public class FriendsFragment extends Fragment {
      */
     private static final int PHONES_NUMBER_INDEX = 1;
     private static final int UPDATE_SIGNAL = 1;
-    public static List<AVUser> avUsersList = null;//AVUser好友列表
+    public static List<AVUser> avUsersList = new ArrayList<AVUser>();//AVUser好友列表
     protected View view;
-    private ArrayList<Contact> contacts = new ArrayList<Contact>();//Contact列表
+
     private ListView lvContact;//好友listview
     private ContactAdapter contactAdapter = null;//适配器
 
@@ -70,63 +66,22 @@ public class FriendsFragment extends Fragment {
 
         mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
 
-        //findView();
+        findView();
 
-        new AsyncTask<Void, Void, Void>() {
-
+        AVOSWrapper.getFriendList(AVUser.getCurrentUser(), new FindCallbackWrapper<AVUser>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                if (contacts.isEmpty()) {
-                    //getPhoneContacts();//获得手机通讯录联系人
-                    //getSIMContacts();//获得SIM卡联系人
-
-                    /** 测试服务器好友数据 **/
-
-
-                    AVQuery query = AVOSWrapper.getUserRelation(AVOSWrapper.getCurrentUser()).getQuery();
-                    query.whereEqualTo("objectId", "53edaf57e4b034a08f5bbab4");
-                    AVOSWrapper.query(query, new FindCallbackWrapper() {
-                        @Override
-                        public void onSucceed(List list) {
-                            if (list.size() > 0) {
-                                AVRelation relation = AVOSWrapper.getUserRelation(AVOSWrapper.getCurrentUser());
-                                relation.addAll(list);
-                            }
-                        }
-
-                        @Override
-                        public void onFailed(AVException e) {
-                            e.printStackTrace();
-                        }
-                    });
-
-                    AVOSWrapper.getFriendList(AVUser.getCurrentUser(), new FindCallbackWrapper<AVUser>() {
-                        @Override
-                        public void onSucceed(List<AVUser> list) {
-                            avUsersList = list;
-                            Collections.sort(avUsersList, new AVUserComparator());
-                        }
-
-                        @Override
-                        public void onFailed(AVException e) {
-                            e.printStackTrace();
-                        }
-                    });
-
-                    /** 排序 **/
-
-                    //Collections.sort(contacts, new ContactComparator());
-                }
-                return null;
+            public void onSucceed(List<AVUser> list) {
+                avUsersList = list;
+                /** 排序 **/
+                Collections.sort(avUsersList, new AVUserComparator());
+                contactAdapter.notifyDataSetChanged();
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-
-                findView();
+            public void onFailed(AVException e) {
+                Log.e(TAG, e.getLocalizedMessage());
             }
-        }.execute();
+        });
 
         return view;
     }
@@ -143,8 +98,8 @@ public class FriendsFragment extends Fragment {
                 } else if (i == 2) {//新的好友
                     //todo 添加新的好友
                 } else {
-                    String nickName = avUsersList.get(i).get("nickName").toString();
-                    String userID = avUsersList.get(i).getObjectId();
+                    String nickName = avUsersList.get(i - 3).get("nickName").toString();
+                    String userID = avUsersList.get(i - 3).getObjectId();
                     Intent intent = new Intent(getActivity(), FriendsHomepageActivity.class);
                     intent.putExtra("nickName", nickName);
                     intent.putExtra("userID", userID);
@@ -201,8 +156,8 @@ public class FriendsFragment extends Fragment {
                 contact.name = contactName;
                 contact.phoneNumber = phoneNumber;
 
-                if (contact.hasSignedUp())
-                    contacts.add(contact);
+//                if (contact.hasSignedUp())
+//                    contacts.add(contact);
             }
 
             phoneCursor.close();
@@ -234,15 +189,13 @@ public class FriendsFragment extends Fragment {
                 contact.name = contactName;
                 contact.phoneNumber = phoneNumber;
 
-                if (contact.hasSignedUp())
-                    contacts.add(contact);
+//                if (contact.hasSignedUp())
+//                    contacts.add(contact);
             }
 
             phoneCursor.close();
 
-//          Message message = handler.obtainMessage();
-//          message.arg1 = UPDATE_SIGNAL;
-//          message.sendToTarget();
+
         }
     }
 
@@ -258,12 +211,17 @@ public class FriendsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return contacts.size();
+            //return contacts.size();
+            return avUsersList.size() + 3;
         }
 
         @Override
         public Object getItem(int position) {
-            return contacts.get(position);
+//            return contacts.get(position);
+            if (position > 2)
+                return avUsersList.get(position - 3);
+            else
+                return null;
         }
 
         @Override
@@ -306,10 +264,8 @@ public class FriendsFragment extends Fragment {
                 //final String nickName = contacts.get(position - 3).name;
                 final String nickName = avUsersList.get(position - 3).get("nickName").toString();
 
-                //Log.e(TAG, "" + position + ": " + nickName);
                 // TODO 处理特殊字符
                 String catalog = PingYinUtil.converterToFirstSpell(nickName);
-                //Log.e(TAG, "" + position + ": " + nickName + "    " + (catalog));
 
                 catalog = catalog.substring(0, 1);
 
@@ -318,7 +274,7 @@ public class FriendsFragment extends Fragment {
                     viewHolder.tvCatalog.setText(catalog);
                 } else {
                     String lastCatalog = PingYinUtil.converterToFirstSpell(
-                            contacts.get(position - 4).name).substring(0, 1);
+                            avUsersList.get(position - 4).get("nickName").toString()).substring(0, 1);
                     if (catalog.equals(lastCatalog)) {
                         viewHolder.tvCatalog.setVisibility(View.GONE);
                     } else {
@@ -327,24 +283,18 @@ public class FriendsFragment extends Fragment {
                     }
                 }
                 //设置头像
-                try {
-                    URL url = new URL(AVOSWrapper.getUserAvatarUrl(AVUser.getCurrentUser(), viewHolder.ivAvatar.getWidth(), viewHolder.ivAvatar.getHeight()));
-                    Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
-                    viewHolder.ivAvatar.setImageBitmap(bitmap);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Picasso.with(getActivity()).load(AVOSWrapper.getUserAvatarUrl(avUsersList.get(position - 3), 200, 200)).into(viewHolder.ivAvatar);
 
                 //viewHolder.ivAvatar.setImageResource(R.drawable.default_avatar);//默认灰色头像
-                viewHolder.tvNick.setText(nickName);
+                viewHolder.tvNick.setText(nickName);//设置nickName
             }
             return convertView;
         }
 
         @Override
         public int getPositionForSection(int section) {
-            for (int i = 0; i < contacts.size(); i++) {
-                String l = PingYinUtil.converterToFirstSpell(contacts.get(i).name)
+            for (int i = 0; i < avUsersList.size(); i++) {
+                String l = PingYinUtil.converterToFirstSpell(avUsersList.get(i).getString("nickName"))
                         .substring(0, 1);
                 char firstChar = l.toUpperCase().charAt(0);
                 if (firstChar == section) {

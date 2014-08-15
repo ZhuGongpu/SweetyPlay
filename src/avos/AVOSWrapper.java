@@ -1,6 +1,7 @@
 package avos;
 
 import android.content.Context;
+import app.view.main.notify.NotificationActivity;
 import avos.callbackwrappers.*;
 import avos.models.PlayEntity;
 import com.avos.avoscloud.*;
@@ -25,6 +26,8 @@ public class AVOSWrapper {
     public static void init(Context context) {
         AVObject.registerSubclass(PlayEntity.class);
         AVOSCloud.initialize(context, "dwhw1lxrrq87fiprvz1bls56yboxnnawe0rnuipzqsoh8vq7", "tquta7xm8xrqaxrj0jp5h38h4sfe6kxyr48v86uy979yz65m");
+        PushService.setDefaultPushCallback(context, NotificationActivity.class);
+
     }
 
     /**

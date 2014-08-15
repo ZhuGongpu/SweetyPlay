@@ -1,4 +1,4 @@
-package app.receiver;
+package app.baseActivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -17,7 +17,7 @@ import org.json.JSONObject;
 /**
  * Created by Lewis on 8/14/14.
  */
-public class notifyReceiver extends BroadcastReceiver {
+public class NotifyReceiver extends BroadcastReceiver {
 
     private static final String TAG = "notifyuReceiver";
     private String message, userId;

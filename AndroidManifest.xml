@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 读取联系人权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.access_network_state"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-sdk android:minSdkVersion="14"/>
     <application
@@ -67,7 +67,7 @@
         </receiver>
 
 
-        <receiver android:name="app.receiver.notifyReceiver">
+        <receiver android:name="app.baseActivity.NotifyReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.USER_PRESENT"/>
