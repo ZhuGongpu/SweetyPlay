@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package app.view.play;
+package app.view.play_list;
 
 import android.graphics.Rect;
 import android.util.Log;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package app.view.play.adapter;
+package app.view.play_list.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

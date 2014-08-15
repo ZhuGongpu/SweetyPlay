@@ -5,7 +5,7 @@ import app.baseActivity.IndicatorFragmentActivity;
 import app.view.circle.CircleFragment;
 import app.view.friendspage.FriendsFragment;
 import app.view.more.moreFragment;
-import app.view.play.PlayListFragment;
+import app.view.play_list.PlayListFragment;
 
 import java.util.List;
 

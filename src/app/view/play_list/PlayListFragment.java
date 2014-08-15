@@ -1,4 +1,4 @@
-package app.view.play;
+package app.view.play_list;
 
 
 import android.app.Activity;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import app.view.login.R;
-import app.view.play.adapter.PlayListAdapter;
 import app.view.play_detail.PlayDetailActivity;
+import app.view.play_list.adapter.PlayListAdapter;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import avos.models.PlayEntity;
