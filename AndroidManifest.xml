@@ -67,7 +67,7 @@
         </receiver>
 
 
-        <receiver android:name="app.baseActivity.NotifyReceiver">
+        <receiver android:name="app.receiver.NotifyReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.USER_PRESENT"/>

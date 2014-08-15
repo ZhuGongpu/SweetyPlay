@@ -1,4 +1,4 @@
-package app.baseActivity;
+package app.receiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
