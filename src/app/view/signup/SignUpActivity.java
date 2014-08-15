@@ -48,7 +48,6 @@ public class SignUpActivity extends Activity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             yearOfBirth = year;
             monthOfBirth = monthOfYear;
             dayOfBirth = dayOfMonth;
@@ -103,7 +102,7 @@ public class SignUpActivity extends Activity {
 
                     user.put("birthday", birthday);
                     user.put("gender", gender);
-                    user.put("phone_number", phone_number);
+                    user.put("username", phone_number);
                     user.put("country", countryOrArea);
 
                     //save installation_id
@@ -117,7 +116,6 @@ public class SignUpActivity extends Activity {
                         }
                     });
 
-
                     //sign up
                     AVOSWrapper.signUpInBackground(user, new SignUpCallbackWrapper() {
                         @Override
@@ -129,7 +127,7 @@ public class SignUpActivity extends Activity {
                                 @Override
                                 public void onSucceed(AVUser user) {
 
-                                    // jump to friendlist activity
+                                    // jump to friend list activity
                                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                     finish();
                                 }
@@ -155,7 +153,6 @@ public class SignUpActivity extends Activity {
             }
         });
     }
-
 
     private void initViews() {//初始化控件
 
