@@ -145,8 +145,8 @@ public class MainActivity extends FragmentActivity {
 
 
         // 添加显示第一个fragment
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, chatHistoryFragment)
-                .add(R.id.fragment_container, contactListFragment).hide(contactListFragment).show(chatHistoryFragment)
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, playListFragment)
+                .add(R.id.fragment_container, circleFragment).hide(circleFragment).show(playListFragment)
                 .commit();
 
         // 注册一个接收消息的BroadcastReceiver
@@ -546,7 +546,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onContactRefused(String username) {
-            // 参考同意，被邀请实现此功能,demo未实现
+            //TODO 参考同意，被邀请实现此功能,demo未实现
 
         }
 
@@ -559,7 +559,8 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onConnected() {
-            chatHistoryFragment.errorItem.setVisibility(View.GONE);
+            if (chatHistoryFragment.isAdded())
+                chatHistoryFragment.errorItem.setVisibility(View.GONE);
         }
 
         @Override
@@ -568,18 +569,21 @@ public class MainActivity extends FragmentActivity {
                 // 显示帐号在其他设备登陆dialog
                 showConflictDialog();
             } else {
-                chatHistoryFragment.errorItem.setVisibility(View.VISIBLE);
-                if (NetUtils.hasNetwork(MainActivity.this))
-                    chatHistoryFragment.errorText.setText("连接不到聊天服务器");
-                else
-                    chatHistoryFragment.errorText.setText("当前网络不可用，请检查网络设置");
+                if (chatHistoryFragment.isAdded()) {
+                    chatHistoryFragment.errorItem.setVisibility(View.VISIBLE);
 
+                    if (NetUtils.hasNetwork(MainActivity.this))
+                        chatHistoryFragment.errorText.setText("连接不到聊天服务器");
+                    else
+                        chatHistoryFragment.errorText.setText("当前网络不可用，请检查网络设置");
+                }
             }
         }
 
         @Override
         public void onReConnected() {
-            chatHistoryFragment.errorItem.setVisibility(View.GONE);
+            if (chatHistoryFragment.isAdded())
+                chatHistoryFragment.errorItem.setVisibility(View.GONE);
         }
 
         @Override
@@ -625,7 +629,7 @@ public class MainActivity extends FragmentActivity {
                 public void run() {
                     updateUnreadLabel();
                     // 刷新ui
-                    if (currentTabIndex == 0)
+                    if (currentTabIndex == 2)
                         chatHistoryFragment.refresh();
                     if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
                         GroupsActivity.instance.onResume();
