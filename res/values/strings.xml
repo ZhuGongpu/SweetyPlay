@@ -28,6 +28,8 @@
     <string name="default_location">DETAILEDLOCATION</string>
     <string name="post_button">POST</string>
     <string name="play_title">Play Title</string>
+    <string name="search_button">搜索</string>
+    <string name="add_friend_textview">添加好友</string>
 
     <!--hint-->
     <string name="firstname">First Name</string>
@@ -35,6 +37,7 @@
     <string name="country_area_hint">Please input your country or Area</string>
     <string name="email_hint">Please input your E-mail</string>
     <string name="play_description_empty">暂无活动介绍</string>
+    <string name="add_friend">手机号/昵称</string>
 
     <!--tab-->
     <string name="fragment_one">页面一</string>

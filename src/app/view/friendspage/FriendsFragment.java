@@ -94,6 +94,10 @@ public class FriendsFragment extends Fragment {
                 if (i == 0) {//按活动ID邀请好友
                     //todo 按活动ID邀请好友
                 } else if (i == 1) {//按电话号码邀请好友
+                    Intent intent = new Intent(getActivity(), AddNewFriends.class);
+                    intent.putExtra("nickName", AVOSWrapper.getCurrentUser().get("nickName").toString());
+                    intent.putExtra("userName", AVOSWrapper.getCurrentUser().getUsername());
+                    getActivity().startActivity(intent);
                     //todo 按电话号码邀请好友
                 } else if (i == 2) {//新的好友
                     //todo 添加新的好友
@@ -122,7 +126,7 @@ public class FriendsFragment extends Fragment {
         mWindowManager.addView(mDialogText, lp);
         indexBar.setTextView(mDialogText);
 
-        contactAdapter = new ContactAdapter(getActivity());
+        contactAdapter = new ContactAdapter(getActivity());//新建适配器
 
         lvContact.setAdapter(contactAdapter);//设置适配器
 
