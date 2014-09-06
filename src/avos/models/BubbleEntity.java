@@ -9,6 +9,8 @@ public class BubbleEntity {
     private int id;
 
     private String Message;
+    private String userId;
+
 
     public BubbleEntity(String nickName, String message, String userId) {
         this.nickName = nickName;
@@ -17,7 +19,6 @@ public class BubbleEntity {
 
     }
 
-
     public String getUserId() {
         return userId;
     }
@@ -25,8 +26,6 @@ public class BubbleEntity {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
-    private String userId;
 
     public int getId() {
         return id;

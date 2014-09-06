@@ -14,11 +14,11 @@ public abstract class SignUpCallbackWrapper extends SignUpCallback {
         if (e == null)
             onSucceed();
         else
-            onFailed(e);
+            onFailed(e.getLocalizedMessage());
 
     }
 
     public abstract void onSucceed();
 
-    public abstract void onFailed(AVException e);
+    public abstract void onFailed(String e);
 }

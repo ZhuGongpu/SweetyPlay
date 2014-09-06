@@ -21,6 +21,7 @@ import java.util.Map;
  */
 public class FriendsHomepageActivity extends Activity {
 
+    protected AVUser user;
     private ImageView photo;
     private TextView name;
     private TextView distance;
@@ -28,7 +29,6 @@ public class FriendsHomepageActivity extends Activity {
     private ImageView state;
     private LinearLayout album;
     private Button invite, talk;
-    protected AVUser user;
     private String username, userId, installation_id;
 
 
@@ -103,31 +103,6 @@ public class FriendsHomepageActivity extends Activity {
 
     }
 
-
-    //监听器
-    class FriendsHomepageListener implements View.OnClickListener {
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.friendspage_photo:
-                    //跳转到只显示头像图片的界面
-                    //break;
-                case R.id.friendspage_bubble_button:
-                    //push a message to the user
-                    sendBubble();
-
-                case R.id.friendspage_state:
-                    //选择change状态
-                case R.id.friendspage_album:
-                    //跳转到该好友的活动界面
-                case R.id.friendspage_invite_button:
-                    //跳转到邀请界面
-                case R.id.friendspage_talk_button:
-                    //跳转到会话界面
-            }
-
-        }
-    }
-
     private void sendBubble() {
         AVPush push = new AVPush();
         push.setQuery(AVInstallation.getQuery().whereEqualTo("installation_id", installation_id));
@@ -158,6 +133,30 @@ public class FriendsHomepageActivity extends Activity {
         });
 
 
+    }
+
+    //监听器
+    class FriendsHomepageListener implements View.OnClickListener {
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.friendspage_photo:
+                    //跳转到只显示头像图片的界面
+                    //break;
+                case R.id.friendspage_bubble_button:
+                    //push a message to the user
+                    sendBubble();
+
+                case R.id.friendspage_state:
+                    //选择change状态
+                case R.id.friendspage_album:
+                    //跳转到该好友的活动界面
+                case R.id.friendspage_invite_button:
+                    //跳转到邀请界面
+                case R.id.friendspage_talk_button:
+                    //跳转到会话界面
+            }
+
+        }
     }
 
 }

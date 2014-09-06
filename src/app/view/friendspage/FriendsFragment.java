@@ -16,15 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.*;
-import app.util.AVUserComparator;
-import app.util.PingYinUtil;
-import app.util.SideBar;
 import app.view.login.R;
+import app.view.widget.Sidebar;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.squareup.picasso.Picasso;
+import utils.AVUserComparator;
+import utils.PingYinUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +55,7 @@ public class FriendsFragment extends Fragment {
     private ListView lvContact;//好友listview
     private ContactAdapter contactAdapter = null;//适配器
 
-    private SideBar indexBar;
+    private Sidebar indexBar;
     private WindowManager mWindowManager;
     private TextView mDialogText;
 
@@ -108,7 +108,7 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-        indexBar = (SideBar) view.findViewById(R.id.sideBar);
+        indexBar = (Sidebar) view.findViewById(R.id.sideBar);
         indexBar.setListView(lvContact);
         mDialogText = (TextView) LayoutInflater.from(getActivity()).inflate(
                 R.layout.list_position, null);
@@ -120,7 +120,7 @@ public class FriendsFragment extends Fragment {
                         | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
         mWindowManager.addView(mDialogText, lp);
-        indexBar.setTextView(mDialogText);
+        //indexBar.setTextView(mDialogText);//TODO 不确定
 
         contactAdapter = new ContactAdapter(getActivity());
 

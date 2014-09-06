@@ -11,9 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import app.view.login.R;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 /**
  * Created by Lewis on 8/5/14.
  */

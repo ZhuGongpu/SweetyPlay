@@ -1064,37 +1064,6 @@ public class FreeFlowContainer extends AbsLayoutContainer {
         moveViewport(isInFlingMode);
     }
 
-    private Runnable flingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            if (scroller.isFinished()) {
-                mTouchMode = TOUCH_MODE_REST;
-
-                if (mOnTouchModeChangedListener != null) {
-                    mOnTouchModeChangedListener.onTouchModeChanged(mTouchMode);
-                }
-
-                invokeOnItemScrollListeners();
-                return;
-            }
-            boolean more = scroller.computeScrollOffset();
-            if (mEdgeEffectsEnabled) {
-                checkEdgeEffectDuringScroll();
-            }
-            if (mLayout.horizontalScrollEnabled()) {
-                viewPortX = scroller.getCurrX();
-            }
-            if (mLayout.verticalScrollEnabled()) {
-                viewPortY = scroller.getCurrY();
-            }
-            moveViewport(true);
-            if (more) {
-                post(flingRunnable);
-            }
-        }
-    };
-
     /**
      * Will move viewport to viewPortX and viewPortY values
      *
@@ -1258,6 +1227,37 @@ public class FreeFlowContainer extends AbsLayoutContainer {
         v.setAlpha(1);
         viewpool.returnViewToPool(v);
     }
+
+    private Runnable flingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            if (scroller.isFinished()) {
+                mTouchMode = TOUCH_MODE_REST;
+
+                if (mOnTouchModeChangedListener != null) {
+                    mOnTouchModeChangedListener.onTouchModeChanged(mTouchMode);
+                }
+
+                invokeOnItemScrollListeners();
+                return;
+            }
+            boolean more = scroller.computeScrollOffset();
+            if (mEdgeEffectsEnabled) {
+                checkEdgeEffectDuringScroll();
+            }
+            if (mLayout.horizontalScrollEnabled()) {
+                viewPortX = scroller.getCurrX();
+            }
+            if (mLayout.verticalScrollEnabled()) {
+                viewPortY = scroller.getCurrY();
+            }
+            moveViewport(true);
+            if (more) {
+                post(flingRunnable);
+            }
+        }
+    };
 
     public SectionedAdapter getAdapter() {
         return mAdapter;

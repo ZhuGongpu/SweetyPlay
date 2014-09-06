@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import app.view.login.R;
 
 /**
  * Created by Lewis on 8/5/14.
@@ -26,10 +25,8 @@ public class CircleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //TODO 加载布局文件
 
-        //加载布局文件
-        View view = inflater.inflate(R.layout.main_activity_layout, container, false);
-
-        return view;
+        return null;
     }
 }

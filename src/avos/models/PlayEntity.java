@@ -12,6 +12,7 @@ import java.util.Date;
 public class PlayEntity extends AVObject {
 
     String activityPhotoThumbnailUrl = null;
+    private int id;
 
     public int getId() {
         return id;
@@ -20,8 +21,6 @@ public class PlayEntity extends AVObject {
     public void setId(int id) {
         this.id = id;
     }
-
-    private int id;
 
     public AVFile getActivityPhoto() {
         return getAVFile("ActivityPhoto");
