@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.*;
 import app.view.login.R;
-import app.view.widget.Sidebar;
+import app.view.widget.SideBar;
 import avos.AVOSWrapper;
 import avos.callbackwrappers.FindCallbackWrapper;
 import com.avos.avoscloud.AVException;
@@ -55,7 +55,7 @@ public class FriendsFragment extends Fragment {
     private ListView lvContact;//好友listview
     private ContactAdapter contactAdapter = null;//适配器
 
-    private Sidebar indexBar;
+    private SideBar indexBar;
     private WindowManager mWindowManager;
     private TextView mDialogText;
 
@@ -112,7 +112,7 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-        indexBar = (Sidebar) view.findViewById(R.id.sideBar);
+        indexBar = (SideBar) view.findViewById(R.id.sideBar);
         indexBar.setListView(lvContact);
         mDialogText = (TextView) LayoutInflater.from(getActivity()).inflate(
                 R.layout.list_position, null);

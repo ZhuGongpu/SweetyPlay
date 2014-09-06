@@ -28,7 +28,7 @@ import app.view.chat.adapter.ContactAdapter;
 import app.view.login.R;
 import com.easemob.util.DensityUtil;
 
-public class Sidebar extends View {
+public class SideBar extends View {
     private Paint paint;
     private TextView header;
     private float height;
@@ -37,7 +37,7 @@ public class Sidebar extends View {
     private String[] sections = new String[]{"#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
 
-    public Sidebar(Context context, AttributeSet attrs) {
+    public SideBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         init();

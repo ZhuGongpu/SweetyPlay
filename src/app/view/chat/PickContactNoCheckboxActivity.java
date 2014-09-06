@@ -23,7 +23,7 @@ import app.DemoApplication;
 import app.baseActivity.BaseActivity;
 import app.view.chat.adapter.ContactAdapter;
 import app.view.login.R;
-import app.view.widget.Sidebar;
+import app.view.widget.SideBar;
 import easemob.Constant;
 import easemob.domain.User;
 
@@ -34,7 +34,7 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
 
     protected ContactAdapter contactAdapter;
     private ListView listView;
-    private Sidebar sidebar;
+    private SideBar sideBar;
     private List<User> contactList;
 
     @Override
@@ -42,13 +42,13 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_contact_no_checkbox);
         listView = (ListView) findViewById(R.id.list);
-        sidebar = (Sidebar) findViewById(R.id.sidebar);
-        sidebar.setListView(listView);
+        sideBar = (SideBar) findViewById(R.id.sidebar);
+        sideBar.setListView(listView);
         contactList = new ArrayList<User>();
         // 获取设置contactlist
         getContactList();
         // 设置adapter
-        contactAdapter = new ContactAdapter(this, R.layout.row_contact, contactList, sidebar);
+        contactAdapter = new ContactAdapter(this, R.layout.row_contact, contactList, sideBar);
         listView.setAdapter(contactAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
 

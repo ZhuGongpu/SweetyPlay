@@ -28,7 +28,7 @@ import app.DemoApplication;
 import app.baseActivity.BaseActivity;
 import app.view.chat.adapter.ContactAdapter;
 import app.view.login.R;
-import app.view.widget.Sidebar;
+import app.view.widget.SideBar;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import easemob.Constant;
@@ -89,7 +89,7 @@ public class GroupPickContactsActivity extends BaseActivity {
         listView = (ListView) findViewById(R.id.list);
         contactAdapter = new PickContactAdapter(this, R.layout.row_contact_with_checkbox, alluserList);
         listView.setAdapter(contactAdapter);
-        ((Sidebar) findViewById(R.id.sidebar)).setListView(listView);
+        ((SideBar) findViewById(R.id.sidebar)).setListView(listView);
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

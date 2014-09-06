@@ -19,7 +19,7 @@
                 />
     </LinearLayout>
 
-    <app.view.widget.Sidebar
+    <app.view.widget.SideBar
             android:id="@+id/sideBar"
             android:layout_height="wrap_content"
             android:layout_width="20dp"
