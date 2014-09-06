@@ -3,21 +3,20 @@ package app.view.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import app.util.PasswordFormatValidator;
-import app.util.PhoneNumberFormatValidator;
-import app.util.PhoneNumberUtility;
-import app.view.main.MainActivity;
+import app.DemoApplication;
 import app.view.signup.SignUpActivity;
-import avos.AVOSWrapper;
-import avos.callbackwrappers.LogInCallbackWrapper;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVUser;
+import helper.SweetyPlayHelper;
+import utils.CommonUtils;
+import utils.PasswordFormatValidator;
+import utils.PhoneNumberFormatValidator;
+import utils.PhoneNumberUtility;
 
 
 /**
@@ -34,7 +33,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText phoneNumberEditText = null;
     private EditText passwordEditText = null;
     private EditText confirmPasswordEditText = null;
-
+    private boolean progressShow = false;
 
     /**
      * Called when the activity is first created.
@@ -42,6 +41,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 如果用户名密码都有，直接进入主页面
+        if (DemoApplication.getInstance().getUsername() != null && DemoApplication.getInstance().getPassword() != null) {
+            SweetyPlayHelper.loginAsync(this, DemoApplication.getInstance().getUsername(), DemoApplication.getInstance().getPassword(), "正在登录...");
+        }
+
         setContentView(R.layout.login_activity_layout);
 
         initViews();
@@ -106,36 +111,26 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onClick(View view) {
+
+        if (!CommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         if (view.getId() == R.id.login_button) {//login
 
             if (findViewById(R.id.login_button_layout).getVisibility() == View.VISIBLE) {//用于防止 点完 sign up button 之后再点login 的情况
 
+                Log.e(TAG, "login clicked");
 
                 final String phone_number = phoneNumberEditText.getText() + "";
                 final String password = passwordEditText.getText() + "";
 
                 if (PasswordFormatValidator.isLegalPassword(password) && PhoneNumberFormatValidator.isLegalPhoneNumber(phone_number)) {//允许登录
-
-                    AVOSWrapper.init(LoginActivity.this);//初始化
                     //Log.e(TAG, "Login Clicked");
-                    //TODO 提示progress bar
-                    AVOSWrapper.logInInBackground(phone_number, password, new LogInCallbackWrapper() {
 
-                        @Override
-                        public void onSucceed(AVUser user) {
-                            // jump to  activity
-                            //Log.e(TAG, "LogIn");
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
-                        }
-
-                        @Override
-                        public void onFailed(AVException e) {
-
-                            // notify with error
-                            promoteErrorMessage(getText(R.string.failed).toString());
-                        }
-                    });
+                    SweetyPlayHelper.loginAsync(this, phone_number, password, "正在登录...");
 
                 } else {// 不允许登录，prompt error
                     if (!PasswordFormatValidator.isLegalPassword(password)) {

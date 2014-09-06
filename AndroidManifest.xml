@@ -4,16 +4,33 @@
           android:versionCode="1"
           android:versionName="1.0">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 读取联系人权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <!-- 环聊sdk需要的权限 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <uses-sdk android:minSdkVersion="14"/>
     <application
             android:label="@string/app_name"
-            android:icon="@drawable/ic_launcher">
+            android:icon="@drawable/ic_launcher"
+            android:name="app.DemoApplication">
+        <!-- 设置应用的 appkey -->
+        <meta-data
+                android:name="EASEMOB_APPKEY"
+                android:value="sweetyplay#sweetyplay"/>
+
         <activity
                 android:name="LoginActivity"
                 android:label="@string/app_name"
@@ -23,15 +40,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
                 android:name="app.view.main.MainActivity"
                 android:label="MainActivity"
                 android:configChanges="orientation|keyboardHidden"
                 android:screenOrientation="portrait"
                 android:theme="@style/MainTheme">
-
         </activity>
-
 
         <activity
                 android:name="app.view.play_detail.PlayDetailActivity"
@@ -41,20 +57,43 @@
                 android:name="app.view.main.notify.NotificationActivity"
                 android:label="NotificationActivity"
                 android:theme="@android:style/Theme.NoTitleBar"/>
-
         <activity
                 android:name="app.view.signup.SignUpActivity"
                 android:label="SignUpActivity"/>
-
         <activity
                 android:name="app.view.friendspage.FriendsHomepageActivity"
                 android:label="FriendspageActivity"/>
-
         <activity
                 android:name="app.view.splash_screen.SplashScreenActivity"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-
         </activity>
+
+        <activity android:name="app.view.chat.AddContactActivity"/>
+        <activity android:name="app.view.chat.AlertDialog"/>
+        <activity android:name="app.view.chat.BaiduMapActivity"/>
+        <activity android:name="app.view.chat.BlacklistActivity"/>
+        <activity android:name="app.view.chat.ContextMenu"/>
+        <activity android:name="app.view.chat.ExitGroupDialog"/>
+        <activity android:name="app.view.chat.DiagnoseActivity"/>
+        <activity android:name="app.view.chat.ForwardMessageActivity"/>
+        <activity android:name="app.view.chat.GroupDetailsActivity"/>
+        <activity android:name="app.view.chat.GroupPickContactsActivity"/>
+        <activity android:name="app.view.chat.GroupsActivity"/>
+        <activity android:name="app.view.chat.GroupSimpleDetailActivity"/>
+        <activity android:name="app.view.chat.ImageGridActivity"/>
+        <activity android:name="app.view.chat.NewFriendsMsgActivity"/>
+        <activity android:name="app.view.chat.NewGroupActivity"/>
+        <activity android:name="app.view.chat.PickContactNoCheckboxActivity"/>
+        <activity android:name="app.view.chat.RecorderVideoActivity"/>
+        <activity android:name="app.view.chat.PublicGroupsActivity"/>
+        <activity android:name="app.view.chat.ShowBigImage"/>
+        <activity android:name="app.view.chat.ShowNormalFileActivity"/>
+        <activity android:name="app.view.chat.ShowVideoActivity"/>
+
+        <activity
+                android:name="app.view.chat.ChatActivity"
+                android:label="ChatActivity"/>
+        <activity android:name="app.baseActivity.BaseActivity"/>
 
         <service android:name="com.avos.avoscloud.PushService"/>
 
@@ -75,7 +114,5 @@
                 <action android:name="com.avos.UPDATE_STATUS"/>
             </intent-filter>
         </receiver>
-
-
     </application>
 </manifest>
