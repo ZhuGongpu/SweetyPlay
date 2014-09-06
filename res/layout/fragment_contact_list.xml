@@ -74,7 +74,7 @@
                     android:dividerHeight="1px"
                     android:fastScrollEnabled="false"/>
 
-            <app.view.widget.Sidebar
+            <app.view.widget.SideBar
                     android:id="@+id/sidebar"
                     android:layout_width="25dp"
                     android:layout_height="match_parent"

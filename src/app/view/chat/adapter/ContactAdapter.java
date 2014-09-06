@@ -26,7 +26,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import app.view.login.R;
-import app.view.widget.Sidebar;
+import app.view.widget.SideBar;
 import easemob.Constant;
 import easemob.domain.User;
 
@@ -43,13 +43,13 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
     private ImageButton clearSearch;
     private SparseIntArray positionOfSection;
     private SparseIntArray sectionOfPosition;
-    private Sidebar sidebar;
+    private SideBar sideBar;
     private int res;
 
-    public ContactAdapter(Context context, int resource, List<User> objects, Sidebar sidebar) {
+    public ContactAdapter(Context context, int resource, List<User> objects, SideBar sideBar) {
         super(context, resource, objects);
         this.res = resource;
-        this.sidebar = sidebar;
+        this.sideBar = sideBar;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -75,12 +75,12 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
                         getFilter().filter(s);
                         if (s.length() > 0) {
                             clearSearch.setVisibility(View.VISIBLE);
-                            if (sidebar != null)
-                                sidebar.setVisibility(View.GONE);
+                            if (sideBar != null)
+                                sideBar.setVisibility(View.GONE);
                         } else {
                             clearSearch.setVisibility(View.INVISIBLE);
-                            if (sidebar != null)
-                                sidebar.setVisibility(View.VISIBLE);
+                            if (sideBar != null)
+                                sideBar.setVisibility(View.VISIBLE);
                         }
                     }
 

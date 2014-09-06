@@ -33,7 +33,7 @@ import android.widget.Toast;
 import app.DemoApplication;
 import app.view.chat.adapter.ContactAdapter;
 import app.view.login.R;
-import app.view.widget.Sidebar;
+import app.view.widget.SideBar;
 import com.easemob.chat.EMContactManager;
 import com.easemob.exceptions.EaseMobException;
 import easemob.Constant;
@@ -52,7 +52,7 @@ public class ContactListFragment extends Fragment {
     private List<User> contactList;
     private ListView listView;
     private boolean hidden;
-    private Sidebar sidebar;
+    private SideBar sideBar;
     private InputMethodManager inputMethodManager;
 
     @Override
@@ -65,13 +65,13 @@ public class ContactListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         listView = (ListView) getView().findViewById(R.id.list);
-        sidebar = (Sidebar) getView().findViewById(R.id.sidebar);
-        sidebar.setListView(listView);
+        sideBar = (SideBar) getView().findViewById(R.id.sidebar);
+        sideBar.setListView(listView);
         contactList = new ArrayList<User>();
         // 获取设置contactlist
         getContactList();
         // 设置adapter
-        adapter = new ContactAdapter(getActivity(), R.layout.row_contact, contactList, sidebar);
+        adapter = new ContactAdapter(getActivity(), R.layout.row_contact, contactList, sideBar);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
 
