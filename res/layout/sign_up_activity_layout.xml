@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#EAEAEA"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              tools:context="app.view.signup.SignUpActivity">
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -16,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/register_back"/>
+                android:src="@drawable/mm_title_back"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -31,7 +33,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:background="#EAEAEA"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="30dp"
             android:orientation="vertical"
@@ -42,12 +44,12 @@
                 android:layout_width="match_parent"
                 android:background="#EAEAEA"/>
 
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
                 android:background="#ffffff"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
             <TextView
@@ -63,25 +65,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="不超过20个字符"
+                    android:textColor="@color/black"
                     android:singleLine="true"
                     android:background="@null"
                     android:textSize="16sp"
+                    android:cursorVisible="true"
                     android:gravity="right|center_vertical"/>
-
         </LinearLayout>
 
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#DBDBDB"/>
-
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
                 android:background="#ffffff">
-
 
             <ImageView
                     android:id="@+id/gender_female"
@@ -110,19 +108,15 @@
 
         </RelativeLayout>
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-
-                android:background="#DBDBDB"/>
-
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#ffffff"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:onClick="showDatePickerDialog"
+                android:orientation="horizontal"
+                android:clickable="true">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -130,6 +124,7 @@
                     android:textSize="16sp"
                     android:textColor="#8F8F8F"
                     android:gravity="center_vertical"
+                    android:onClick="showDatePickerDialog"
                     android:text="出生年月"/>
 
             <EditText
@@ -139,19 +134,17 @@
                     android:singleLine="true"
                     android:background="@null"
                     android:textSize="16sp"
-                    android:gravity="right|center_vertical"/>
+                    android:textColor="@color/black"
+                    android:gravity="right|center_vertical"
+                    android:onClick="showDatePickerDialog"/>
 
         </LinearLayout>
-
-        <TextView
-                android:layout_height="10dp"
-                android:layout_width="match_parent"
-                android:background="#EAEAEA"/>
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
                 android:background="#ffffff"
                 android:orientation="horizontal">
 
@@ -170,6 +163,7 @@
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@+id/textView2"
                     android:background="@null"
+                    android:textColor="@color/black"
                     android:gravity="right|center_vertical"
                     android:singleLine="true"
                     android:textSize="16sp"/>

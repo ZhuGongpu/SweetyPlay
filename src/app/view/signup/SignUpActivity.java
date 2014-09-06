@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import app.view.login.R;
@@ -30,17 +31,17 @@ import java.util.regex.Pattern;
  */
 public class SignUpActivity extends Activity {
 
+    private static String TAG = "SignUpActivity";
     /**
      * UI Elements
      */
     private EditText nickname_EditText = null;
     private EditText email_EditText = null;
-    private DatePicker datePicker = null;
     private EditText birthday_EditText = null;
     private Button play_Button = null;
     private ImageView male_ImageView, female_ImageView;
 
-    private String nickName, countryOrArea, email, phone_number, password, birthday, installation_id;
+    private String nickName, email, phone_number, password, birthday, installation_id;
     private int yearOfBirth, monthOfBirth, dayOfBirth;
     private OnDateSetListener mDateListener = new OnDateSetListener() {
 
@@ -70,29 +71,25 @@ public class SignUpActivity extends Activity {
         play_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nickName = nickname_EditText.getText().toString();
-                email = email_EditText.getText().toString();
 
-                if (!(nickName.length() >= 1 && nickName.length() <= 20))
+                if (TextUtils.isEmpty(nickname_EditText.getText()) ||
+                        !(nickname_EditText.getText().length() >= 1 && nickname_EditText.getText().length() <= 20))
                     nickname_EditText.setError("Illegal");
-                else if (datePicker != null && !datePicker.isSelected())
+                else if (TextUtils.isEmpty(birthday_EditText.getText()))
                     Toast.makeText(getApplicationContext(), "you should pick your birthday first", Toast.LENGTH_SHORT).show();
                 else if (gender == Gender.unknown)
                     Toast.makeText(getApplicationContext(), "you should choose your gender first", Toast.LENGTH_SHORT).show();
-                else if (TextUtils.isEmpty(email)) {//TODO check
-//                if (!isEmail(email)) {
+                else if (TextUtils.isEmpty(email_EditText.getText()) || !isEmail(email_EditText.getText().toString())) {
                     email_EditText.setError("Invalid Email");
                 } else//注册信息完整
                 {
                     nickName = nickname_EditText.getText().toString();
-
                     birthday = birthday_EditText.getText().toString();
-
                     email = email_EditText.getText().toString();
 
                     //set user info
                     final AVUser user = new AVUser();
-                    // user.setEmail(email);//todo
+                    user.setEmail(email);
                     user.setUsername(phone_number);
                     user.setPassword(password);
 
@@ -154,20 +151,18 @@ public class SignUpActivity extends Activity {
         });
 
         birthday_EditText.setInputType(InputType.TYPE_NULL);
-        setCurrentDate();
-        birthday_EditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(SignUpActivity.this,
-                        mDateListener, yearOfBirth,
-                        monthOfBirth, dayOfBirth).show();
 
-            }
-        });
 
         Intent intent = this.getIntent();
         phone_number = intent.getStringExtra("phoneNumber");
         password = intent.getStringExtra("password");
+    }
+
+
+    public void showDatePickerDialog(View v) {
+        new DatePickerDialog(SignUpActivity.this,
+                mDateListener, yearOfBirth,
+                monthOfBirth, dayOfBirth).show();
     }
 
     //用来设置显示日期格式
@@ -192,7 +187,10 @@ public class SignUpActivity extends Activity {
 
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strEmail);
-        return m.matches();
+        boolean result =  m.matches();
+
+        Log.e(TAG, "isEmail : " + result);
+        return result;
     }
 
     /**
