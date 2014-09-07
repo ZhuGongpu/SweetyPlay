@@ -87,7 +87,7 @@ public class PlayDetailActivity extends Activity {
         playTitle = (TextView) findViewById(R.id.play_detail_layout_play_title);
         playPhoto = (ImageView) findViewById(R.id.play_detail_layout_play_photo);
         joinButton = (Button) findViewById(R.id.play_detail_layout_join_button);//TODO 需要根据relation判断是否已经加入
-        joinButton.setEnabled(false);
+        joinButton.setEnabled(false);//
         joinerNumberTextView = (TextView) findViewById(R.id.play_detail_layout_joiner_number_text_view);
         joinerListContainer = (FreeFlowContainer) findViewById(R.id.play_detail_layout_joiner_list_container);
         playDateTextView = (TextView) findViewById(R.id.play_detail_layout_play_date_textview);
