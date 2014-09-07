@@ -50,6 +50,11 @@ public class PlayDetailActivity extends Activity {
 
     private JoinerListAdapter joinerListAdapter = null;
 
+    /**
+     * 是否已加入
+     */
+    private boolean isJoined = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +87,7 @@ public class PlayDetailActivity extends Activity {
         playTitle = (TextView) findViewById(R.id.play_detail_layout_play_title);
         playPhoto = (ImageView) findViewById(R.id.play_detail_layout_play_photo);
         joinButton = (Button) findViewById(R.id.play_detail_layout_join_button);//TODO 需要根据relation判断是否已经加入
+        joinButton.setEnabled(false);
         joinerNumberTextView = (TextView) findViewById(R.id.play_detail_layout_joiner_number_text_view);
         joinerListContainer = (FreeFlowContainer) findViewById(R.id.play_detail_layout_joiner_list_container);
         playDateTextView = (TextView) findViewById(R.id.play_detail_layout_play_date_textview);
@@ -94,21 +100,23 @@ public class PlayDetailActivity extends Activity {
             public void onClick(View view) {
                 if (currentPlay != null) {
                     joinButton.setEnabled(false);
-                    //join
-                    joinPlay();
-                    currentPlay.saveInBackground(new SaveCallbackWraprer() {
-                        @Override
-                        public void onSucceed() {
-                            joinButton.setText("已加入");
-                            loadJoinerList();
-                            //Log.e(TAG, "已加入");
-                        }
+                    if (!isJoined) {
+                        //join
+                        joinPlay();
+                        currentPlay.saveInBackground(new SaveCallbackWraprer() {
+                            @Override
+                            public void onSucceed() {
+                                joinButton.setText("已加入");
+                                loadJoinerList();
+                                //Log.e(TAG, "已加入");
+                            }
 
-                        @Override
-                        public void onFailed(AVException e) {
-
-                        }
-                    });
+                            @Override
+                            public void onFailed(AVException e) {
+//TODO
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -145,7 +153,7 @@ public class PlayDetailActivity extends Activity {
     }
 
     /**
-     * 加载JoinerList
+     * 加载JoinerList,并判定当前用户是否已加入
      * 若其中已有数据，则清空原有数据并重新加载
      */
     private void loadJoinerList() {
@@ -154,6 +162,7 @@ public class PlayDetailActivity extends Activity {
                 @Override
                 public void onSucceed(List<AVUser> list) {
                     if (list.size() > 0) {
+                        setPlayJoined(list.contains(AVOSWrapper.getCurrentUser()));
                         joinerListAdapter.clearData();
                         joinerListAdapter.update(list);
                         joinerListContainer.dataInvalidated();
@@ -172,12 +181,29 @@ public class PlayDetailActivity extends Activity {
         }
     }
 
+    /**
+     * 设置已加入当前活动
+     *
+     * @param joined 是否已加入
+     */
+    private void setPlayJoined(boolean joined) {
+        this.isJoined = joined;
+        if (joined) {
+            joinButton.setText("已加入");
+            joinButton.setEnabled(false);
+        } else {
+            joinButton.setText("Join");
+            joinButton.setEnabled(true);
+        }
+    }
+
     private void joinPlay() {
-        //TODO
+
         currentPlay.getParticipationList().add(AVOSWrapper.getCurrentUser());
         currentPlay.setCurrentNumber(currentPlay.getCurrentNumber() + 1);
 
     }
+
 
     private class JoinerListAdapter implements SectionedAdapter {
 
