@@ -64,53 +64,47 @@
             android:layout_height="wrap_content"/>
 
     <LinearLayout
+            android:id="@+id/signup_button_layout"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
-        <LinearLayout
-                android:id="@+id/signup_button_layout"
-                android:orientation="vertical"
+        <EditText
+                android:id="@+id/signup_button_layout_phone_number"
+                android:inputType="phone"
                 android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:textSize="25sp"
+                android:hint="@string/phone_number"
+                android:background="@drawable/login_phone_number_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <EditText
-                    android:id="@+id/signup_button_layout_phone_number"
-                    android:inputType="phone"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    android:hint="@string/phone_number"
-                    android:background="@drawable/login_phone_number_background"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/signup_button_layout_password"
+                android:inputType="textPassword"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:hint="@string/password"
+                android:background="@drawable/login_phone_number_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <EditText
-                    android:id="@+id/signup_button_layout_password"
-                    android:inputType="textPassword"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    android:hint="@string/password"
-                    android:background="@drawable/login_phone_number_background"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <EditText
-                    android:id="@+id/signup_button_layout_confirm_password"
-                    android:inputType="textPassword"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    android:hint="@string/again"
-                    android:background="@drawable/login_phone_number_background"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </LinearLayout>
-
+        <EditText
+                android:id="@+id/signup_button_layout_confirm_password"
+                android:inputType="textPassword"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:hint="@string/again"
+                android:background="@drawable/login_phone_number_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
     </LinearLayout>
+
 
 </LinearLayout>
 
