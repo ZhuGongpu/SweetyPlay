@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/sex_female_ico0"/>
+                    android:src="@drawable/selector_female"/>
 
             <ImageView
                     android:id="@+id/gender_male"
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/gender_female"
-                    android:src="@drawable/sex_male_ico1"/>
+                    android:src="@drawable/selector_male"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -136,7 +136,9 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:gravity="right|center_vertical"
-                    android:onClick="showDatePickerDialog"/>
+                    android:onClick="showDatePickerDialog"
+                    android:editable="false"
+                    android:cursorVisible="false"/>
 
         </LinearLayout>
 

@@ -53,12 +53,8 @@ public class SignUpActivity extends Activity {
             dayOfBirth = dayOfMonth;
             //设置文本显示
             updateDisplay();
-
         }
     };
-
-    private Gender gender;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +73,7 @@ public class SignUpActivity extends Activity {
                     nickname_EditText.setError("Illegal");
                 else if (TextUtils.isEmpty(birthday_EditText.getText()))
                     Toast.makeText(getApplicationContext(), "you should pick your birthday first", Toast.LENGTH_SHORT).show();
-                else if (gender == Gender.unknown)
+                else if (!(male_ImageView.isSelected() ^ female_ImageView.isSelected()))
                     Toast.makeText(getApplicationContext(), "you should choose your gender first", Toast.LENGTH_SHORT).show();
                 else if (TextUtils.isEmpty(email_EditText.getText()) || !isEmail(email_EditText.getText().toString())) {
                     email_EditText.setError("Invalid Email");
@@ -94,11 +90,16 @@ public class SignUpActivity extends Activity {
                     user.setPassword(password);
 
                     try {
-                        user.put("birthday", new SimpleDateFormat("yyyy-MM-dd ").parse(birthday));
+                        user.put("birthday", new SimpleDateFormat("yyyy-MM-dd").parse(birthday));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    user.put("gender", gender);
+
+                    if (male_ImageView.isSelected())
+                        user.put("gender", "male");
+                    else if (female_ImageView.isSelected())
+                        user.put("gender", "female");
+
                     user.put("nickName", nickName);
 
                     //save installation_id
@@ -130,25 +131,7 @@ public class SignUpActivity extends Activity {
         male_ImageView = (ImageView) findViewById(R.id.gender_male);
         female_ImageView = (ImageView) findViewById(R.id.gender_female);
 
-        gender = Gender.unknown;
-
-        male_ImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                male_ImageView.setImageDrawable(getResources().getDrawable(R.drawable.sex_male_ico1));
-                female_ImageView.setImageDrawable(getResources().getDrawable(R.drawable.sex_female_ico0));
-                gender = Gender.male;
-            }
-        });
-
-        female_ImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                female_ImageView.setImageDrawable(getResources().getDrawable(R.drawable.sex_female_ico1));
-                male_ImageView.setImageDrawable((getResources().getDrawable(R.drawable.sex_male_ico0)));
-                gender = Gender.female;
-            }
-        });
+        male_ImageView.setSelected(true);
 
         birthday_EditText.setInputType(InputType.TYPE_NULL);
 
@@ -158,8 +141,8 @@ public class SignUpActivity extends Activity {
         password = intent.getStringExtra("password");
     }
 
-
     public void showDatePickerDialog(View v) {
+        setCurrentDate();
         new DatePickerDialog(SignUpActivity.this,
                 mDateListener, yearOfBirth,
                 monthOfBirth, dayOfBirth).show();
@@ -187,7 +170,7 @@ public class SignUpActivity extends Activity {
 
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strEmail);
-        boolean result =  m.matches();
+        boolean result = m.matches();
 
         Log.e(TAG, "isEmail : " + result);
         return result;
@@ -202,5 +185,4 @@ public class SignUpActivity extends Activity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    private enum Gender {female, male, unknown}
 }
