@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/tabbar_4_friends" android:state_selected="true"/>
-    <item android:drawable="@drawable/tabbar_4_friends"/>
+    <item android:drawable="@drawable/tab_bar_friends_selected" android:state_selected="true"/>
+    <item android:drawable="@drawable/tab_bar_friends_normal"/>
 </selector>
