@@ -84,14 +84,14 @@ public class PlayDetailActivity extends Activity {
      * 初始化界面
      */
     private void initViews() {
-        playTitle = (TextView) findViewById(R.id.play_detail_layout_play_title);
+        playTitle = (TextView) findViewById(R.id.title_bar_title);
         playPhoto = (ImageView) findViewById(R.id.play_detail_layout_play_photo);
         joinButton = (Button) findViewById(R.id.play_detail_layout_join_button);//TODO 需要根据relation判断是否已经加入
         joinButton.setEnabled(false);
         joinerNumberTextView = (TextView) findViewById(R.id.play_detail_layout_joiner_number_text_view);
         joinerListContainer = (FreeFlowContainer) findViewById(R.id.play_detail_layout_joiner_list_container);
-        playDateTextView = (TextView) findViewById(R.id.play_detail_layout_play_date_textview);
-        playLocationTextView = (TextView) findViewById(R.id.play_detail_layout_play_location_textview);
+        playDateTextView = (TextView) findViewById(R.id.play_detail_layout_play_date_text_view);
+        playLocationTextView = (TextView) findViewById(R.id.play_detail_layout_play_location_text_view);
         playDescriptionTextView = (TextView) findViewById(R.id.play_detail_layout_play_description);
 
         // join the play
@@ -166,7 +166,7 @@ public class PlayDetailActivity extends Activity {
                         joinerListAdapter.clearData();
                         joinerListAdapter.update(list);
                         joinerListContainer.dataInvalidated();
-                        joinerNumberTextView.setText(currentPlay.getCurrentNumber() + "人参加");
+                        joinerNumberTextView.setText(currentPlay.getCurrentNumber());
                         //Log.e(TAG, "loadJoinerList onSucceed");
                     }
                 }
@@ -204,6 +204,10 @@ public class PlayDetailActivity extends Activity {
 
     }
 
+    public void back(View v)
+    {
+        finish();
+    }
 
     private class JoinerListAdapter implements SectionedAdapter {
 

@@ -12,7 +12,7 @@
             android:background="@color/top_bar_normal_bg"
             android:gravity="center_vertical">
 
-        <include layout="@layout/commom_back_btn"/>
+        <include layout="@layout/common_back_button"/>
 
         <TextView
                 android:id="@+id/name"
@@ -133,7 +133,7 @@
                     android:layout_weight="1"
                     >
 
-                <com.easemob.chatuidemo.widget.PasteEditText
+                <app.view.widget.PasteEditText
                         android:id="@+id/et_sendmessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                         android:paddingRight="1dp"
                         android:paddingBottom="3dp"
                         android:textSize="18sp">
-                </com.easemob.chatuidemo.widget.PasteEditText>
+                </app.view.widget.PasteEditText>
 
                 <ImageView
                         android:id="@+id/iv_emoticons_normal"

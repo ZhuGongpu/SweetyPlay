@@ -39,11 +39,9 @@
     <string name="play_description_empty">暂无活动介绍</string>
     <string name="add_friend">手机号/昵称</string>
 
-    <!--tab-->
-    <string name="fragment_one">页面一</string>
-    <string name="fragment_two">页面二</string>
-    <string name="fragment_three">页面三</string>
 
+    <string name="joiners_number">人参加</string>
+    <string name="group_chat">群聊</string>
     <!--menu-->
     <string name="change_layout">Change Layout</string>
 

@@ -17,7 +17,6 @@
                 android:text="SweetyPlay"
                 android:textColor="#fff"
                 android:textSize="18sp"/>
-
     </RelativeLayout>
 
     <freeflow.core.FreeFlowContainer
