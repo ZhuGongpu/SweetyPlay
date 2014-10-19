@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/bottom_bar_normal_bg"
+            android:background="@drawable/tab_bar_background"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -23,8 +23,8 @@
                     android:id="@+id/tabbar_playlist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/main_bottom_item_bg"
                     android:drawableTop="@drawable/tab_play_bg"
+                    android:background="@null"
                     android:onClick="onTabClicked"
                     android:paddingBottom="2dip"
                     android:paddingTop="7dip"
@@ -56,13 +56,13 @@
                     android:id="@+id/tabbar_circles"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/main_bottom_item_bg"
                     android:drawableTop="@drawable/tab_circles_bg"
                     android:onClick="onTabClicked"
                     android:paddingBottom="2dip"
                     android:paddingTop="7dip"
                     android:scaleType="matrix"
                     android:text="Circles"
+                    android:background="@null"
                     android:textColor="@color/main_button_text_color"
                     android:textSize="12sp"/>
 
@@ -89,13 +89,13 @@
                     android:id="@+id/tabbar_message"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/main_bottom_item_bg"
                     android:drawableTop="@drawable/tab_message_bg"
                     android:onClick="onTabClicked"
                     android:paddingBottom="2dip"
                     android:paddingTop="7dip"
                     android:scaleType="matrix"
                     android:text="Message"
+                    android:background="@null"
                     android:textColor="@color/main_button_text_color"
                     android:textSize="12sp"/>
 
@@ -122,13 +122,13 @@
                     android:id="@+id/tabbar_friends"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/main_bottom_item_bg"
                     android:drawableTop="@drawable/tab_friends_bg"
                     android:onClick="onTabClicked"
                     android:paddingBottom="2dip"
                     android:paddingTop="7dip"
                     android:scaleType="matrix"
                     android:text="Friends"
+                    android:background="@null"
                     android:textColor="@color/main_button_text_color"
                     android:textSize="12sp"/>
 
