@@ -10,9 +10,7 @@
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="120dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            style="@style/default_margin"
             android:orientation="horizontal">
 
         <ImageView
@@ -20,7 +18,7 @@
                 android:src="@drawable/default_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ></ImageView>
+                />
 
         <TextView
                 android:id="@+id/friendspage_name"

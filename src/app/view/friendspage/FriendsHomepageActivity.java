@@ -35,7 +35,7 @@ public class FriendsHomepageActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friendspage_activity_layout);
+        setContentView(R.layout.friends_page_activity_layout);
 
         initView();
         getData();
